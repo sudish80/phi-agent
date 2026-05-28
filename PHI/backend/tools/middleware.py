@@ -5,29 +5,26 @@ import uuid
 import logging
 import traceback
 from fastapi import Request
-from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.responses import JSONResponse
+from fastapi.responses import JSONResponse
 
 logger = logging.getLogger(__name__)
 
 
-class RequestTimingMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request: Request, call_next):
-        start = time.time()
-        response = await call_next(request)
-        elapsed = time.time() - start
-        response.headers["X-Request-Time-Ms"] = f"{elapsed*1000:.1f}"
-        if elapsed > 1:
-            logger.warning(f"Slow request: {request.method} {request.url.path} took {elapsed:.2f}s")
-        return response
+async def add_timing_header(request: Request, call_next):
+    start = time.time()
+    response = await call_next(request)
+    elapsed = time.time() - start
+    response.headers["X-Request-Time-Ms"] = f"{elapsed*1000:.1f}"
+    if elapsed > 1:
+        logger.warning(f"Slow request: {request.method} {request.url.path} took {elapsed:.2f}s")
+    return response
 
 
-class RequestIDMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request: Request, call_next):
-        request_id = request.headers.get("X-Request-ID", str(uuid.uuid4())[:8])
-        response = await call_next(request)
-        response.headers["X-Request-ID"] = request_id
-        return response
+async def add_request_id_header(request: Request, call_next):
+    request_id = request.headers.get("X-Request-ID", str(uuid.uuid4())[:8])
+    response = await call_next(request)
+    response.headers["X-Request-ID"] = request_id
+    return response
 
 
 def setup_logging(level: str = "INFO"):
@@ -47,7 +44,7 @@ async def global_error_handler(request: Request, exc: Exception):
     )
 
 
-class LogLevelMiddleware(BaseHTTPMiddleware):
+class LogLevelMiddleware:
     _current_level = "INFO"
 
     @classmethod

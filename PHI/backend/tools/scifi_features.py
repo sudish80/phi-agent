@@ -219,8 +219,8 @@ async def swarm_execute_task(agent_id: str, input_data: str) -> str:
     try:
         from backend.shared.llm_client import llm_client
         prompt = f"Task: {agent['task']}\nInput: {input_data}\nProvide a concise result:"
-        response = await llm_client.complete(prompt, max_tokens=500)
-        llm_result = response.get("text", str(response))[:2000]
+        response = await llm_client.generate([{"role": "user", "content": prompt}])
+        llm_result = response.content[:2000]
     except Exception:
         llm_result = f"Processed task '{agent['task']}' with input: {input_data[:100]}..."
     now = datetime.now(timezone.utc).isoformat()
@@ -312,8 +312,8 @@ async def meeting_assistant_summarize(meeting_id: str) -> str:
         from backend.shared.llm_client import llm_client
         notes_text = "\n".join(f"- {n['text']}" for n in notes[-10:])
         prompt = f"Summarize these meeting notes and extract key decisions:\n{notes_text}\n\nSummary:"
-        response = await llm_client.complete(prompt, max_tokens=300)
-        summary_text = response.get("text", "")
+        response = await llm_client.generate([{"role": "user", "content": prompt}])
+        summary_text = response.content
     except Exception:
         summary_text = "LLM summarization unavailable. Key points listed below."
     result = {

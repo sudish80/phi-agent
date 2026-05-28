@@ -21,12 +21,12 @@ import asyncio
 from typing import Dict, Any, Optional, List, Tuple
 from datetime import datetime, timedelta, timezone
 from enum import Enum
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, field
 from collections import defaultdict, deque
 
 import numpy as np
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from backend.shared.config import settings
 from backend.shared.redis_client import RedisPubSub

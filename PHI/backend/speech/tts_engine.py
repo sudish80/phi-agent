@@ -292,7 +292,7 @@ class TTSEngine:
 
         payload = {
             "text": text,
-            "model_id": "eleven_monolingual_v1",
+                "model_id": "eleven_turbo_v2_5",
             "voice_settings": {
                 "stability": stability,
                 "similarity_boost": similarity,

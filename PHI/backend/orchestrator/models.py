@@ -19,17 +19,17 @@ class ChatResponse(BaseModel):
     emotion: str = "neutral"
     audio_url: Optional[str] = None
     visemes: Optional[List[Dict]] = None
-    actions_taken: List[str] = []
+    actions_taken: List[str] = Field(default_factory=list)
     memory_updated: bool = False
     processing_time_ms: float = 0.0
     confidence: float = 0.7
     intent: str = "general"
-    tool_recommendations: List[Dict] = []
+    tool_recommendations: List[Dict] = Field(default_factory=list)
 
 
 class SessionCreate(BaseModel):
     user_name: str = "User"
-    settings: Dict[str, Any] = {}
+    settings: Dict[str, Any] = Field(default_factory=dict)
 
 
 class SessionInfo(BaseModel):
@@ -48,8 +48,8 @@ class StatusResponse(BaseModel):
     uptime_seconds: float
     active_sessions: int
     memory_status: str
-    services: Dict[str, str] = {}
-    token_usage: Dict[str, int] = {}
+    services: Dict[str, str] = Field(default_factory=dict)
+    token_usage: Dict[str, int] = Field(default_factory=dict)
 
 
 class ToolCall(BaseModel):
@@ -69,7 +69,7 @@ class AgentThought(BaseModel):
 
 class WebSocketMessage(BaseModel):
     type: str = Field(..., description="chat, audio, video, command, emotion, viseme")
-    payload: Dict[str, Any] = {}
+    payload: Dict[str, Any] = Field(default_factory=dict)
     session_id: str = "default"
     timestamp: float = Field(default_factory=lambda: datetime.now(timezone.utc).timestamp())
 
@@ -78,4 +78,4 @@ class ProactiveSuggestion(BaseModel):
     suggestion: str
     confidence: float
     reason: str
-    context: Dict[str, Any] = {}
+    context: Dict[str, Any] = Field(default_factory=dict)

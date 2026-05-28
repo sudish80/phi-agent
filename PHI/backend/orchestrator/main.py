@@ -23,9 +23,9 @@ from pathlib import Path
 
 import uvicorn
 import aiohttp
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect, Depends
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, StreamingResponse, FileResponse
+from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -43,7 +43,7 @@ from backend.audio.scheduler import AudioScheduler
 from backend.tools.telemetry import (
     record_tool_call, get_stats, get_history, get_live_events,
     get_slow_tools, get_error_hotspots, get_hourly_summary,
-    instrument_agent, subscribe as telemetry_subscribe,
+    subscribe as telemetry_subscribe,
 )
 from backend.tools.plugin_loader import (
     scan_plugins, list_plugins, get_plugin, enable_plugin, disable_plugin,
@@ -131,11 +131,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Internal middleware
-from backend.tools.middleware import RequestTimingMiddleware, RequestIDMiddleware, LogLevelMiddleware
-app.add_middleware(RequestTimingMiddleware)
-app.add_middleware(RequestIDMiddleware)
-app.add_middleware(LogLevelMiddleware)
+# Internal middleware (Starlette 1.0 compatible — uses @app.middleware("http") pattern)
+from backend.tools.middleware import add_timing_header, add_request_id_header, global_error_handler
+app.middleware("http")(add_timing_header)
+app.middleware("http")(add_request_id_header)
+app.add_exception_handler(Exception, global_error_handler)
 
 # In-memory cache for endpoint management
 _cache_store: Dict[str, Any] = {}
@@ -759,13 +759,17 @@ _ws_telemetry_subs: Dict[str, List[WebSocket]] = {}
 def _broadcast_telemetry(event: dict):
     """Push telemetry event to all subscribed WebSocket connections."""
     dead = []
+    evt = event
     for sid, sockets in _ws_telemetry_subs.items():
         for ws in sockets:
             try:
-                asyncio.ensure_future(ws.send_json({
-                    "type": "telemetry",
-                    "payload": event,
-                }))
+                loop = asyncio.get_event_loop()
+                if loop.is_running():
+                    loop.call_soon_threadsafe(
+                        lambda s=ws, e=evt: asyncio.ensure_future(
+                            s.send_json({"type": "telemetry", "payload": e})
+                        )
+                    )
             except Exception:
                 dead.append((sid, ws))
     for sid, ws in dead:
@@ -860,9 +864,16 @@ async def websocket_endpoint(websocket: WebSocket, session_id: str = "default"):
                 from backend.hearing.stt import transcribe_audio
                 text = await transcribe_audio(audio_bytes)
                 if text:
+                    audio_result = await agent.process(
+                        message=text,
+                        session_id=session_id,
+                        emotion=payload.get("emotion", "neutral"),
+                    )
+                    audio_reply = audio_result.get("reply", "")
+                    audio_emotion = audio_result.get("emotion", "neutral")
                     await websocket.send_json({
                         "type": "chat",
-                        "payload": {"reply": result["reply"], "emotion": result["emotion"]},
+                        "payload": {"reply": audio_reply, "emotion": audio_emotion},
                         "session_id": session_id,
                     })
 

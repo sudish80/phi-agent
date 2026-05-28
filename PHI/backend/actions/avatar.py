@@ -7,6 +7,7 @@ and body language for the Three.js avatar.
 import logging
 import math
 import random
+import time
 from typing import Dict, Any, Optional, List
 
 logger = logging.getLogger(__name__)
@@ -166,5 +167,3 @@ def get_body_language(emotion: str) -> List[Dict[str, Any]]:
     }
     return gestures.get(emotion, [])
 
-
-import time  # noqa: E402
