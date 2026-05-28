@@ -9,8 +9,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY PHI/requirements.txt .
-ENV PIP_NO_BUILD_ISOLATION=1
-RUN pip install --no-cache-dir "setuptools<70"
+# Pre-install build deps for openai-whisper (needs old setuptools with pkg_resources)
+RUN pip install --no-cache-dir "setuptools<70" wheel numpy==1.26.2
+# Install openai-whisper using system packages (no build isolation)
+RUN pip install --no-cache-dir --no-build-isolation openai-whisper==20231117
+# Install remaining deps (already installed ones will be skipped)
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY PHI/ .
