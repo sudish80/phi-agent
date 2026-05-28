@@ -1,0 +1,258 @@
+version: "3.9"
+
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  # ============================================================
+  # REDIS – Message broker for inter-service communication
+  # ============================================================
+  redis:
+    image: redis:7-alpine
+    container_name: phi-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    volumes:
+      - redis_data:/data
+    logging: *default-logging
+    networks:
+      - phi-net
+
+  # ============================================================
+  # CHROMADB – Vector database for Memory Palace
+  # ============================================================
+  chroma:
+    image: chromadb/chroma:latest
+    container_name: phi-chroma
+    ports:
+      - "8000:8000"
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma-data
+    volumes:
+      - chroma_data:/chroma-data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging: *default-logging
+    networks:
+      - phi-net
+
+  # ============================================================
+  # ORCHESTRATOR – Central brain / FastAPI + LangChain agent
+  # ============================================================
+  orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phi-orchestrator
+    ports:
+      - "${ORCHESTRATOR_PORT:-8000}:8000"
+    environment:
+      - SERVICE_NAME=orchestrator
+      - REDIS_HOST=redis
+      - CHROMA_HOST=chroma
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app/backend
+      - ./models:/app/models
+    depends_on:
+      redis:
+        condition: service_healthy
+      chroma:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    command: >
+      uvicorn backend.orchestrator.main:app
+      --host 0.0.0.0 --port 8000 --reload
+      --ws ping-interval 25 --ws ping-timeout 30
+    logging: *default-logging
+    networks:
+      - phi-net
+
+  # ============================================================
+  # VISION SERVICE – YOLOv8 + face/QR/color detection
+  # ============================================================
+  vision:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phi-vision
+    ports:
+      - "${VISION_PORT:-8001}:8001"
+    environment:
+      - SERVICE_NAME=vision
+      - REDIS_HOST=redis
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app/backend
+      - ./models:/app/models
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    command: >
+      uvicorn backend.vision.service:app
+      --host 0.0.0.0 --port 8001 --reload
+    logging: *default-logging
+    networks:
+      - phi-net
+    devices:
+      - /dev/video0:/dev/video0
+
+  # ============================================================
+  # HEARING SERVICE – VAD + Whisper + wake word
+  # ============================================================
+  hearing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phi-hearing
+    ports:
+      - "${HEARING_PORT:-8002}:8002"
+    environment:
+      - SERVICE_NAME=hearing
+      - REDIS_HOST=redis
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app/backend
+      - ./models:/app/models
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    command: >
+      uvicorn backend.hearing.service:app
+      --host 0.0.0.0 --port 8002 --reload
+    logging: *default-logging
+    networks:
+      - phi-net
+    devices:
+      - /dev/snd:/dev/snd
+
+  # ============================================================
+  # SPEECH SERVICE – TTS with emotion + lip sync
+  # ============================================================
+  speech:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phi-speech
+    ports:
+      - "${SPEECH_PORT:-8003}:8003"
+    environment:
+      - SERVICE_NAME=speech
+      - REDIS_HOST=redis
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app/backend
+      - ./models:/app/models
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    command: >
+      uvicorn backend.speech.service:app
+      --host 0.0.0.0 --port 8003 --reload
+    logging: *default-logging
+    networks:
+      - phi-net
+
+  # ============================================================
+  # ACTION SERVICE – Executes commands
+  # ============================================================
+  action:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: phi-action
+    ports:
+      - "${ACTION_PORT:-8004}:8004"
+    environment:
+      - SERVICE_NAME=action
+      - REDIS_HOST=redis
+      - PYTHONUNBUFFERED=1
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app/backend
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    command: >
+      uvicorn backend.actions.service:app
+      --host 0.0.0.0 --port 8004 --reload
+    logging: *default-logging
+    networks:
+      - phi-net
+
+  # ============================================================
+  # FRONTEND – React + Three.js + Nginx
+  # ============================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: phi-frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - orchestrator
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    logging: *default-logging
+    networks:
+      - phi-net
+
+volumes:
+  redis_data:
+  chroma_data:
+
+networks:
+  phi-net:
+    driver: bridge

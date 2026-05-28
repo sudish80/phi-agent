@@ -1,0 +1,67 @@
+# .understandignore — patterns for files/dirs to exclude
+# Syntax: same as .gitignore (globs, # comments, ! negation, trailing / for dirs)
+
+# Build artifacts
+dist/
+build/
+out/
+coverage/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Dependencies
+node_modules/
+.venv/
+venv/
+
+# IDE / editor
+.obsidian/
+.idea/
+.vscode/
+
+# Git
+.git/
+
+# Large binaries / media
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.woff
+*.woff2
+*.ttf
+*.mp3
+*.mp4
+*.pdf
+*.zip
+*.tar
+*.gz
+
+# Generated / minified
+*.min.js
+*.min.css
+*.map
+*.generated.*
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Logs
+*.log
+
+# Test temp (optional — uncomment to exclude)
+# __tests__/
+# test/
+# tests/
+# fixtures/
+# testdata/
+
+# Docs (optional — uncomment to exclude)
+# docs/
+# examples/

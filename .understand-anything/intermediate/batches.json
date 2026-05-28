@@ -1,0 +1,3540 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 244,
+  "totalBatches": 14,
+  "exportsByPath": {
+    ".pytest_cache/CACHEDIR.TAG": [],
+    ".pytest_cache/v/cache/lastfailed": [],
+    ".pytest_cache/v/cache/nodeids": [],
+    ".understand-anything/.understandignore": [],
+    "jarvis/.pytest_cache/CACHEDIR.TAG": [],
+    "jarvis/.pytest_cache/v/cache/lastfailed": [],
+    "jarvis/.pytest_cache/v/cache/nodeids": [],
+    "jarvis/backend/actions/__init__.py": [],
+    "jarvis/backend/actions/api_integrations.py": [
+      "_fetch_json",
+      "_fetch_text",
+      "get_stock_price",
+      "_get_stock_yfinance",
+      "_get_stock_alphavantage",
+      "_get_stock_fallback",
+      "get_market_indices",
+      "get_company_info",
+      "get_stock_historical",
+      "get_top_movers",
+      "get_news",
+      "_get_newsapi",
+      "_get_news_rss",
+      "get_stock_news",
+      "get_crypto_price",
+      "get_trending_crypto",
+      "get_currency_conversion",
+      "get_exchange_rates",
+      "get_sports_scores",
+      "get_sports_schedule",
+      "get_movie_info",
+      "get_trending_movies",
+      "get_nutrition",
+      "search_recipes",
+      "define_word",
+      "get_synonyms",
+      "get_joke",
+      "get_quote",
+      "get_random_fact",
+      "get_holidays",
+      "get_ip_info",
+      "get_nasa_apod",
+      "get_iss_location",
+      "get_people_in_space",
+      "search_books",
+      "get_top_songs",
+      "get_world_time",
+      "quick_answer"
+    ],
+    "jarvis/backend/actions/avatar.py": [
+      "get_expression",
+      "get_viseme_shape",
+      "animate_expression",
+      "get_head_movement",
+      "get_idle_animation",
+      "get_body_language"
+    ],
+    "jarvis/backend/actions/calendar_reader.py": [
+      "get_upcoming_events"
+    ],
+    "jarvis/backend/actions/calendar.py": [
+      "create_event"
+    ],
+    "jarvis/backend/actions/code_sandbox.py": [
+      "run_python",
+      "run_javascript"
+    ],
+    "jarvis/backend/actions/database.py": [
+      "query_database",
+      "_query_sqlite",
+      "_query_postgres",
+      "_query_mysql",
+      "list_tables"
+    ],
+    "jarvis/backend/actions/document_qa.py": [
+      "ingest_document",
+      "ask_document",
+      "list_collections",
+      "_chunk_text"
+    ],
+    "jarvis/backend/actions/email_reader.py": [
+      "read_inbox",
+      "search_emails"
+    ],
+    "jarvis/backend/actions/email.py": [
+      "send_email"
+    ],
+    "jarvis/backend/actions/file_handler.py": [
+      "read_csv",
+      "query_csv",
+      "read_excel",
+      "write_excel",
+      "read_pdf",
+      "pdf_metadata",
+      "read_json",
+      "query_json",
+      "read_yaml",
+      "read_xml",
+      "read_docx",
+      "read_markdown",
+      "generate_svg",
+      "write_latex",
+      "compile_latex",
+      "create_pptx",
+      "_find_vault",
+      "obsidian_list_vaults",
+      "obsidian_read_note",
+      "obsidian_search_notes",
+      "obsidian_write_note",
+      "obsidian_create_note",
+      "obsidian_list_notes",
+      "read_file",
+      "_read_text"
+    ],
+    "jarvis/backend/actions/git_ops.py": [
+      "git_status",
+      "git_log",
+      "git_diff",
+      "git_commit",
+      "git_push",
+      "git_pull",
+      "git_branch",
+      "_git_cmd"
+    ],
+    "jarvis/backend/actions/home_assistant.py": [
+      "MQTTClient",
+      "control_light",
+      "set_temperature",
+      "discover_entities"
+    ],
+    "jarvis/backend/actions/image_gen.py": [
+      "generate_image_dalle",
+      "generate_image_stable_diffusion"
+    ],
+    "jarvis/backend/actions/music.py": [
+      "spotify_search",
+      "spotify_playlist"
+    ],
+    "jarvis/backend/actions/notifications.py": [
+      "notify_desktop",
+      "notify_sound"
+    ],
+    "jarvis/backend/actions/scheduler.py": [
+      "schedule_reminder",
+      "schedule_at",
+      "list_scheduled_tasks",
+      "cancel_task"
+    ],
+    "jarvis/backend/actions/service.py": [
+      "EmailRequest",
+      "CalendarRequest",
+      "SearchRequest",
+      "LightRequest",
+      "TemperatureRequest",
+      "AppRequest",
+      "startup",
+      "health",
+      "send_email_endpoint",
+      "create_event_endpoint",
+      "web_search_endpoint",
+      "weather_endpoint",
+      "control_light_endpoint",
+      "set_temperature_endpoint",
+      "open_app_endpoint",
+      "screenshot_endpoint",
+      "system_info_endpoint",
+      "status"
+    ],
+    "jarvis/backend/actions/static/files/helloworld.tex": [],
+    "jarvis/backend/actions/static/files/latex_0a660514.tex": [],
+    "jarvis/backend/actions/static/files/latex_3eace10a.tex": [],
+    "jarvis/backend/actions/static/files/latex_457f6364.tex": [],
+    "jarvis/backend/actions/static/files/latex_714a3b6d.tex": [],
+    "jarvis/backend/actions/static/files/latex_7526ac07.tex": [],
+    "jarvis/backend/actions/static/files/latex_75befa4b.tex": [],
+    "jarvis/backend/actions/static/files/latex_765ba647.tex": [],
+    "jarvis/backend/actions/static/files/latex_7fcc3459.tex": [],
+    "jarvis/backend/actions/static/files/latex_8e17fed4.tex": [],
+    "jarvis/backend/actions/static/files/latex_aa5863bc.tex": [],
+    "jarvis/backend/actions/static/files/latex_b2b18912.tex": [],
+    "jarvis/backend/actions/static/files/latex_ec9878aa.tex": [],
+    "jarvis/backend/actions/static/files/latex_f0046919.tex": [],
+    "jarvis/backend/actions/static/files/latex_f0a6b051.tex": [],
+    "jarvis/backend/actions/static/files/latex_f1882e4c.tex": [],
+    "jarvis/backend/actions/static/files/latex_fac96bf9.tex": [],
+    "jarvis/backend/actions/static/files/mydeck.pptx": [],
+    "jarvis/backend/actions/static/files/myshape": [],
+    "jarvis/backend/actions/static/files/pres_063aaf47.pptx": [],
+    "jarvis/backend/actions/static/files/pres_07917a15.pptx": [],
+    "jarvis/backend/actions/static/files/pres_0939f2b9.pptx": [],
+    "jarvis/backend/actions/static/files/pres_16e3da44.pptx": [],
+    "jarvis/backend/actions/static/files/pres_19ae7b55.pptx": [],
+    "jarvis/backend/actions/static/files/pres_1eb35dd9.pptx": [],
+    "jarvis/backend/actions/static/files/pres_25294e3e.pptx": [],
+    "jarvis/backend/actions/static/files/pres_38d27e20.pptx": [],
+    "jarvis/backend/actions/static/files/pres_3cba7c25.pptx": [],
+    "jarvis/backend/actions/static/files/pres_52911803.pptx": [],
+    "jarvis/backend/actions/static/files/pres_54544b44.pptx": [],
+    "jarvis/backend/actions/static/files/pres_5f4f8bc5.pptx": [],
+    "jarvis/backend/actions/static/files/pres_6000dec6.pptx": [],
+    "jarvis/backend/actions/static/files/pres_660726f4.pptx": [],
+    "jarvis/backend/actions/static/files/pres_6bedb1ee.pptx": [],
+    "jarvis/backend/actions/static/files/pres_72af0c2f.pptx": [],
+    "jarvis/backend/actions/static/files/pres_753191d3.pptx": [],
+    "jarvis/backend/actions/static/files/pres_780a1095.pptx": [],
+    "jarvis/backend/actions/static/files/pres_7b0f8b6c.pptx": [],
+    "jarvis/backend/actions/static/files/pres_8454a973.pptx": [],
+    "jarvis/backend/actions/static/files/pres_867ed05f.pptx": [],
+    "jarvis/backend/actions/static/files/pres_8e078133.pptx": [],
+    "jarvis/backend/actions/static/files/pres_8e0fff5a.pptx": [],
+    "jarvis/backend/actions/static/files/pres_98f75893.pptx": [],
+    "jarvis/backend/actions/static/files/pres_9e16efd4.pptx": [],
+    "jarvis/backend/actions/static/files/pres_a2773da6.pptx": [],
+    "jarvis/backend/actions/static/files/pres_a7c34ffd.pptx": [],
+    "jarvis/backend/actions/static/files/pres_b1d1a17a.pptx": [],
+    "jarvis/backend/actions/static/files/pres_bf327cde.pptx": [],
+    "jarvis/backend/actions/static/files/pres_bf417e93.pptx": [],
+    "jarvis/backend/actions/static/files/pres_c66697a0.pptx": [],
+    "jarvis/backend/actions/static/files/pres_c9e08ddf.pptx": [],
+    "jarvis/backend/actions/static/files/pres_ca41646d.pptx": [],
+    "jarvis/backend/actions/static/files/pres_cbcfd3ae.pptx": [],
+    "jarvis/backend/actions/static/files/pres_cf319cbf.pptx": [],
+    "jarvis/backend/actions/static/files/pres_d12776c9.pptx": [],
+    "jarvis/backend/actions/static/files/pres_d2010c72.pptx": [],
+    "jarvis/backend/actions/static/files/pres_dae83c23.pptx": [],
+    "jarvis/backend/actions/static/files/pres_e2245f5e.pptx": [],
+    "jarvis/backend/actions/static/files/pres_e65e7ab1.pptx": [],
+    "jarvis/backend/actions/static/files/pres_e84d8194.pptx": [],
+    "jarvis/backend/actions/static/files/pres_eb2418aa.pptx": [],
+    "jarvis/backend/actions/static/files/pres_ef933bc6.pptx": [],
+    "jarvis/backend/actions/static/files/pres_fb3b7fa5.pptx": [],
+    "jarvis/backend/actions/static/files/pres_fbe4518e.pptx": [],
+    "jarvis/backend/actions/static/files/pres_fcc1e18a.pptx": [],
+    "jarvis/backend/actions/static/files/pres_fdafdbb2.pptx": [],
+    "jarvis/backend/actions/system_commands.py": [
+      "open_application",
+      "take_screenshot",
+      "get_system_info"
+    ],
+    "jarvis/backend/actions/visualizations.py": [
+      "_apply_theme",
+      "_get_palette",
+      "_check_matplotlib",
+      "_save_plot",
+      "_exec_sync",
+      "plot_line",
+      "plot_multi_line",
+      "plot_bar",
+      "plot_grouped_bar",
+      "plot_stacked_bar",
+      "plot_pie",
+      "plot_scatter",
+      "plot_bubble",
+      "plot_area",
+      "plot_histogram",
+      "plot_density",
+      "plot_box",
+      "plot_violin",
+      "plot_heatmap",
+      "plot_correlation_matrix",
+      "plot_radar",
+      "plot_error_bar",
+      "plot_3d_surface",
+      "plot_contour",
+      "plot_waterfall",
+      "plot_candlestick",
+      "plot_network",
+      "plot_sunburst",
+      "plot_step",
+      "plot_qq",
+      "plot_comparison",
+      "plot_stock_prices",
+      "plot_map",
+      "plot_parallel_coordinates",
+      "visualize_data"
+    ],
+    "jarvis/backend/actions/web_scraper.py": [
+      "ScrapeCache",
+      "_can_fetch",
+      "_fetch_html",
+      "_ensure_playwright",
+      "_fetch_html_dynamic",
+      "_make_soup",
+      "_extract_title",
+      "_extract_meta_description",
+      "_extract_meta_keywords",
+      "_extract_json_ld",
+      "_extract_open_graph",
+      "_extract_main_content",
+      "_clean_text",
+      "_extract_headlines",
+      "_extract_links",
+      "_extract_tables",
+      "_extract_images",
+      "_extract_prices",
+      "scrape_url",
+      "scrape_amazon_product",
+      "scrape_wikipedia",
+      "scrape_hn_frontpage",
+      "scrape_github_trending",
+      "scrape_weather_city",
+      "scrape_search",
+      "compare_prices"
+    ],
+    "jarvis/backend/actions/web_search.py": [
+      "search_web",
+      "_search_serpapi",
+      "_search_duckduckgo",
+      "get_weather",
+      "_get_weather_openweather",
+      "_get_weather_wttrin"
+    ],
+    "jarvis/backend/audio/__init__.py": [],
+    "jarvis/backend/audio/audio_manager.py": [
+      "AudioManager"
+    ],
+    "jarvis/backend/audio/models.py": [
+      "AudioCategory",
+      "AudioEntry",
+      "AudioSearchResult"
+    ],
+    "jarvis/backend/audio/scheduler.py": [
+      "AudioScheduler"
+    ],
+    "jarvis/backend/hearing/__init__.py": [],
+    "jarvis/backend/hearing/mic_stream.py": [
+      "AudioChunk",
+      "AudioRingBuffer",
+      "MicrophoneStream"
+    ],
+    "jarvis/backend/hearing/service.py": [
+      "TranscribeRequest",
+      "TranscribeResponse",
+      "check_wake_word",
+      "startup",
+      "on_utterance",
+      "process_utterance",
+      "health",
+      "transcribe_endpoint",
+      "transcribe_file",
+      "is_speaking",
+      "get_buffer",
+      "websocket_endpoint"
+    ],
+    "jarvis/backend/hearing/stt.py": [
+      "WhisperSTT",
+      "transcribe_audio"
+    ],
+    "jarvis/backend/memory/__init__.py": [],
+    "jarvis/backend/memory/service.py": [
+      "MemoryType",
+      "MemoryImportance",
+      "MemoryTrace",
+      "MemoryPalaceRoom",
+      "StoreRequest",
+      "QueryRequest",
+      "MemoryResponse",
+      "ChromaStore",
+      "MemoryPalace",
+      "MemoryService",
+      "startup",
+      "health",
+      "store",
+      "store_episodic",
+      "store_semantic",
+      "query",
+      "recent",
+      "get_palace",
+      "consolidate",
+      "get_room",
+      "websocket_endpoint"
+    ],
+    "jarvis/backend/orchestrator/__init__.py": [],
+    "jarvis/backend/orchestrator/agent.py": [],
+    "jarvis/backend/orchestrator/main.py": [
+      "lifespan",
+      "get_memory_service",
+      "get_speech_session",
+      "synthesize_speech",
+      "health",
+      "list_tools",
+      "get_tool_detail",
+      "delete_session",
+      "clear_cache",
+      "cache_stats",
+      "set_log_level",
+      "get_log_level",
+      "shutdown",
+      "_delayed_shutdown",
+      "chat",
+      "chat_stream",
+      "avatar_expression",
+      "scene_understanding",
+      "create_session",
+      "get_session",
+      "status",
+      "telemetry_stats",
+      "telemetry_history",
+      "telemetry_live",
+      "telemetry_slow",
+      "telemetry_errors",
+      "telemetry_hourly",
+      "plugin_list",
+      "plugin_scan",
+      "plugin_enable",
+      "plugin_disable",
+      "plugin_reload",
+      "plugin_create_example",
+      "plugin_watcher_start",
+      "plugin_watcher_stop",
+      "api_spawn_agent",
+      "api_list_agents",
+      "api_get_agent",
+      "api_cancel_agent",
+      "api_collaborate",
+      "audio_search",
+      "audio_stats",
+      "link_audio_to_conversation",
+      "link_audio_to_task",
+      "link_audio_to_thought",
+      "get_audio_entry",
+      "delete_audio_entry",
+      "_broadcast_telemetry",
+      "websocket_endpoint"
+    ],
+    "jarvis/backend/orchestrator/models.py": [
+      "ChatRequest",
+      "ChatResponse",
+      "SessionCreate",
+      "SessionInfo",
+      "StatusResponse",
+      "ToolCall",
+      "AgentThought",
+      "WebSocketMessage",
+      "ProactiveSuggestion"
+    ],
+    "jarvis/backend/shared/__init__.py": [],
+    "jarvis/backend/shared/config.py": [
+      "Settings",
+      "get_settings"
+    ],
+    "jarvis/backend/shared/grpc_stubs.py": [
+      "ServiceStatus",
+      "RPCRequest",
+      "RPCResponse",
+      "ServiceStub",
+      "VisionStub",
+      "HearingStub",
+      "SpeechStub",
+      "ActionStub",
+      "MemoryStub"
+    ],
+    "jarvis/backend/shared/llm_client.py": [
+      "LLMProvider",
+      "LLMRole",
+      "LLMMessage",
+      "LLMConfig",
+      "LLMResponse",
+      "count_tokens",
+      "estimate_cost",
+      "BaseLLMProvider",
+      "OpenAIProvider",
+      "AnthropicProvider",
+      "DeepSeekProvider",
+      "OpenRouterProvider",
+      "LocalProvider",
+      "OllamaProvider",
+      "_get_provider",
+      "LLMClient"
+    ],
+    "jarvis/backend/shared/redis_client.py": [
+      "Message",
+      "RedisPubSub",
+      "RedisClient"
+    ],
+    "jarvis/backend/speech/__init__.py": [],
+    "jarvis/backend/speech/lip_sync.py": [
+      "LipSyncFrame",
+      "LipSyncGenerator"
+    ],
+    "jarvis/backend/speech/service.py": [
+      "SynthesizeRequest",
+      "SynthesizeResponse",
+      "startup",
+      "health",
+      "synthesize",
+      "get_voices",
+      "interrupt",
+      "get_metrics",
+      "clear_cache",
+      "websocket_endpoint"
+    ],
+    "jarvis/backend/speech/tts_engine.py": [
+      "humanize_text",
+      "apply_voice_effect",
+      "Viseme",
+      "TTSEngine"
+    ],
+    "jarvis/backend/tools/__init__.py": [],
+    "jarvis/backend/tools/advanced_tools.py": [
+      "text_sentiment",
+      "text_summarize",
+      "text_keywords",
+      "text_readability",
+      "text_detect_language",
+      "text_spelling_errors",
+      "text_word_count",
+      "text_unique_words",
+      "text_longest_word",
+      "text_shortest_word",
+      "text_ngrams",
+      "text_clean",
+      "text_remove_extra_spaces",
+      "text_reverse_words",
+      "text_char_frequency",
+      "text_syllable_count",
+      "dev_json_validate_schema",
+      "dev_base64_encode",
+      "dev_base64_decode",
+      "dev_json_to_schema",
+      "dev_csv_to_json",
+      "rand_lorem_ipsum",
+      "rand_weighted_choice",
+      "password_strength",
+      "password_entropy",
+      "password_generate_secure",
+      "hash_md5",
+      "hash_sha1",
+      "hash_sha256",
+      "hash_sha512",
+      "hash_hmac_sha256",
+      "encrypt_rot13",
+      "encrypt_caesar",
+      "base64url_encode",
+      "base64url_decode",
+      "xor_encrypt",
+      "xor_decrypt",
+      "random_token",
+      "csv_validate",
+      "xml_validate",
+      "html_validate",
+      "markdown_validate",
+      "dev_json_schema",
+      "dev_json_validate_schema",
+      "dev_sql_format",
+      "dev_sql_validator",
+      "dev_json_to_schema",
+      "dev_hexdump",
+      "dev_byte_size",
+      "dev_char_count",
+      "dev_line_count",
+      "dev_code_metrics",
+      "dev_variable_names",
+      "dev_css_minify",
+      "dev_html_minify",
+      "dev_uuid4",
+      "dev_timestamp",
+      "rand_string",
+      "rand_hex",
+      "rand_bytes",
+      "rand_date",
+      "rand_time",
+      "rand_ipv4",
+      "rand_mac",
+      "rand_phone",
+      "rand_email",
+      "rand_coin",
+      "rand_dice",
+      "rand_card",
+      "rand_deck",
+      "rand_color",
+      "rand_shuffle_text",
+      "pipeline_create",
+      "pipeline_run",
+      "pipeline_list",
+      "pipeline_delete",
+      "task_create",
+      "task_complete",
+      "task_list",
+      "task_delete",
+      "sequence_run",
+      "parallel_run",
+      "backup_create",
+      "backup_restore",
+      "backup_list",
+      "backup_delete",
+      "backup_info",
+      "notify_send",
+      "notify_list",
+      "notify_clear",
+      "notify_count",
+      "notify_search",
+      "template_create",
+      "template_get",
+      "template_list",
+      "template_update",
+      "template_delete",
+      "template_render",
+      "template_export",
+      "template_import",
+      "template_copy",
+      "export_json",
+      "export_csv",
+      "export_text",
+      "export_html",
+      "export_markdown",
+      "export_data_url",
+      "export_to_json",
+      "export_schema",
+      "export_summary",
+      "export_as_json",
+      "text_palindrome_check",
+      "text_acronym",
+      "text_leetspeak",
+      "text_pig_latin",
+      "text_reverse",
+      "text_binary_encode",
+      "text_binary_decode",
+      "text_morse_encode",
+      "text_morse_decode",
+      "text_slugify",
+      "text_capitalize",
+      "text_extract_emails",
+      "text_extract_urls",
+      "text_contains",
+      "text_strip_punctuation",
+      "dev_json_pretty",
+      "dev_json_validate",
+      "dev_json_minify",
+      "dev_json_diff",
+      "dev_xml_to_json",
+      "rand_guid",
+      "rand_password",
+      "rand_bool",
+      "rand_float",
+      "rand_int",
+      "rand_zip_code",
+      "rand_ssn",
+      "rand_credit_card",
+      "rand_user_agent",
+      "format_timestamp",
+      "format_bytes",
+      "format_number",
+      "format_commas",
+      "format_percentage",
+      "format_ordinal",
+      "format_duration",
+      "unit_celsius_to_fahrenheit",
+      "unit_fahrenheit_to_celsius",
+      "unit_km_to_miles",
+      "unit_miles_to_km",
+      "unit_kg_to_lbs",
+      "unit_lbs_to_kg",
+      "unit_m_to_ft",
+      "unit_ft_to_m",
+      "_make_tool",
+      "get_advanced_tools"
+    ],
+    "jarvis/backend/tools/api_integrations_v2.py": [
+      "_get_connector",
+      "_cache_key",
+      "_cache_get",
+      "_cache_set",
+      "_fetch",
+      "_require_env",
+      "stripe_create_payment",
+      "stripe_list_transactions",
+      "stripe_refund",
+      "twilio_send_sms",
+      "twilio_make_call",
+      "twilio_conversation_history",
+      "slack_send_message",
+      "slack_channel_history",
+      "slack_list_channels",
+      "github_create_repo",
+      "github_list_repos",
+      "github_create_issue",
+      "github_create_pr",
+      "spotify_get_playback_state",
+      "spotify_search_and_play",
+      "tavily_search",
+      "firecrawl_scrape",
+      "huggingface_inference",
+      "replicate_run",
+      "polygon_stock_price",
+      "notion_create_page",
+      "zapier_trigger",
+      "discord_send_message",
+      "telegram_send_message",
+      "youtube_search",
+      "youtube_get_transcript",
+      "google_drive_list_files",
+      "dropbox_list_files",
+      "fitbit_get_steps",
+      "plaid_get_accounts",
+      "runway_generate",
+      "jira_create_issue",
+      "linear_create_issue"
+    ],
+    "jarvis/backend/tools/audio_editor.py": [
+      "_audio_metadata",
+      "_waveform_data",
+      "_spectral_centroid",
+      "audio_trim",
+      "audio_concatenate",
+      "audio_split_by_silence",
+      "audio_effects_apply",
+      "audio_format_convert",
+      "audio_noise_reduce",
+      "audio_analyze",
+      "audio_mix_tracks",
+      "audio_bookmark_list",
+      "audio_bookmark_add",
+      "audio_bookmark_remove",
+      "audio_bookmark_jump"
+    ],
+    "jarvis/backend/tools/autoregister.py": [
+      "_make_tool",
+      "get_computer_control_tools",
+      "get_context_optimizer_tools",
+      "get_audio_editor_tools",
+      "get_personality_tools",
+      "get_api_integration_tools",
+      "get_security_tools",
+      "get_monitoring_tools",
+      "get_qol_tools",
+      "get_scifi_tools",
+      "get_info_scraper_tools",
+      "get_multi_agent_tools",
+      "get_pdf_tools",
+      "get_health_tools",
+      "get_file_tools",
+      "get_text_tools",
+      "get_crypto_tools",
+      "get_net_tools",
+      "get_misc_tools",
+      "get_code_tools",
+      "get_system_tools",
+      "get_webhook_tools",
+      "get_all_tool_batches",
+      "get_data_tools_from_data",
+      "get_media_tools",
+      "get_advanced_tools",
+      "get_color_emotion_tools"
+    ],
+    "jarvis/backend/tools/code_tools.py": [
+      "run_python",
+      "render_template"
+    ],
+    "jarvis/backend/tools/color_emotion_tools.py": [
+      "_rgb_distance",
+      "_nearest_named_color",
+      "extract_dominant_colors",
+      "color_name_from_rgb",
+      "color_name_from_hex",
+      "color_palette_generate",
+      "color_analyze_image_url",
+      "color_analyze_local_image",
+      "_simulate_emotion_classify",
+      "detect_emotion_face",
+      "detect_emotion_text",
+      "_text_emotion_fallback",
+      "detect_faces_image",
+      "analyze_face_attributes",
+      "compare_faces",
+      "analyze_emotion_realtime"
+    ],
+    "jarvis/backend/tools/computer_control.py": [
+      "mouse_move",
+      "mouse_click",
+      "mouse_scroll",
+      "mouse_position",
+      "keyboard_type",
+      "keyboard_hotkey",
+      "keyboard_press",
+      "window_list",
+      "window_activate",
+      "window_move",
+      "window_minimize",
+      "window_close",
+      "screen_resolution",
+      "screenshot",
+      "clipboard_get",
+      "clipboard_set",
+      "system_info",
+      "system_processes",
+      "system_shutdown",
+      "system_lock",
+      "system_settings_control",
+      "keyboard_shortcut_discover",
+      "multi_monitor_info",
+      "startup_program_list",
+      "startup_program_add",
+      "startup_program_remove",
+      "peripheral_list",
+      "accessibility_toggle",
+      "remote_desktop_start",
+      "remote_desktop_list_sessions",
+      "macro_record_start",
+      "macro_record_step",
+      "macro_record_stop",
+      "macro_run",
+      "macro_list",
+      "macro_delete",
+      "orchestrate_sequence"
+    ],
+    "jarvis/backend/tools/context_optimizer.py": [
+      "get_relevant_categories",
+      "compress_tool_list",
+      "compress_history",
+      "estimate_tokens",
+      "get_compressed_system_prompt",
+      "PromptCache",
+      "optimize_prompt",
+      "expand_categories",
+      "get_priority_categories",
+      "analyze_tool_conflicts"
+    ],
+    "jarvis/backend/tools/crypto_tools.py": [
+      "generate_uuid",
+      "generate_password",
+      "generate_hash",
+      "check_hash",
+      "encrypt_text",
+      "decrypt_text"
+    ],
+    "jarvis/backend/tools/data_tools.py": [
+      "str_reverse",
+      "str_upper",
+      "str_lower",
+      "str_capitalize",
+      "str_title",
+      "str_swapcase",
+      "str_truncate",
+      "str_pad_left",
+      "str_pad_right",
+      "str_center",
+      "str_strip",
+      "str_lstrip",
+      "str_rstrip",
+      "str_split",
+      "str_join",
+      "str_replace",
+      "str_count",
+      "str_find",
+      "str_contains",
+      "str_startswith",
+      "str_endswith",
+      "str_isalpha",
+      "str_isdigit",
+      "str_isalnum",
+      "str_islower",
+      "str_isupper",
+      "list_shuffle",
+      "list_chunk",
+      "list_unique",
+      "list_flatten",
+      "list_group_by",
+      "list_sort",
+      "list_reverse",
+      "list_rotate",
+      "list_sample",
+      "list_weighted_sample",
+      "list_union",
+      "list_intersection",
+      "list_difference",
+      "list_sym_diff",
+      "list_zip",
+      "dict_merge",
+      "dict_pick",
+      "dict_omit",
+      "dict_flatten",
+      "dict_unflatten",
+      "dict_deep_get",
+      "dict_deep_set",
+      "dict_invert",
+      "dict_sort_keys",
+      "dict_sort_values",
+      "dict_rename_key",
+      "dict_diff",
+      "dict_filter",
+      "num_round",
+      "num_floor",
+      "num_ceil",
+      "num_clamp",
+      "num_percent",
+      "num_is_prime",
+      "num_factorize",
+      "num_gcd",
+      "num_lcm",
+      "num_fibonacci",
+      "num_to_binary",
+      "num_to_hex",
+      "num_to_octal",
+      "num_from_base",
+      "num_to_base",
+      "num_percent_change",
+      "num_ratio",
+      "num_format",
+      "num_abs",
+      "num_power",
+      "stat_mean",
+      "stat_median",
+      "stat_mode",
+      "stat_stddev",
+      "stat_variance",
+      "stat_min",
+      "stat_max",
+      "stat_sum",
+      "stat_count",
+      "stat_percentile",
+      "stat_quartiles",
+      "stat_range",
+      "stat_correlation",
+      "stat_frequencies",
+      "stat_geometric_mean",
+      "stat_harmonic_mean",
+      "stat_trimmed_mean",
+      "stat_mad",
+      "num_log",
+      "num_sqrt",
+      "num_cbrt",
+      "num_sin",
+      "num_cos",
+      "num_tan",
+      "num_abs_diff",
+      "num_sign",
+      "num_factorial",
+      "num_inverse",
+      "str_count_words",
+      "str_strip_html",
+      "list_min_val",
+      "list_max_val",
+      "list_avg_val",
+      "list_sum_val",
+      "get_data_tools",
+      "str_levenshtein",
+      "str_similarity",
+      "str_contains_any",
+      "str_starts_with",
+      "str_ends_with",
+      "str_truncate",
+      "str_wrap_lines",
+      "str_justify_left",
+      "str_justify_right",
+      "str_justify_center",
+      "str_is_alpha",
+      "str_is_digit",
+      "str_is_alnum",
+      "str_is_lower",
+      "str_is_upper",
+      "str_is_space",
+      "str_swap_case",
+      "str_capitalize",
+      "str_count_chars",
+      "list_chunk",
+      "list_flatten",
+      "list_unique",
+      "list_sort_num",
+      "list_sort_str",
+      "list_shuffle",
+      "list_sample",
+      "list_rotate",
+      "list_median_sorted",
+      "dict_group_by",
+      "dict_key_exists",
+      "num_is_even",
+      "num_is_odd",
+      "num_is_positive",
+      "num_is_negative",
+      "num_is_zero",
+      "num_to_roman",
+      "num_from_roman",
+      "_make_tool"
+    ],
+    "jarvis/backend/tools/email_agent/__init__.py": [],
+    "jarvis/backend/tools/email_agent/email_agent.py": [
+      "ActionRequest",
+      "HumanInterrupt",
+      "_init_email_db",
+      "_init_vector_store",
+      "EmailStorage",
+      "_get_date_range",
+      "_get_storage",
+      "_ensure_index",
+      "email_search",
+      "email_list_inbox",
+      "email_get_message",
+      "email_mark_read",
+      "email_send",
+      "email_draft",
+      "email_reply",
+      "calendar_list",
+      "calendar_create",
+      "calendar_update",
+      "calendar_delete",
+      "calendar_find_slots",
+      "email_get_attachment",
+      "email_star",
+      "email_search_by_sender",
+      "email_get_unread_count",
+      "email_forward",
+      "email_create_folder",
+      "email_archive",
+      "email_trash"
+    ],
+    "jarvis/backend/tools/file_tools.py": [
+      "file_search",
+      "file_hash",
+      "file_diff",
+      "file_compress",
+      "file_decompress",
+      "file_type_detect"
+    ],
+    "jarvis/backend/tools/health_tools.py": [
+      "server_health"
+    ],
+    "jarvis/backend/tools/info_scraper.py": [
+      "_cache_key",
+      "_cache_get",
+      "_cache_set",
+      "_strip_tags",
+      "_clean_text",
+      "_extract_metadata",
+      "_extract_tables",
+      "_extract_lists",
+      "_extract_links",
+      "_extract_images",
+      "_extract_prices",
+      "_readability_extract",
+      "_scrape_playwright",
+      "_scrape_requests",
+      "_detect_and_scrape",
+      "scrape_page",
+      "scrape_search",
+      "scrape_news",
+      "scrape_stock",
+      "scrape_weather",
+      "scrape_wikipedia",
+      "scrape_recipe",
+      "scrape_product",
+      "scrape_social_mentions",
+      "scrape_jobs",
+      "scrape_movie_info",
+      "scrape_lyrics",
+      "scrape_define",
+      "scrape_dictionary",
+      "scrape_translate",
+      "scrape_facts",
+      "search_information",
+      "ask_question"
+    ],
+    "jarvis/backend/tools/mcp_sql.py": [
+      "MCPSQLExecutor"
+    ],
+    "jarvis/backend/tools/media_tools.py": [
+      "geo_distance",
+      "geo_midpoint",
+      "geo_bounding_box",
+      "geo_country_code",
+      "geo_dms_to_decimal",
+      "geo_decimal_to_dms",
+      "geo_elevation",
+      "geo_timezone",
+      "geo_sunrise_sunset",
+      "geo_map_url",
+      "time_now",
+      "time_epoch",
+      "time_from_epoch",
+      "time_diff",
+      "time_add",
+      "time_subtract",
+      "time_weekday",
+      "time_julian_day",
+      "time_unix_timestamp",
+      "time_iso_format",
+      "time_days_between",
+      "time_age",
+      "time_next_weekday",
+      "time_is_leap_year",
+      "time_days_in_month",
+      "color_palette",
+      "color_complementary",
+      "color_analogous",
+      "color_triadic",
+      "color_contrast_ratio",
+      "color_luminance",
+      "color_brightness",
+      "color_is_dark",
+      "color_random",
+      "file_copy",
+      "file_move",
+      "file_delete",
+      "file_rename",
+      "file_touch",
+      "dir_create",
+      "dir_list",
+      "dir_tree",
+      "file_size",
+      "file_modified",
+      "file_extension",
+      "file_dirname",
+      "file_basename",
+      "file_exists",
+      "file_is_file",
+      "file_is_dir",
+      "file_join",
+      "file_abspath",
+      "file_split",
+      "file_read",
+      "file_write",
+      "http_get",
+      "http_post",
+      "http_headers",
+      "http_status",
+      "http_download",
+      "url_encode",
+      "url_decode",
+      "url_parse",
+      "base64_encode",
+      "base64_decode",
+      "json_prettify",
+      "json_minify",
+      "json_to_yaml",
+      "yaml_to_json",
+      "xml_to_json",
+      "json_to_csv",
+      "csv_to_json_str",
+      "html_escape",
+      "html_unescape",
+      "slugify",
+      "trim_whitespace",
+      "tab_to_spaces",
+      "spaces_to_tabs",
+      "indent_text",
+      "wrap_text",
+      "http_put",
+      "http_delete",
+      "http_patch",
+      "file_append",
+      "file_prepend",
+      "color_tetradic",
+      "color_shade",
+      "color_tint",
+      "pretty_table",
+      "csv_to_markdown",
+      "json_to_markdown",
+      "json_sort_keys",
+      "yaml_to_toml",
+      "toml_to_yaml",
+      "html_to_text",
+      "text_to_html",
+      "csv_merge",
+      "csv_filter",
+      "csv_sort",
+      "csv_columns",
+      "geo_reverse_code",
+      "time_to_timezone",
+      "time_list_timezones",
+      "time_sleep_ms",
+      "file_mkstemp",
+      "file_chmod",
+      "file_head",
+      "file_tail",
+      "file_count_lines",
+      "file_is_text",
+      "http_head",
+      "http_options",
+      "url_shorten",
+      "base64_encode_file",
+      "base64_decode_to_file",
+      "color_name_to_hex",
+      "color_hex_to_name",
+      "color_mix",
+      "time_countdown",
+      "time_stopwatch",
+      "geo_country_name",
+      "geo_ip_to_coords",
+      "_make_tool",
+      "get_media_tools"
+    ],
+    "jarvis/backend/tools/meeting_transcriber.py": [
+      "Utterance",
+      "MeetingTranscript",
+      "MeetingTranscriber",
+      "start_meeting",
+      "process_meeting_audio",
+      "end_meeting",
+      "meeting_status"
+    ],
+    "jarvis/backend/tools/middleware.py": [
+      "RequestTimingMiddleware",
+      "RequestIDMiddleware",
+      "setup_logging",
+      "global_error_handler",
+      "LogLevelMiddleware"
+    ],
+    "jarvis/backend/tools/misc_tools.py": [
+      "random_number",
+      "random_choice",
+      "color_convert",
+      "math_calculate",
+      "query_yesno"
+    ],
+    "jarvis/backend/tools/monitoring.db": [],
+    "jarvis/backend/tools/monitoring.db-shm": [],
+    "jarvis/backend/tools/monitoring.db-wal": [],
+    "jarvis/backend/tools/monitoring.py": [
+      "_get_db",
+      "_init_db",
+      "metrics_record",
+      "metrics_record_llm",
+      "metrics_record_tool",
+      "alert_set_threshold",
+      "alert_list_thresholds",
+      "_check_alerts",
+      "alert_list",
+      "alert_acknowledge",
+      "metrics_summary",
+      "metrics_cost_summary",
+      "trace_start",
+      "trace_end",
+      "trace_summary",
+      "log_event",
+      "log_get",
+      "metrics_prometheus",
+      "metrics_get",
+      "metrics_track_llm_call"
+    ],
+    "jarvis/backend/tools/multi_agent.py": [
+      "AgentRole",
+      "SubAgent",
+      "spawn_agent",
+      "_run_agent",
+      "list_agents",
+      "get_agent_result",
+      "cancel_agent",
+      "multi_agent_collaborate",
+      "cleanup_old_agents"
+    ],
+    "jarvis/backend/tools/net_tools.py": [
+      "ping_host",
+      "dns_lookup",
+      "whois_lookup",
+      "geoip_lookup"
+    ],
+    "jarvis/backend/tools/operation_modes.py": [
+      "get_active",
+      "is_auto_detect_enabled",
+      "set_mode",
+      "get_mode",
+      "list_modes",
+      "toggle_auto_detect",
+      "auto_detect",
+      "get_mode_prompt_extension"
+    ],
+    "jarvis/backend/tools/pdf_enhancer/main.py": [
+      "resource_path",
+      "order_points",
+      "four_point_transform",
+      "process_single_page",
+      "load_image_to_bgr",
+      "ScannerApp"
+    ],
+    "jarvis/backend/tools/pdf_tools.py": [
+      "_save_as_pdf",
+      "_order_points",
+      "_four_point_transform",
+      "enhance_page",
+      "_load_to_bgr",
+      "pdf_enhance_file",
+      "pdf_enhance_images"
+    ],
+    "jarvis/backend/tools/personality_engine.py": [
+      "_get_db",
+      "_init_db",
+      "_seed_builtins",
+      "_load_personalities",
+      "get_active",
+      "set_personality",
+      "get_personality",
+      "list_personalities",
+      "get_personality_prompt_extension",
+      "remember_topic",
+      "recall_topics",
+      "remember_preference",
+      "get_preferences",
+      "get_conversation_summary",
+      "_keyword_emotion_score",
+      "detect_emotion",
+      "mood_trend",
+      "create_persona",
+      "delete_persona",
+      "communication_style_report",
+      "_init_digital_twin_db",
+      "_analyze_style_profile",
+      "_merge_profiles",
+      "digital_twin_learn",
+      "digital_twin_profile",
+      "digital_twin_mimic",
+      "digital_twin_compare",
+      "digital_twin_list",
+      "digital_twin_delete"
+    ],
+    "jarvis/backend/tools/personality.db": [],
+    "jarvis/backend/tools/personality.db-shm": [],
+    "jarvis/backend/tools/personality.db-wal": [],
+    "jarvis/backend/tools/playback_queue.py": [
+      "PlaybackState",
+      "QueuePriority",
+      "QueueItem",
+      "PlaybackQueue",
+      "enqueue_audio",
+      "enqueue_next",
+      "skip_audio",
+      "pause_playback",
+      "resume_playback",
+      "stop_playback",
+      "set_playback_volume",
+      "playback_status"
+    ],
+    "jarvis/backend/tools/plugin_loader.py": [
+      "PluginInfo",
+      "_compute_hash",
+      "_validate_plugin",
+      "load_plugin",
+      "scan_plugins",
+      "get_plugin_tools",
+      "get_plugin",
+      "list_plugins",
+      "enable_plugin",
+      "disable_plugin",
+      "reload_plugin",
+      "_watcher_loop",
+      "start_watcher",
+      "stop_watcher",
+      "register_plugin_tools",
+      "create_example_plugin"
+    ],
+    "jarvis/backend/tools/plugins/example_plugin.py": [
+      "reverse_text",
+      "random_number",
+      "current_timestamp",
+      "text_stats",
+      "get_tools"
+    ],
+    "jarvis/backend/tools/plugins/math_plugin.py": [
+      "calculate",
+      "roll_dice",
+      "get_tools"
+    ],
+    "jarvis/backend/tools/qol_features.py": [
+      "suggest_followups",
+      "personalization_get",
+      "personalization_set",
+      "personalization_adapt",
+      "cache_get",
+      "cache_set",
+      "cache_clear",
+      "cache_stats",
+      "tool_analytics_track",
+      "tool_analytics_report",
+      "expand_abbreviations",
+      "tag_conversation",
+      "search_by_tag",
+      "daily_briefing",
+      "focus_mode_set",
+      "focus_mode_status",
+      "emergency_stop",
+      "emergency_resume",
+      "emergency_status",
+      "migration_create",
+      "migration_list",
+      "memory_backup",
+      "memory_restore",
+      "data_export",
+      "temp_cleanup",
+      "temp_register",
+      "detect_language",
+      "audio_mix_tracks"
+    ],
+    "jarvis/backend/tools/scifi_features.py": [
+      "_get_db",
+      "_init_db",
+      "predictive_analyze",
+      "predictive_suggest",
+      "desktop_pet_activate",
+      "desktop_pet_interact",
+      "desktop_pet_deactivate",
+      "emotion_companion_log",
+      "emotion_companion_report",
+      "swarm_create_agent",
+      "swarm_list_agents",
+      "swarm_execute_task",
+      "collaboration_send",
+      "collaboration_receive",
+      "collaboration_broadcast",
+      "meeting_assistant_join",
+      "meeting_assistant_note",
+      "meeting_assistant_action",
+      "meeting_assistant_summarize",
+      "cybersecurity_alert",
+      "cybersecurity_status",
+      "cybersecurity_acknowledge",
+      "translate_text",
+      "holographic_ui_render",
+      "_drone_get",
+      "_drone_set",
+      "drone_connect",
+      "drone_arm",
+      "drone_takeoff",
+      "drone_move",
+      "drone_land",
+      "drone_status",
+      "bci_status",
+      "bci_simulate",
+      "bci_connect",
+      "bci_start_session",
+      "bci_read_data",
+      "_os_get",
+      "_os_set",
+      "os_layer_activate",
+      "os_layer_deactivate",
+      "os_layer_register_shortcut",
+      "os_layer_status",
+      "os_layer_execute"
+    ],
+    "jarvis/backend/tools/scifi.db": [],
+    "jarvis/backend/tools/scifi.db-shm": [],
+    "jarvis/backend/tools/scifi.db-wal": [],
+    "jarvis/backend/tools/security.db": [],
+    "jarvis/backend/tools/security.db-shm": [],
+    "jarvis/backend/tools/security.db-wal": [],
+    "jarvis/backend/tools/security.py": [
+      "_get_db",
+      "_init_db",
+      "auth_create_token",
+      "auth_verify_token",
+      "auth_refresh_token",
+      "auth_revoke_token",
+      "permission_check",
+      "permission_list_roles",
+      "permission_add_role",
+      "sanitize_input",
+      "audit_log",
+      "audit_get_log",
+      "audit_stats",
+      "session_create",
+      "session_validate",
+      "session_list",
+      "session_destroy",
+      "session_cleanup_expired"
+    ],
+    "jarvis/backend/tools/semantic_cache.py": [
+      "_get_model",
+      "_hash_key",
+      "_compute_embedding",
+      "_cosine_similarity",
+      "load",
+      "save",
+      "clear",
+      "stats"
+    ],
+    "jarvis/backend/tools/shopping_assistant.py": [
+      "_init_database",
+      "_init_policies",
+      "ProductDataLoader",
+      "PolicySearch",
+      "SemanticRouter",
+      "search_products",
+      "compare_products",
+      "get_shopping_list",
+      "product_search_db",
+      "product_get_details",
+      "product_list_categories",
+      "policy_search",
+      "shopping_route_query",
+      "get_product_recommendations",
+      "check_store_policy",
+      "track_order_status"
+    ],
+    "jarvis/backend/tools/system_tools.py": [
+      "system_info",
+      "disk_usage"
+    ],
+    "jarvis/backend/tools/telemetry.py": [
+      "_get_db",
+      "_init_db",
+      "record_tool_call",
+      "_persist_call",
+      "_notify_subscribers",
+      "subscribe",
+      "get_stats",
+      "get_history",
+      "get_hourly_summary",
+      "get_slow_tools",
+      "get_error_hotspots",
+      "get_live_events",
+      "instrument_agent"
+    ],
+    "jarvis/backend/tools/text_tools.py": [
+      "text_analyze",
+      "regex_match",
+      "regex_replace",
+      "json_validate",
+      "json_transform",
+      "csv_parse",
+      "csv_to_json",
+      "markdown_to_html",
+      "date_format",
+      "timezone_convert",
+      "unit_convert"
+    ],
+    "jarvis/backend/tools/travel_agent.py": [
+      "plan_trip",
+      "get_destination_info"
+    ],
+    "jarvis/backend/tools/web_scraper.py": [
+      "PageItem",
+      "GenericSpider",
+      "scrape_urls",
+      "_fallback_scrape",
+      "scrape_with_selectors"
+    ],
+    "jarvis/backend/tools/webhook_tools.py": [
+      "webhook_register",
+      "webhook_trigger",
+      "webhook_list",
+      "webhook_delete"
+    ],
+    "jarvis/backend/vision/__init__.py": [],
+    "jarvis/backend/vision/detector.py": [
+      "DetectedObject",
+      "DetectionResult",
+      "YOLODetector",
+      "DetectorPipeline"
+    ],
+    "jarvis/backend/vision/frame_capture.py": [
+      "CaptureSource",
+      "Frame",
+      "FrameCapture"
+    ],
+    "jarvis/backend/vision/recognizer.py": [
+      "FaceInfo",
+      "QRInfo",
+      "FaceRecognizer",
+      "QRDetector",
+      "VisionPipeline"
+    ],
+    "jarvis/backend/watchdog.py": [
+      "Watchdog"
+    ],
+    "jarvis/check_routes.py": [],
+    "jarvis/docs/jarvis_documentation.tex": [],
+    "jarvis/examples/plugin_weather.py": [
+      "PluginInfo",
+      "get_tool_definitions",
+      "handle_tool_call",
+      "_get_detailed_forecast",
+      "_get_weather_alerts",
+      "_get_air_quality",
+      "get_plugin_metadata"
+    ],
+    "jarvis/frontend/nginx.conf": [],
+    "jarvis/frontend/src/AgentManager.jsx": [],
+    "jarvis/frontend/src/App.jsx": [],
+    "jarvis/frontend/src/AudioVisualizer.jsx": [],
+    "jarvis/frontend/src/Avatar.jsx": [],
+    "jarvis/frontend/src/CameraFeed.jsx": [],
+    "jarvis/frontend/src/Controls.jsx": [],
+    "jarvis/frontend/src/Dashboard.jsx": [],
+    "jarvis/frontend/src/index.jsx": [],
+    "jarvis/frontend/src/JarvisStartupAnimation.jsx": [
+      "JarvisStartupAnimation"
+    ],
+    "jarvis/frontend/src/PluginManager.jsx": [],
+    "jarvis/frontend/src/TelemetryPanel.jsx": [],
+    "jarvis/frontend/vite.config.js": [],
+    "jarvis/mock_modules/mock_camera.py": [
+      "MockFrame",
+      "MockCamera"
+    ],
+    "jarvis/quick_test.py": [
+      "test_agent"
+    ],
+    "jarvis/scripts/cli.py": [
+      "api_get",
+      "api_post",
+      "cli",
+      "status",
+      "chat",
+      "memory",
+      "query",
+      "store",
+      "palace",
+      "service",
+      "manage",
+      "speak",
+      "recent",
+      "usage"
+    ],
+    "jarvis/start_agent.py": [],
+    "jarvis/test_agent_client.py": [
+      "chat",
+      "get_status",
+      "interactive_mode",
+      "batch_test",
+      "main"
+    ],
+    "jarvis/test_chat.py": [],
+    "jarvis/test_simple.py": [
+      "test"
+    ],
+    "jarvis/tests/__init__.py": [],
+    "jarvis/tests/stress_100k.py": [
+      "await_wrapper",
+      "FakeTool",
+      "generate_text",
+      "run_stress"
+    ],
+    "jarvis/tests/test_agent.py": [
+      "agent",
+      "tool_registry",
+      "TestToolRegistry",
+      "TestAgent",
+      "TestModels",
+      "TestConfig",
+      "TestVision",
+      "TestSpeech",
+      "TestHearing",
+      "TestActions",
+      "TestLLMClient",
+      "TestMemory",
+      "TestEdgeCases"
+    ],
+    "jarvis/tests/test_api_integrations.py": [
+      "TestStocks",
+      "TestNews",
+      "TestCrypto",
+      "TestForex",
+      "TestSports",
+      "TestMovies",
+      "TestNutrition",
+      "TestDictionary",
+      "TestFun",
+      "TestHolidays",
+      "TestIPGeo",
+      "TestSpace",
+      "TestBooks",
+      "TestMusic",
+      "TestWorldTime",
+      "TestEdgeCases"
+    ],
+    "jarvis/tests/test_comprehensive.py": [
+      "TestConfig",
+      "TestLLMClient",
+      "TestRedisClient",
+      "TestAPIIntegrations",
+      "TestWebScraper",
+      "TestVisualizations",
+      "TestFileHandler",
+      "TestDatabase",
+      "TestCodeSandbox",
+      "TestScheduler",
+      "TestDocumentQA",
+      "TestGitOps",
+      "TestEmail",
+      "TestCalendar",
+      "TestMusic",
+      "TestNotifications",
+      "TestModels",
+      "TestToolRegistry",
+      "TestAgent",
+      "TestSpeech",
+      "TestImageGen",
+      "TestObsidian",
+      "TestEdgeCases",
+      "TestSafety"
+    ],
+    "jarvis/tests/test_file_handler.py": [
+      "TestCSV",
+      "TestJSON",
+      "TestSVG",
+      "TestLaTeX",
+      "TestAutoRead",
+      "TestYAML",
+      "TestXML",
+      "TestMarkdown",
+      "TestPPTX",
+      "TestObsidian"
+    ],
+    "jarvis/tests/test_new_features.py": [
+      "TestDatabase",
+      "TestImageGen",
+      "TestCodeSandbox",
+      "TestEmailReader",
+      "TestGit",
+      "TestNotifications",
+      "TestScheduler",
+      "TestDocumentQA",
+      "TestMusic"
+    ],
+    "jarvis/tests/test_visualizations.py": [
+      "TestVisualizations"
+    ],
+    "jarvis/tests/test_web_scraper.py": [
+      "TestFetchHTML",
+      "TestExtraction",
+      "TestScrapeCache",
+      "TestRobots"
+    ]
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "jarvis/docker-compose.yml",
+          "language": "yaml",
+          "sizeLines": 258,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "jarvis/Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 19,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/docker-compose.yml": [],
+        "jarvis/Dockerfile": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "jarvis/frontend/Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 13,
+          "fileCategory": "infra"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/frontend/Dockerfile": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": ".obsidian/app.json",
+          "language": "json",
+          "sizeLines": 0,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".obsidian/appearance.json",
+          "language": "json",
+          "sizeLines": 0,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".obsidian/core-plugins.json",
+          "language": "json",
+          "sizeLines": 32,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".obsidian/graph.json",
+          "language": "json",
+          "sizeLines": 21,
+          "fileCategory": "config"
+        },
+        {
+          "path": ".obsidian/workspace.json",
+          "language": "json",
+          "sizeLines": 189,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        ".obsidian/app.json": [],
+        ".obsidian/appearance.json": [],
+        ".obsidian/core-plugins.json": [],
+        ".obsidian/graph.json": [],
+        ".obsidian/workspace.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "jarvis/.env",
+          "language": "config",
+          "sizeLines": 84,
+          "fileCategory": "config"
+        },
+        {
+          "path": "jarvis/.env.example",
+          "language": "config",
+          "sizeLines": 77,
+          "fileCategory": "config"
+        },
+        {
+          "path": "jarvis/FEATURE_ROADMAP_200.md",
+          "language": "markdown",
+          "sizeLines": 646,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "jarvis/PLAN_100_ITEMS.md",
+          "language": "markdown",
+          "sizeLines": 131,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "jarvis/README.md",
+          "language": "markdown",
+          "sizeLines": 133,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "jarvis/equalizer.html",
+          "language": "html",
+          "sizeLines": 972,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "jarvis/requirements.txt",
+          "language": "txt",
+          "sizeLines": 105,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "jarvis/test_agent.html",
+          "language": "html",
+          "sizeLines": 51,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "jarvis/test_agent.ps1",
+          "language": "powershell",
+          "sizeLines": 66,
+          "fileCategory": "script"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/.env": [],
+        "jarvis/.env.example": [],
+        "jarvis/FEATURE_ROADMAP_200.md": [],
+        "jarvis/PLAN_100_ITEMS.md": [],
+        "jarvis/README.md": [],
+        "jarvis/equalizer.html": [],
+        "jarvis/requirements.txt": [],
+        "jarvis/test_agent.html": [],
+        "jarvis/test_agent.ps1": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": ".pytest_cache/CACHEDIR.TAG",
+          "language": "tag",
+          "sizeLines": 4,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".pytest_cache/README.md",
+          "language": "markdown",
+          "sizeLines": 8,
+          "fileCategory": "docs"
+        },
+        {
+          "path": ".pytest_cache/v/cache/lastfailed",
+          "language": "unknown",
+          "sizeLines": 3,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".pytest_cache/v/cache/nodeids",
+          "language": "unknown",
+          "sizeLines": 420,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".understand-anything/.understandignore",
+          "language": "unknown",
+          "sizeLines": 11,
+          "fileCategory": "code"
+        },
+        {
+          "path": "docs/remove.md",
+          "language": "markdown",
+          "sizeLines": 0,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "jarvis/.pytest_cache/CACHEDIR.TAG",
+          "language": "tag",
+          "sizeLines": 4,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/.pytest_cache/README.md",
+          "language": "markdown",
+          "sizeLines": 8,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "jarvis/.pytest_cache/v/cache/lastfailed",
+          "language": "unknown",
+          "sizeLines": 144,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/.pytest_cache/v/cache/nodeids",
+          "language": "unknown",
+          "sizeLines": 629,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/__init__.py",
+          "language": "python",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/api_integrations.py",
+          "language": "python",
+          "sizeLines": 1049,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/avatar.py",
+          "language": "python",
+          "sizeLines": 170,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/calendar_reader.py",
+          "language": "python",
+          "sizeLines": 69,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/calendar.py",
+          "language": "python",
+          "sizeLines": 53,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/code_sandbox.py",
+          "language": "python",
+          "sizeLines": 105,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/database.py",
+          "language": "python",
+          "sizeLines": 161,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/document_qa.py",
+          "language": "python",
+          "sizeLines": 175,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/email_reader.py",
+          "language": "python",
+          "sizeLines": 116,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/email.py",
+          "language": "python",
+          "sizeLines": 43,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/file_handler.py",
+          "language": "python",
+          "sizeLines": 767,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/git_ops.py",
+          "language": "python",
+          "sizeLines": 85,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/home_assistant.py",
+          "language": "python",
+          "sizeLines": 130,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/image_gen.py",
+          "language": "python",
+          "sizeLines": 80,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/music.py",
+          "language": "python",
+          "sizeLines": 81,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        ".pytest_cache/CACHEDIR.TAG": [],
+        ".pytest_cache/README.md": [],
+        ".pytest_cache/v/cache/lastfailed": [],
+        ".pytest_cache/v/cache/nodeids": [],
+        ".understand-anything/.understandignore": [],
+        "docs/remove.md": [],
+        "jarvis/.pytest_cache/CACHEDIR.TAG": [],
+        "jarvis/.pytest_cache/README.md": [],
+        "jarvis/.pytest_cache/v/cache/lastfailed": [],
+        "jarvis/.pytest_cache/v/cache/nodeids": [],
+        "jarvis/backend/actions/__init__.py": [],
+        "jarvis/backend/actions/api_integrations.py": [],
+        "jarvis/backend/actions/avatar.py": [],
+        "jarvis/backend/actions/calendar_reader.py": [],
+        "jarvis/backend/actions/calendar.py": [],
+        "jarvis/backend/actions/code_sandbox.py": [],
+        "jarvis/backend/actions/database.py": [],
+        "jarvis/backend/actions/document_qa.py": [],
+        "jarvis/backend/actions/email_reader.py": [],
+        "jarvis/backend/actions/email.py": [],
+        "jarvis/backend/actions/file_handler.py": [],
+        "jarvis/backend/actions/git_ops.py": [],
+        "jarvis/backend/actions/home_assistant.py": [],
+        "jarvis/backend/actions/image_gen.py": [],
+        "jarvis/backend/actions/music.py": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "jarvis/backend/actions/notifications.py",
+          "language": "python",
+          "sizeLines": 43,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/scheduler.py",
+          "language": "python",
+          "sizeLines": 68,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/service.py",
+          "language": "python",
+          "sizeLines": 226,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/helloworld.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_0a660514.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_3eace10a.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_457f6364.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_714a3b6d.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_7526ac07.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_75befa4b.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_765ba647.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_7fcc3459.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_8e17fed4.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_aa5863bc.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_b2b18912.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_ec9878aa.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_f0046919.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_f0a6b051.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_f1882e4c.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/latex_fac96bf9.tex",
+          "language": "tex",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/mydeck.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/myshape",
+          "language": "unknown",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_063aaf47.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_07917a15.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_0939f2b9.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/backend/actions/notifications.py": [],
+        "jarvis/backend/actions/scheduler.py": [],
+        "jarvis/backend/actions/service.py": [],
+        "jarvis/backend/actions/static/files/helloworld.tex": [],
+        "jarvis/backend/actions/static/files/latex_0a660514.tex": [],
+        "jarvis/backend/actions/static/files/latex_3eace10a.tex": [],
+        "jarvis/backend/actions/static/files/latex_457f6364.tex": [],
+        "jarvis/backend/actions/static/files/latex_714a3b6d.tex": [],
+        "jarvis/backend/actions/static/files/latex_7526ac07.tex": [],
+        "jarvis/backend/actions/static/files/latex_75befa4b.tex": [],
+        "jarvis/backend/actions/static/files/latex_765ba647.tex": [],
+        "jarvis/backend/actions/static/files/latex_7fcc3459.tex": [],
+        "jarvis/backend/actions/static/files/latex_8e17fed4.tex": [],
+        "jarvis/backend/actions/static/files/latex_aa5863bc.tex": [],
+        "jarvis/backend/actions/static/files/latex_b2b18912.tex": [],
+        "jarvis/backend/actions/static/files/latex_ec9878aa.tex": [],
+        "jarvis/backend/actions/static/files/latex_f0046919.tex": [],
+        "jarvis/backend/actions/static/files/latex_f0a6b051.tex": [],
+        "jarvis/backend/actions/static/files/latex_f1882e4c.tex": [],
+        "jarvis/backend/actions/static/files/latex_fac96bf9.tex": [],
+        "jarvis/backend/actions/static/files/mydeck.pptx": [],
+        "jarvis/backend/actions/static/files/myshape": [],
+        "jarvis/backend/actions/static/files/pres_063aaf47.pptx": [],
+        "jarvis/backend/actions/static/files/pres_07917a15.pptx": [],
+        "jarvis/backend/actions/static/files/pres_0939f2b9.pptx": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": "jarvis/backend/actions/static/files/pres_16e3da44.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_19ae7b55.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_1eb35dd9.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_25294e3e.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_38d27e20.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_3cba7c25.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_52911803.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_54544b44.pptx",
+          "language": "pptx",
+          "sizeLines": 84,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_5f4f8bc5.pptx",
+          "language": "pptx",
+          "sizeLines": 95,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_6000dec6.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_660726f4.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_6bedb1ee.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_72af0c2f.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_753191d3.pptx",
+          "language": "pptx",
+          "sizeLines": 92,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_780a1095.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_7b0f8b6c.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_8454a973.pptx",
+          "language": "pptx",
+          "sizeLines": 95,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_867ed05f.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_8e078133.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_8e0fff5a.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_98f75893.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_9e16efd4.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_a2773da6.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_a7c34ffd.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_b1d1a17a.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/backend/actions/static/files/pres_16e3da44.pptx": [],
+        "jarvis/backend/actions/static/files/pres_19ae7b55.pptx": [],
+        "jarvis/backend/actions/static/files/pres_1eb35dd9.pptx": [],
+        "jarvis/backend/actions/static/files/pres_25294e3e.pptx": [],
+        "jarvis/backend/actions/static/files/pres_38d27e20.pptx": [],
+        "jarvis/backend/actions/static/files/pres_3cba7c25.pptx": [],
+        "jarvis/backend/actions/static/files/pres_52911803.pptx": [],
+        "jarvis/backend/actions/static/files/pres_54544b44.pptx": [],
+        "jarvis/backend/actions/static/files/pres_5f4f8bc5.pptx": [],
+        "jarvis/backend/actions/static/files/pres_6000dec6.pptx": [],
+        "jarvis/backend/actions/static/files/pres_660726f4.pptx": [],
+        "jarvis/backend/actions/static/files/pres_6bedb1ee.pptx": [],
+        "jarvis/backend/actions/static/files/pres_72af0c2f.pptx": [],
+        "jarvis/backend/actions/static/files/pres_753191d3.pptx": [],
+        "jarvis/backend/actions/static/files/pres_780a1095.pptx": [],
+        "jarvis/backend/actions/static/files/pres_7b0f8b6c.pptx": [],
+        "jarvis/backend/actions/static/files/pres_8454a973.pptx": [],
+        "jarvis/backend/actions/static/files/pres_867ed05f.pptx": [],
+        "jarvis/backend/actions/static/files/pres_8e078133.pptx": [],
+        "jarvis/backend/actions/static/files/pres_8e0fff5a.pptx": [],
+        "jarvis/backend/actions/static/files/pres_98f75893.pptx": [],
+        "jarvis/backend/actions/static/files/pres_9e16efd4.pptx": [],
+        "jarvis/backend/actions/static/files/pres_a2773da6.pptx": [],
+        "jarvis/backend/actions/static/files/pres_a7c34ffd.pptx": [],
+        "jarvis/backend/actions/static/files/pres_b1d1a17a.pptx": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": "jarvis/backend/actions/static/files/pres_bf327cde.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_bf417e93.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_c66697a0.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_c9e08ddf.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_ca41646d.pptx",
+          "language": "pptx",
+          "sizeLines": 89,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_cbcfd3ae.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_cf319cbf.pptx",
+          "language": "pptx",
+          "sizeLines": 94,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_d12776c9.pptx",
+          "language": "pptx",
+          "sizeLines": 92,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_d2010c72.pptx",
+          "language": "pptx",
+          "sizeLines": 92,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_dae83c23.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_e2245f5e.pptx",
+          "language": "pptx",
+          "sizeLines": 90,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_e65e7ab1.pptx",
+          "language": "pptx",
+          "sizeLines": 89,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_e84d8194.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_eb2418aa.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_ef933bc6.pptx",
+          "language": "pptx",
+          "sizeLines": 98,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_fb3b7fa5.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_fbe4518e.pptx",
+          "language": "pptx",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_fcc1e18a.pptx",
+          "language": "pptx",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/static/files/pres_fdafdbb2.pptx",
+          "language": "pptx",
+          "sizeLines": 88,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/system_commands.py",
+          "language": "python",
+          "sizeLines": 115,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/visualizations.py",
+          "language": "python",
+          "sizeLines": 1106,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/web_scraper.py",
+          "language": "python",
+          "sizeLines": 650,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/actions/web_search.py",
+          "language": "python",
+          "sizeLines": 118,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/audio/__init__.py",
+          "language": "python",
+          "sizeLines": 8,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/audio/audio_manager.py",
+          "language": "python",
+          "sizeLines": 569,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/backend/actions/static/files/pres_bf327cde.pptx": [],
+        "jarvis/backend/actions/static/files/pres_bf417e93.pptx": [],
+        "jarvis/backend/actions/static/files/pres_c66697a0.pptx": [],
+        "jarvis/backend/actions/static/files/pres_c9e08ddf.pptx": [],
+        "jarvis/backend/actions/static/files/pres_ca41646d.pptx": [],
+        "jarvis/backend/actions/static/files/pres_cbcfd3ae.pptx": [],
+        "jarvis/backend/actions/static/files/pres_cf319cbf.pptx": [],
+        "jarvis/backend/actions/static/files/pres_d12776c9.pptx": [],
+        "jarvis/backend/actions/static/files/pres_d2010c72.pptx": [],
+        "jarvis/backend/actions/static/files/pres_dae83c23.pptx": [],
+        "jarvis/backend/actions/static/files/pres_e2245f5e.pptx": [],
+        "jarvis/backend/actions/static/files/pres_e65e7ab1.pptx": [],
+        "jarvis/backend/actions/static/files/pres_e84d8194.pptx": [],
+        "jarvis/backend/actions/static/files/pres_eb2418aa.pptx": [],
+        "jarvis/backend/actions/static/files/pres_ef933bc6.pptx": [],
+        "jarvis/backend/actions/static/files/pres_fb3b7fa5.pptx": [],
+        "jarvis/backend/actions/static/files/pres_fbe4518e.pptx": [],
+        "jarvis/backend/actions/static/files/pres_fcc1e18a.pptx": [],
+        "jarvis/backend/actions/static/files/pres_fdafdbb2.pptx": [],
+        "jarvis/backend/actions/system_commands.py": [],
+        "jarvis/backend/actions/visualizations.py": [],
+        "jarvis/backend/actions/web_scraper.py": [],
+        "jarvis/backend/actions/web_search.py": [],
+        "jarvis/backend/audio/__init__.py": [],
+        "jarvis/backend/audio/audio_manager.py": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 9,
+      "files": [
+        {
+          "path": "jarvis/backend/audio/models.py",
+          "language": "python",
+          "sizeLines": 82,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/audio/scheduler.py",
+          "language": "python",
+          "sizeLines": 77,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/hearing/__init__.py",
+          "language": "python",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/hearing/mic_stream.py",
+          "language": "python",
+          "sizeLines": 200,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/hearing/service.py",
+          "language": "python",
+          "sizeLines": 190,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/hearing/stt.py",
+          "language": "python",
+          "sizeLines": 113,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/memory/__init__.py",
+          "language": "python",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/memory/service.py",
+          "language": "python",
+          "sizeLines": 687,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/orchestrator/__init__.py",
+          "language": "python",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/orchestrator/agent.py",
+          "language": "python",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/orchestrator/main.py",
+          "language": "python",
+          "sizeLines": 935,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/orchestrator/models.py",
+          "language": "python",
+          "sizeLines": 81,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/shared/__init__.py",
+          "language": "python",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/shared/config.py",
+          "language": "python",
+          "sizeLines": 125,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/shared/grpc_stubs.py",
+          "language": "python",
+          "sizeLines": 225,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/shared/llm_client.py",
+          "language": "python",
+          "sizeLines": 758,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/shared/redis_client.py",
+          "language": "python",
+          "sizeLines": 169,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/speech/__init__.py",
+          "language": "python",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/speech/lip_sync.py",
+          "language": "python",
+          "sizeLines": 103,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/speech/service.py",
+          "language": "python",
+          "sizeLines": 281,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/speech/tts_engine.py",
+          "language": "python",
+          "sizeLines": 459,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/__init__.py",
+          "language": "python",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/advanced_tools.py",
+          "language": "python",
+          "sizeLines": 909,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/api_integrations_v2.py",
+          "language": "python",
+          "sizeLines": 725,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/audio_editor.py",
+          "language": "python",
+          "sizeLines": 395,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/backend/audio/models.py": [],
+        "jarvis/backend/audio/scheduler.py": [],
+        "jarvis/backend/hearing/__init__.py": [],
+        "jarvis/backend/hearing/mic_stream.py": [],
+        "jarvis/backend/hearing/service.py": [],
+        "jarvis/backend/hearing/stt.py": [],
+        "jarvis/backend/memory/__init__.py": [],
+        "jarvis/backend/memory/service.py": [],
+        "jarvis/backend/orchestrator/__init__.py": [],
+        "jarvis/backend/orchestrator/agent.py": [],
+        "jarvis/backend/orchestrator/main.py": [],
+        "jarvis/backend/orchestrator/models.py": [],
+        "jarvis/backend/shared/__init__.py": [],
+        "jarvis/backend/shared/config.py": [],
+        "jarvis/backend/shared/grpc_stubs.py": [],
+        "jarvis/backend/shared/llm_client.py": [],
+        "jarvis/backend/shared/redis_client.py": [],
+        "jarvis/backend/speech/__init__.py": [],
+        "jarvis/backend/speech/lip_sync.py": [],
+        "jarvis/backend/speech/service.py": [],
+        "jarvis/backend/speech/tts_engine.py": [],
+        "jarvis/backend/tools/__init__.py": [],
+        "jarvis/backend/tools/advanced_tools.py": [],
+        "jarvis/backend/tools/api_integrations_v2.py": [],
+        "jarvis/backend/tools/audio_editor.py": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 10,
+      "files": [
+        {
+          "path": "jarvis/backend/tools/autoregister.py",
+          "language": "python",
+          "sizeLines": 517,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/code_tools.py",
+          "language": "python",
+          "sizeLines": 58,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/color_emotion_tools.py",
+          "language": "python",
+          "sizeLines": 282,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/computer_control.py",
+          "language": "python",
+          "sizeLines": 651,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/context_optimizer.py",
+          "language": "python",
+          "sizeLines": 343,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/crypto_tools.py",
+          "language": "python",
+          "sizeLines": 76,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/data_tools.py",
+          "language": "python",
+          "sizeLines": 630,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/email_agent/__init__.py",
+          "language": "python",
+          "sizeLines": 2,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/email_agent/email_agent.py",
+          "language": "python",
+          "sizeLines": 585,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/file_tools.py",
+          "language": "python",
+          "sizeLines": 127,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/health_tools.py",
+          "language": "python",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/info_scraper.py",
+          "language": "python",
+          "sizeLines": 902,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/mcp_sql.py",
+          "language": "python",
+          "sizeLines": 137,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/media_tools.py",
+          "language": "python",
+          "sizeLines": 849,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/meeting_transcriber.py",
+          "language": "python",
+          "sizeLines": 250,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/middleware.py",
+          "language": "python",
+          "sizeLines": 64,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/misc_tools.py",
+          "language": "python",
+          "sizeLines": 69,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/monitoring.db",
+          "language": "db",
+          "sizeLines": 41,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/monitoring.db-shm",
+          "language": "db-shm",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/monitoring.db-wal",
+          "language": "db-wal",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/monitoring.py",
+          "language": "python",
+          "sizeLines": 378,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/multi_agent.py",
+          "language": "python",
+          "sizeLines": 366,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/net_tools.py",
+          "language": "python",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/operation_modes.py",
+          "language": "python",
+          "sizeLines": 176,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/pdf_enhancer/main.py",
+          "language": "python",
+          "sizeLines": 491,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/backend/tools/autoregister.py": [],
+        "jarvis/backend/tools/code_tools.py": [],
+        "jarvis/backend/tools/color_emotion_tools.py": [],
+        "jarvis/backend/tools/computer_control.py": [],
+        "jarvis/backend/tools/context_optimizer.py": [],
+        "jarvis/backend/tools/crypto_tools.py": [],
+        "jarvis/backend/tools/data_tools.py": [],
+        "jarvis/backend/tools/email_agent/__init__.py": [],
+        "jarvis/backend/tools/email_agent/email_agent.py": [],
+        "jarvis/backend/tools/file_tools.py": [],
+        "jarvis/backend/tools/health_tools.py": [],
+        "jarvis/backend/tools/info_scraper.py": [],
+        "jarvis/backend/tools/mcp_sql.py": [],
+        "jarvis/backend/tools/media_tools.py": [],
+        "jarvis/backend/tools/meeting_transcriber.py": [],
+        "jarvis/backend/tools/middleware.py": [],
+        "jarvis/backend/tools/misc_tools.py": [],
+        "jarvis/backend/tools/monitoring.db": [],
+        "jarvis/backend/tools/monitoring.db-shm": [],
+        "jarvis/backend/tools/monitoring.db-wal": [],
+        "jarvis/backend/tools/monitoring.py": [],
+        "jarvis/backend/tools/multi_agent.py": [],
+        "jarvis/backend/tools/net_tools.py": [],
+        "jarvis/backend/tools/operation_modes.py": [],
+        "jarvis/backend/tools/pdf_enhancer/main.py": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 11,
+      "files": [
+        {
+          "path": "jarvis/backend/tools/pdf_enhancer/README.md",
+          "language": "markdown",
+          "sizeLines": 102,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "jarvis/backend/tools/pdf_enhancer/requirements.txt",
+          "language": "txt",
+          "sizeLines": 5,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "jarvis/backend/tools/pdf_tools.py",
+          "language": "python",
+          "sizeLines": 135,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/personality_engine.py",
+          "language": "python",
+          "sizeLines": 761,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/personality.db",
+          "language": "db",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/personality.db-shm",
+          "language": "db-shm",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/personality.db-wal",
+          "language": "db-wal",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/playback_queue.py",
+          "language": "python",
+          "sizeLines": 230,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/plugin_loader.py",
+          "language": "python",
+          "sizeLines": 404,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/plugins/example_plugin.py",
+          "language": "python",
+          "sizeLines": 72,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/plugins/math_plugin.py",
+          "language": "python",
+          "sizeLines": 51,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/qol_features.py",
+          "language": "python",
+          "sizeLines": 390,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/scifi_features.py",
+          "language": "python",
+          "sizeLines": 589,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/scifi.db",
+          "language": "db",
+          "sizeLines": 41,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/scifi.db-shm",
+          "language": "db-shm",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/scifi.db-wal",
+          "language": "db-wal",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/security.db",
+          "language": "db",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/security.db-shm",
+          "language": "db-shm",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/security.db-wal",
+          "language": "db-wal",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/security.py",
+          "language": "python",
+          "sizeLines": 375,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/semantic_cache.py",
+          "language": "python",
+          "sizeLines": 116,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/shopping_assistant.py",
+          "language": "python",
+          "sizeLines": 605,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/system_tools.py",
+          "language": "python",
+          "sizeLines": 56,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/telemetry.py",
+          "language": "python",
+          "sizeLines": 305,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/text_tools.py",
+          "language": "python",
+          "sizeLines": 178,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/backend/tools/pdf_enhancer/README.md": [],
+        "jarvis/backend/tools/pdf_enhancer/requirements.txt": [],
+        "jarvis/backend/tools/pdf_tools.py": [],
+        "jarvis/backend/tools/personality_engine.py": [],
+        "jarvis/backend/tools/personality.db": [],
+        "jarvis/backend/tools/personality.db-shm": [],
+        "jarvis/backend/tools/personality.db-wal": [],
+        "jarvis/backend/tools/playback_queue.py": [],
+        "jarvis/backend/tools/plugin_loader.py": [],
+        "jarvis/backend/tools/plugins/example_plugin.py": [],
+        "jarvis/backend/tools/plugins/math_plugin.py": [],
+        "jarvis/backend/tools/qol_features.py": [],
+        "jarvis/backend/tools/scifi_features.py": [],
+        "jarvis/backend/tools/scifi.db": [],
+        "jarvis/backend/tools/scifi.db-shm": [],
+        "jarvis/backend/tools/scifi.db-wal": [],
+        "jarvis/backend/tools/security.db": [],
+        "jarvis/backend/tools/security.db-shm": [],
+        "jarvis/backend/tools/security.db-wal": [],
+        "jarvis/backend/tools/security.py": [],
+        "jarvis/backend/tools/semantic_cache.py": [],
+        "jarvis/backend/tools/shopping_assistant.py": [],
+        "jarvis/backend/tools/system_tools.py": [],
+        "jarvis/backend/tools/telemetry.py": [],
+        "jarvis/backend/tools/text_tools.py": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 12,
+      "files": [
+        {
+          "path": "jarvis/backend/tools/travel_agent.py",
+          "language": "python",
+          "sizeLines": 95,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/web_scraper.py",
+          "language": "python",
+          "sizeLines": 157,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/tools/webhook_tools.py",
+          "language": "python",
+          "sizeLines": 65,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/vision/__init__.py",
+          "language": "python",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/vision/detector.py",
+          "language": "python",
+          "sizeLines": 275,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/vision/frame_capture.py",
+          "language": "python",
+          "sizeLines": 168,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/vision/recognizer.py",
+          "language": "python",
+          "sizeLines": 208,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/backend/watchdog.py",
+          "language": "python",
+          "sizeLines": 143,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/check_routes.py",
+          "language": "python",
+          "sizeLines": 6,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/docs/API_REFERENCE.md",
+          "language": "markdown",
+          "sizeLines": 94,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "jarvis/docs/DEPLOYMENT_GUIDE.md",
+          "language": "markdown",
+          "sizeLines": 107,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "jarvis/docs/jarvis_documentation.tex",
+          "language": "tex",
+          "sizeLines": 1948,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/examples/plugin_weather.py",
+          "language": "python",
+          "sizeLines": 138,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/index.html",
+          "language": "html",
+          "sizeLines": 23,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "jarvis/frontend/nginx.conf",
+          "language": "conf",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/package.json",
+          "language": "json",
+          "sizeLines": 25,
+          "fileCategory": "config"
+        },
+        {
+          "path": "jarvis/frontend/public/chat.html",
+          "language": "html",
+          "sizeLines": 547,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "jarvis/frontend/public/index.html",
+          "language": "html",
+          "sizeLines": 23,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "jarvis/frontend/src/AgentManager.jsx",
+          "language": "javascript",
+          "sizeLines": 161,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/src/App.jsx",
+          "language": "javascript",
+          "sizeLines": 427,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/src/AudioVisualizer.jsx",
+          "language": "javascript",
+          "sizeLines": 163,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/src/Avatar.jsx",
+          "language": "javascript",
+          "sizeLines": 307,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/src/CameraFeed.jsx",
+          "language": "javascript",
+          "sizeLines": 154,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/src/Controls.jsx",
+          "language": "javascript",
+          "sizeLines": 185,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/src/Dashboard.jsx",
+          "language": "javascript",
+          "sizeLines": 56,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/backend/tools/travel_agent.py": [],
+        "jarvis/backend/tools/web_scraper.py": [],
+        "jarvis/backend/tools/webhook_tools.py": [],
+        "jarvis/backend/vision/__init__.py": [],
+        "jarvis/backend/vision/detector.py": [],
+        "jarvis/backend/vision/frame_capture.py": [],
+        "jarvis/backend/vision/recognizer.py": [],
+        "jarvis/backend/watchdog.py": [],
+        "jarvis/check_routes.py": [],
+        "jarvis/docs/API_REFERENCE.md": [],
+        "jarvis/docs/DEPLOYMENT_GUIDE.md": [],
+        "jarvis/docs/jarvis_documentation.tex": [],
+        "jarvis/examples/plugin_weather.py": [],
+        "jarvis/frontend/index.html": [],
+        "jarvis/frontend/nginx.conf": [],
+        "jarvis/frontend/package.json": [],
+        "jarvis/frontend/public/chat.html": [],
+        "jarvis/frontend/public/index.html": [],
+        "jarvis/frontend/src/AgentManager.jsx": [],
+        "jarvis/frontend/src/App.jsx": [],
+        "jarvis/frontend/src/AudioVisualizer.jsx": [],
+        "jarvis/frontend/src/Avatar.jsx": [],
+        "jarvis/frontend/src/CameraFeed.jsx": [],
+        "jarvis/frontend/src/Controls.jsx": [],
+        "jarvis/frontend/src/Dashboard.jsx": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 13,
+      "files": [
+        {
+          "path": "jarvis/frontend/src/index.jsx",
+          "language": "javascript",
+          "sizeLines": 10,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/src/JarvisStartupAnimation.jsx",
+          "language": "javascript",
+          "sizeLines": 75,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/src/PluginManager.jsx",
+          "language": "javascript",
+          "sizeLines": 118,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/src/TelemetryPanel.jsx",
+          "language": "javascript",
+          "sizeLines": 226,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/frontend/vite.config.js",
+          "language": "javascript",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/locale/de/messages.json",
+          "language": "json",
+          "sizeLines": 30,
+          "fileCategory": "config"
+        },
+        {
+          "path": "jarvis/locale/en/messages.json",
+          "language": "json",
+          "sizeLines": 30,
+          "fileCategory": "config"
+        },
+        {
+          "path": "jarvis/locale/es/messages.json",
+          "language": "json",
+          "sizeLines": 30,
+          "fileCategory": "config"
+        },
+        {
+          "path": "jarvis/locale/fr/messages.json",
+          "language": "json",
+          "sizeLines": 30,
+          "fileCategory": "config"
+        },
+        {
+          "path": "jarvis/locale/zh/messages.json",
+          "language": "json",
+          "sizeLines": 30,
+          "fileCategory": "config"
+        },
+        {
+          "path": "jarvis/mock_modules/mock_camera.py",
+          "language": "python",
+          "sizeLines": 146,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/quick_test.py",
+          "language": "python",
+          "sizeLines": 65,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/scripts/cli.py",
+          "language": "python",
+          "sizeLines": 380,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/start_agent.py",
+          "language": "python",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/test_agent_client.py",
+          "language": "python",
+          "sizeLines": 160,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/test_chat.py",
+          "language": "python",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/test_simple.py",
+          "language": "python",
+          "sizeLines": 53,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/tests/__init__.py",
+          "language": "python",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/tests/stress_100k.py",
+          "language": "python",
+          "sizeLines": 307,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/tests/test_agent.py",
+          "language": "python",
+          "sizeLines": 578,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/tests/test_api_integrations.py",
+          "language": "python",
+          "sizeLines": 928,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/tests/test_comprehensive.py",
+          "language": "python",
+          "sizeLines": 1139,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/tests/test_file_handler.py",
+          "language": "python",
+          "sizeLines": 241,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/tests/test_new_features.py",
+          "language": "python",
+          "sizeLines": 139,
+          "fileCategory": "code"
+        },
+        {
+          "path": "jarvis/tests/test_visualizations.py",
+          "language": "python",
+          "sizeLines": 215,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/frontend/src/index.jsx": [],
+        "jarvis/frontend/src/JarvisStartupAnimation.jsx": [],
+        "jarvis/frontend/src/PluginManager.jsx": [],
+        "jarvis/frontend/src/TelemetryPanel.jsx": [],
+        "jarvis/frontend/vite.config.js": [],
+        "jarvis/locale/de/messages.json": [],
+        "jarvis/locale/en/messages.json": [],
+        "jarvis/locale/es/messages.json": [],
+        "jarvis/locale/fr/messages.json": [],
+        "jarvis/locale/zh/messages.json": [],
+        "jarvis/mock_modules/mock_camera.py": [],
+        "jarvis/quick_test.py": [],
+        "jarvis/scripts/cli.py": [],
+        "jarvis/start_agent.py": [],
+        "jarvis/test_agent_client.py": [],
+        "jarvis/test_chat.py": [],
+        "jarvis/test_simple.py": [],
+        "jarvis/tests/__init__.py": [],
+        "jarvis/tests/stress_100k.py": [],
+        "jarvis/tests/test_agent.py": [],
+        "jarvis/tests/test_api_integrations.py": [],
+        "jarvis/tests/test_comprehensive.py": [],
+        "jarvis/tests/test_file_handler.py": [],
+        "jarvis/tests/test_new_features.py": [],
+        "jarvis/tests/test_visualizations.py": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 14,
+      "files": [
+        {
+          "path": "jarvis/tests/test_web_scraper.py",
+          "language": "python",
+          "sizeLines": 323,
+          "fileCategory": "code"
+        },
+        {
+          "path": "opencode.json",
+          "language": "json",
+          "sizeLines": 6,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "jarvis/tests/test_web_scraper.py": [],
+        "opencode.json": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}
