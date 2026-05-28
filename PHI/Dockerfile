@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY PHI/requirements.txt .
-RUN pip install --no-cache-dir setuptools
+ENV PIP_NO_BUILD_ISOLATION=1
+RUN pip install --no-cache-dir "setuptools<70"
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY PHI/ .
