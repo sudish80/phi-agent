@@ -77,22 +77,36 @@ audio_scheduler = AudioScheduler(audio_manager)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Orchestrator starting up...")
-    await redis.connect("orchestrator")
-    await redis.start_listening()
+
+    async def _safe(name, coro, timeout=5):
+        try:
+            await asyncio.wait_for(coro, timeout=timeout)
+            logger.info(f"{name} ready")
+        except asyncio.TimeoutError:
+            logger.warning(f"{name} timed out after {timeout}s, continuing")
+        except Exception as e:
+            logger.warning(f"{name} failed: {e}")
+
+    await _safe("redis.connect", redis.connect("orchestrator"), 3)
+    await _safe("redis.listen", redis.start_listening(), 2)
     app.state.memory_service = None
 
-    await audio_manager.initialize()
-    audio_scheduler.start()
-    logger.info("AudioManager + AudioScheduler initialized")
+    await _safe("audio_manager.initialize", audio_manager.initialize(), 5)
+    try:
+        audio_scheduler.start()
+        logger.info("AudioScheduler started")
+    except Exception as e:
+        logger.warning(f"AudioScheduler start failed: {e}")
 
-    # Initialize plugin system
     try:
         from backend.tools.plugin_loader import scan_plugins, register_plugin_tools, start_watcher
-        plugin_results = scan_plugins()
+        plugin_results = await asyncio.wait_for(asyncio.to_thread(scan_plugins), timeout=3)
         if plugin_results:
             register_plugin_tools(agent.tools)
-            logger.info(f"Plugin system: {len(plugin_results)} plugin(s) loaded, registered with agent")
+            logger.info(f"Plugin system: {len(plugin_results)} plugin(s) loaded")
         start_watcher(interval=10.0)
+    except asyncio.TimeoutError:
+        logger.warning("Plugin scan timed out")
     except Exception as e:
         logger.warning(f"Plugin system init: {e}")
 
