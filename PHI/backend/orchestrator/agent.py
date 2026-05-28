@@ -86,23 +86,33 @@ def _convert_to_openai_tools(tools_list: List[Dict]) -> List[Dict]:
 _REACT_JSON_RE = re.compile(r'\{\s*"(?:tool|reply)"\s*:')
 
 def _try_parse_tool_call(text: str) -> Optional[Dict]:
-    """Try to extract a JSON tool call from LLM output."""
+    """Try to extract a JSON tool call from LLM output (handles nested braces)."""
     if not _REACT_JSON_RE.search(text):
         return None
-    candidates = re.findall(r'\{[^{}]*\}', text)
-    for c in candidates:
-        try:
-            obj = json.loads(c)
-            if "tool" in obj and isinstance(obj["tool"], str):
-                return {
-                    "name": obj["tool"],
-                    "arguments": obj.get("args", {}),
-                    "thought": obj.get("thought", ""),
-                }
-            if "reply" in obj:
-                return {"reply": obj["reply"]}
-        except (json.JSONDecodeError, TypeError):
-            continue
+    depth = 0
+    start = -1
+    for i, ch in enumerate(text):
+        if ch == '{':
+            if depth == 0:
+                start = i
+            depth += 1
+        elif ch == '}':
+            depth -= 1
+            if depth == 0 and start >= 0:
+                candidate = text[start:i+1]
+                try:
+                    obj = json.loads(candidate)
+                    if "tool" in obj and isinstance(obj["tool"], str):
+                        return {
+                            "name": obj["tool"],
+                            "arguments": obj.get("args", {}),
+                            "thought": obj.get("thought", ""),
+                        }
+                    if "reply" in obj:
+                        return {"reply": obj["reply"]}
+                except (json.JSONDecodeError, TypeError):
+                    pass
+                start = -1
     return None
 
 
@@ -180,8 +190,6 @@ class Agent:
 
         history = self._get_history(session_id)
         all_tools = self.tools.list_tools()
-        openai_tools = _convert_to_openai_tools(all_tools)
-
         system_prompt = self._build_system_prompt(all_tools, emotion)
 
         messages = [{"role": "system", "content": system_prompt}]
@@ -194,7 +202,7 @@ class Agent:
         while step < self._max_react_steps:
             step += 1
             try:
-                response = await llm_client.generate(messages, tools=openai_tools)
+                response = await llm_client.generate(messages)
             except Exception as e:
                 logger.exception("LLM generation failed at step %d", step)
                 messages.append({"role": "assistant", "content": f"Error: {e}"})
@@ -248,6 +256,8 @@ class Agent:
                 if not tool_name:
                     continue
 
+                call_id = call.get("id", "")
+
                 messages.append({
                     "role": "assistant",
                     "content": json.dumps({"tool": tool_name, "args": tool_args}),
@@ -258,12 +268,18 @@ class Agent:
 
                 observation = await self.tools.execute(tool_name, tool_args)
 
-                messages.append({
-                    "role": "tool",
-                    "content": observation,
-                    "tool_call_id": call.get("id", ""),
-                    "name": tool_name,
-                })
+                if call_id:
+                    messages.append({
+                        "role": "tool",
+                        "content": observation,
+                        "tool_call_id": call_id,
+                        "name": tool_name,
+                    })
+                else:
+                    messages.append({
+                        "role": "user",
+                        "content": f"Tool '{tool_name}' returned: {observation[:2000]}",
+                    })
 
         elapsed_ms = (time.time() - process_start) * 1000
         return {
@@ -289,7 +305,6 @@ class Agent:
 
         history = self._get_history(session_id)
         all_tools = self.tools.list_tools()
-        openai_tools = _convert_to_openai_tools(all_tools)
         system_prompt = self._build_system_prompt(all_tools, emotion)
 
         messages = [{"role": "system", "content": system_prompt}]
@@ -303,7 +318,7 @@ class Agent:
             step += 1
 
             try:
-                response = await llm_client.generate(messages, tools=openai_tools)
+                response = await llm_client.generate(messages)
             except Exception as e:
                 logger.exception("Stream LLM generation failed at step %d", step)
                 yield {"type": "token", "content": "\n\nI encountered an error processing your request."}
@@ -340,16 +355,23 @@ class Agent:
 
                 yield {"type": "tool_end", "tool": tool_name, "observation": observation[:500]}
 
+                call_id = call.get("id", "")
                 messages.append({
                     "role": "assistant",
                     "content": json.dumps({"tool": tool_name, "args": tool_args}),
                 })
-                messages.append({
-                    "role": "tool",
-                    "content": observation,
-                    "tool_call_id": call.get("id", ""),
-                    "name": tool_name,
-                })
+                if call_id:
+                    messages.append({
+                        "role": "tool",
+                        "content": observation,
+                        "tool_call_id": call_id,
+                        "name": tool_name,
+                    })
+                else:
+                    messages.append({
+                        "role": "user",
+                        "content": f"Tool '{tool_name}' returned: {observation[:2000]}",
+                    })
 
         self._add_to_history(session_id, "assistant", full_reply)
         yield {"type": "done", "reply": full_reply, "emotion": "neutral"}
@@ -363,26 +385,35 @@ class Agent:
     def _build_system_prompt(self, all_tools: List[Dict], emotion: str) -> str:
         from backend.shared.config import settings
 
-        tools_json = []
+        def _short_sig(t: Dict) -> str:
+            params = t.get("parameters", {}).get("properties", {})
+            required = set(t.get("parameters", {}).get("required", []))
+            parts = []
+            for name, schema in params.items():
+                prefix = "*" if name in required else ""
+                ptype = schema.get("type", "str")
+                parts.append(f"{prefix}{name}:{ptype}")
+            sig = ", ".join(parts)
+            return f"{t['name']}({sig})" if sig else t['name']
+
+        cats: Dict[str, List[str]] = {}
         for t in all_tools:
-            tools_json.append({
-                "name": t["name"],
-                "description": t.get("description", ""),
-                "parameters": t.get("parameters", {}),
-            })
+            cat = t.get("category", "other") or "other"
+            cats.setdefault(cat, []).append(_short_sig(t))
+
+        lines = [f"  [{cat}]" + "".join(f"\n    {n}" for n in names) for cat, names in sorted(cats.items())]
+        tools_summary = "\n".join(lines)
 
         return (
-            f"You are {settings.phi_wake_word.title()}, an AI assistant created by {settings.user_name}.\n"
-            f"You have access to the following tools. Use them when needed to fulfill the user's request.\n\n"
-            f"# Available Tools\n"
-            f"{json.dumps(tools_json, indent=2)}\n\n"
+            f"You are {settings.phi_wake_word.title()}, an AI assistant created by {settings.user_name}.\n\n"
+            f"# Tools ({len(all_tools)}) — param prefix * = required\n"
+            f"{tools_summary}\n\n"
             f"# Instructions\n"
-            f"1. When you need to use a tool, respond with JSON: {{\"tool\": \"name\", \"args\": {{...}}}}\n"
-            f"2. When you have the final answer, respond with JSON: {{\"reply\": \"your response\"}}\n"
-            f"3. You can also just reply normally with text if no tool is needed.\n"
-            f"4. Be helpful, concise, and friendly.\n"
-            f"5. If the user asks you to do something you cannot help with, politely decline.\n\n"
-            f"Current user emotion: {emotion}\n"
+            f"- To use a tool, output JSON: {{\"tool\": \"<name>\", \"args\": {{...}}}}\n"
+            f"- To give a final answer, output JSON: {{\"reply\": \"...\"}} or plain text.\n"
+            f"- {settings.phi_wake_word.title()} is proactive and autonomous.\n"
+            f"- Use tools without asking permission unless the tool description says otherwise.\n"
+            f"- Current user emotion: {emotion}\n"
         )
 
 
