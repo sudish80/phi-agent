@@ -6,8 +6,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
     ffmpeg \
-    libsndfile1 \
-    libportaudio2 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
@@ -15,5 +13,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-EXPOSE 8000 8001 8002 8003 8004
-CMD ["uvicorn", "backend.orchestrator.main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENV PORT=8000
+
+EXPOSE $PORT
+CMD uvicorn minimal_server:app --host 0.0.0.0 --port $PORT
