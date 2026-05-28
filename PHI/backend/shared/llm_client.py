@@ -33,6 +33,7 @@ class LLMProvider(str, Enum):
     ANTHROPIC = "anthropic"
     DEEPSEEK = "deepseek"
     OPENROUTER = "openrouter"
+    NVIDIA = "nvidia"
     LOCAL = "local"
     OLLAMA = "ollama"
 
@@ -469,6 +470,90 @@ class OpenRouterProvider(BaseLLMProvider):
                             continue
 
 
+class NVIDIAProvider(BaseLLMProvider):
+    """NVIDIA NIM / API Catalog provider (OpenAI-compatible)."""
+
+    def __init__(self, config: LLMConfig):
+        super().__init__(config)
+        self.api_key = config.api_key or settings.nvidia_api_key
+        self.base_url = config.base_url or "https://integrate.api.nvidia.com/v1"
+
+    async def generate(self, messages: List[LLMMessage], tools: List[Dict] = None) -> LLMResponse:
+        start = time.time()
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+        }
+        payload = {
+            "model": self.config.model,
+            "messages": self._format_messages(messages),
+            "temperature": self.config.temperature,
+            "max_tokens": self.config.max_tokens,
+        }
+        async with aiohttp.ClientSession() as session:
+            for attempt in range(self.config.max_retries):
+                try:
+                    async with session.post(
+                        f"{self.base_url}/chat/completions",
+                        headers=headers,
+                        json=payload,
+                        timeout=aiohttp.ClientTimeout(total=self.config.timeout),
+                    ) as resp:
+                        resp.raise_for_status()
+                        data = await resp.json()
+                        choice = data["choices"][0]
+                        return LLMResponse(
+                            content=choice["message"]["content"] or "",
+                            provider=LLMProvider.NVIDIA,
+                            model=data.get("model", self.config.model),
+                            usage={
+                                "prompt_tokens": data.get("usage", {}).get("prompt_tokens", 0),
+                                "completion_tokens": data.get("usage", {}).get("completion_tokens", 0),
+                                "total_tokens": data.get("usage", {}).get("total_tokens", 0),
+                            },
+                            latency_ms=(time.time() - start) * 1000,
+                            finish_reason=choice.get("finish_reason", "stop"),
+                            raw=data,
+                        )
+                except Exception as e:
+                    if attempt == self.config.max_retries - 1:
+                        raise
+                    await asyncio.sleep(2 ** attempt)
+
+    async def generate_stream(self, messages: List[LLMMessage]) -> AsyncGenerator[str, None]:
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+        }
+        payload = {
+            "model": self.config.model,
+            "messages": self._format_messages(messages),
+            "temperature": self.config.temperature,
+            "max_tokens": self.config.max_tokens,
+            "stream": True,
+        }
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                f"{self.base_url}/chat/completions",
+                headers=headers,
+                json=payload,
+                timeout=aiohttp.ClientTimeout(total=self.config.timeout),
+            ) as resp:
+                async for line in resp.content:
+                    line = line.decode("utf-8").strip()
+                    if line.startswith("data: "):
+                        data_str = line[6:]
+                        if data_str == "[DONE]":
+                            break
+                        try:
+                            data = json.loads(data_str)
+                            delta = data["choices"][0]["delta"]
+                            if "content" in delta and delta["content"]:
+                                yield delta["content"]
+                        except (json.JSONDecodeError, KeyError):
+                            continue
+
+
 class LocalProvider(BaseLLMProvider):
     """Local LLM provider (Ollama, llama.cpp, vLLM, etc.)."""
 
@@ -604,6 +689,7 @@ def _get_provider(config: LLMConfig) -> BaseLLMProvider:
             LLMProvider.ANTHROPIC: AnthropicProvider,
             LLMProvider.DEEPSEEK: DeepSeekProvider,
             LLMProvider.OPENROUTER: OpenRouterProvider,
+            LLMProvider.NVIDIA: NVIDIAProvider,
             LLMProvider.LOCAL: LocalProvider,
             LLMProvider.OLLAMA: OllamaProvider,
         }
@@ -622,69 +708,45 @@ class LLMClient:
     def _build_provider_chain(self) -> List[LLMConfig]:
         """Build provider chain based on configured credentials.
         
-        Prioritizes providers that have API keys configured over those that don't.
+        The user's preferred LLM_PROVIDER is tried first, then other providers
+        that have API keys, falling back to local LLM.
         """
+        all_providers = [
+            (LLMProvider.OPENAI, settings.openai_api_key),
+            (LLMProvider.ANTHROPIC, settings.anthropic_api_key),
+            (LLMProvider.OPENROUTER, settings.openrouter_api_key),
+            (LLMProvider.NVIDIA, settings.nvidia_api_key),
+        ]
+
+        preferred = getattr(LLMProvider, settings.llm_provider.upper(), None)
+        ordered = []
+        if preferred:
+            ordered.append(preferred)
+        ordered.extend([p for p, _ in all_providers if p != preferred])
+
         chain = []
-        providers_with_keys = []
-        providers_without_keys = []
+        tried_preferred = False
+        for provider in ordered:
+            api_key = dict(all_providers).get(provider)
+            if api_key:
+                cfg = LLMConfig(provider=provider, model=settings.llm_model)
+                if provider == preferred and not tried_preferred:
+                    tried_preferred = True
+                chain.append(cfg)
+                logger.info(f"{provider.value.capitalize()} configured (has API key)")
 
-        # Check which providers have API keys configured
-        if settings.openai_api_key:
-            providers_with_keys.append(LLMConfig(
-                provider=LLMProvider.OPENAI,
-                model=settings.llm_model
-            ))
-            logger.info("OpenAI configured (has API key)")
-        else:
-            providers_without_keys.append(("openai", LLMConfig(
-                provider=LLMProvider.OPENAI,
-                model=settings.llm_model
-            )))
-
-        if settings.anthropic_api_key:
-            providers_with_keys.append(LLMConfig(
-                provider=LLMProvider.ANTHROPIC,
-                model=settings.llm_model
-            ))
-            logger.info("Anthropic configured (has API key)")
-        else:
-            providers_without_keys.append(("anthropic", LLMConfig(
-                provider=LLMProvider.ANTHROPIC,
-                model=settings.llm_model
-            )))
-
-        if settings.openrouter_api_key:
-            providers_with_keys.append(LLMConfig(
-                provider=LLMProvider.OPENROUTER,
-                model=settings.llm_model
-            ))
-            logger.info("OpenRouter configured (has API key)")
-        else:
-            providers_without_keys.append(("openrouter", LLMConfig(
-                provider=LLMProvider.OPENROUTER,
-                model=settings.llm_model
-            )))
-
-        # Local providers (always available)
-        local_config = LLMConfig(
+        # Always add local as last resort
+        chain.append(LLMConfig(
             provider=LLMProvider.LOCAL,
             model=settings.local_llm_model,
             base_url=settings.local_llm_url,
-        )
-        providers_with_keys.append(local_config)
+        ))
         logger.info("Local LLM available (always accessible)")
 
-        # Build final chain: configured providers first, then unconfigured ones
-        chain = providers_with_keys
-
-        # If no configured cloud providers, add unconfigured ones as fallback
-        if not any(p.provider in [LLMProvider.OPENAI, LLMProvider.ANTHROPIC, LLMProvider.OPENROUTER] 
-                   for p in providers_with_keys):
+        if not chain or (len(chain) == 1 and chain[0].provider == LLMProvider.LOCAL):
             logger.warning("No cloud API keys configured. Will use local LLM only.")
-            for _, cfg in providers_without_keys:
-                chain.append(cfg)
 
-        logger.info(f"Provider chain built (in priority order): {[p.provider.value for p in chain]}")
+        logger.info(f"Provider chain: {[p.provider.value for p in chain]}")
         return chain
 
     async def generate(self, messages: List[Union[Dict, LLMMessage]],
