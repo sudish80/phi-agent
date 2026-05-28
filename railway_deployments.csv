@@ -1,0 +1,8 @@
+﻿DeploymentID,Status,Timestamp,Notes
+d9a02be1,FAILED,2026-05-28T05:00:16Z,Railpack could not determine how to build - root directory not set
+116f94f7,FAILED,2026-05-28T05:06:47Z,Railpack found Dockerfile but requirements.txt not found at repo root
+0d501a3e,FAILED,2026-05-28T05:08:40Z,pkg_resources not found - openai-whisper needs old setuptools
+4c7d4f97,FAILED,2026-05-28T05:21:59Z,Pandas dependency conflict TTS<2.0 vs pandas>=2.0
+1767f444,FAILED,2026-05-28T05:12:24Z,anyio>=4.5 vs <4 conflict between mcp-sql-server and fastapi/httpx
+7cdb4539,FAILED,2026-05-28T05:18:59Z,Pydantic version conflict - fastapi>=0.109 needs pydantic>=2.7
+e79fc85e,FAILED,2026-05-28T05:37:28Z,Build succeeded! Container crash at runtime - likely import error or OOM

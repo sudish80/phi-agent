@@ -1,17 +1,41 @@
 """Minimal FastAPI server for PHI Agent UI testing."""
 
-import sys, json, time, traceback
+import sys, json, time, traceback, logging
 from pathlib import Path
 from typing import Optional, Dict, Any
+from contextlib import asynccontextmanager
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from backend.orchestrator.agent import agent
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+)
+logger = logging.getLogger("phi.server")
 
-app = FastAPI(title="PHI Agent")
+agent = None
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global agent
+    logger.info("Loading PHI Agent...")
+    try:
+        from backend.orchestrator.agent import agent as _agent
+        agent = _agent
+        logger.info("Agent loaded successfully")
+    except Exception as e:
+        logger.error("Failed to load agent: %s", e)
+        logger.error(traceback.format_exc())
+        agent = None
+    yield
+    logger.info("PHI Agent shutting down")
+
+
+app = FastAPI(title="PHI Agent", lifespan=lifespan)
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
@@ -31,6 +55,8 @@ async def health():
 
 @app.get("/status")
 async def status():
+    if agent is None:
+        return {"status": "degraded", "error": "agent not loaded"}
     return {
         "status": "ok",
         "total_tools": len(agent.tools),
@@ -42,6 +68,8 @@ async def status():
 
 @app.post("/chat")
 async def chat(req: ChatInput):
+    if agent is None:
+        raise HTTPException(status_code=503, detail="Agent not available")
     start = time.time()
     try:
         result = await agent.process(req.message, req.session_id, req.image, req.emotion)
