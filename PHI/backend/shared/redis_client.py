@@ -61,11 +61,14 @@ class RedisPubSub:
     async def disconnect(self) -> None:
         self._running = False
         if self._pubsub:
-            await self._pubsub.unsubscribe()
+            try: await self._pubsub.unsubscribe()
+            except: pass
         if self._pub:
-            await self._pub.aclose()
+            try: await self._pub.aclose()
+            except: pass
         if self._sub:
-            await self._sub.aclose()
+            try: await self._sub.aclose()
+            except: pass
 
     async def publish(self, channel: str, payload: Dict[str, Any]) -> None:
         msg = Message(

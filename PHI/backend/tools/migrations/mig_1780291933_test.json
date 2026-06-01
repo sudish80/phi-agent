@@ -1,0 +1,8 @@
+{
+  "id": "mig_1780291933",
+  "name": "test",
+  "sql_up": "test",
+  "sql_down": "test",
+  "created_at": "2026-06-01T05:32:13.875806+00:00",
+  "applied": false
+}

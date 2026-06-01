@@ -29,10 +29,12 @@ function EqualizerBars({ data, isActive, color }) {
   );
 }
 
+const C = { canvas: '#f7f7f4', ink: '#26251e', primary: '#f54e00', border: '#e6e5e0' };
+
 function AudioVisualizer({ audioLevel = 0, equalizerData = [], isSpeaking = false, isListening = false }) {
   const levelPercent = Math.min(100, audioLevel * 100);
   const isActive = isSpeaking || isListening;
-  const color = isSpeaking ? '#00ff88' : (isListening ? '#ff8800' : '#00d4ff');
+  const color = isSpeaking ? '#22c55e' : (isListening ? C.primary : '#888');
   const modeLabel = isSpeaking ? 'TALKING' : (isListening ? 'LISTENING' : 'IDLE');
 
   return (
@@ -88,15 +90,15 @@ function AudioVisualizer({ audioLevel = 0, equalizerData = [], isSpeaking = fals
 
 const styles = {
   container: {
-    background: 'rgba(0, 20, 40, 0.5)',
+    background: '#fff',
     borderRadius: 12,
     padding: 12,
-    border: '1px solid rgba(0, 212, 255, 0.15)',
+    border: `1px solid ${C.border}`,
   },
   header: {
     fontSize: '0.75rem',
     fontWeight: 600,
-    color: '#00d4ff',
+    color: C.ink,
     textTransform: 'uppercase',
     letterSpacing: 1,
     marginBottom: 8,
@@ -106,7 +108,7 @@ const styles = {
   },
   levelTrack: {
     height: 6,
-    background: 'rgba(255,255,255,0.1)',
+    background: C.canvas,
     borderRadius: 3,
     overflow: 'hidden',
   },
@@ -117,7 +119,7 @@ const styles = {
   },
   levelLabel: {
     fontSize: '0.6rem',
-    color: '#5a7a8a',
+    color: '#888',
     marginTop: 4,
     textAlign: 'right',
     letterSpacing: 1,

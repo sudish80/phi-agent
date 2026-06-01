@@ -1,4 +1,4 @@
-"""Notification module for J.A.R.V.I.S.
+"""Notification module for PHI
 
 Desktop push notifications and message sending.
 """
@@ -21,7 +21,7 @@ async def notify_desktop(title: str, message: str) -> str:
                 title=title,
                 message=message,
                 timeout=10,
-                app_name="J.A.R.V.I.S.",
+                app_name="PHI",
             )
             return f"Notification sent: {title}"
         except ImportError:
@@ -35,8 +35,8 @@ async def notify_desktop(title: str, message: str) -> str:
 async def notify_sound(message: str) -> str:
     """Play a text-to-speech notification sound (uses TTS engine)."""
     try:
-        from backend.speech.tts_engine import JarvisTTS
-        tts = JarvisTTS()
+        from backend.speech.tts_engine import PhiTTS
+        tts = PhiTTS()
         await tts.synthesize(message)
         return f"Spoken notification: {message}"
     except Exception as e:

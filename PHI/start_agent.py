@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Start J.A.R.V.I.S. Agent Server"""
+"""Start PHI Agent Server"""
 
 import sys
 import subprocess
 
-print("[JARVIS] Starting J.A.R.V.I.S. Agent Server...")
+print("[PHI] Starting PHI Agent Server...")
 print("=" * 70)
 print("Server will run on http://localhost:8000")
 print("Press Ctrl+C to stop")
@@ -20,7 +20,7 @@ try:
         "--reload"
     ])
 except KeyboardInterrupt:
-    print("\n\n[JARVIS] Server stopped")
+    print("\n\n[PHI] Server stopped")
 except Exception as e:
     print(f"[ERROR] Error starting server: {e}")
     sys.exit(1)

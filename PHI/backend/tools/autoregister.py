@@ -431,10 +431,11 @@ def get_code_tools():
 
 
 def get_system_tools():
-    from backend.tools.system_tools import system_info, disk_usage
+    from backend.tools.system_tools import system_info, disk_usage, open_url
     return [
         _make_tool("system_info", "Get system information: OS, hostname, Python, CPU, RAM, processes", {"type": "object", "properties": {}, "required": []}, system_info, "system"),
         _make_tool("disk_usage", "Check disk usage for a path", {"type": "object", "properties": {"path": {"type": "string", "description": "Path to check (default current directory)"}}, "required": []}, disk_usage, "system"),
+        _make_tool("open_url", "Open a website or URL in the default web browser. Use your own knowledge to expand short names (e.g., 'yt' → youtube.com, 'gh' → github.com) before calling.", {"type": "object", "properties": {"url": {"type": "string", "description": "Full URL or expanded website name (e.g., 'youtube.com', 'github.com', 'https://example.com')"}}, "required": ["url"]}, open_url, "system"),
     ]
 
 
@@ -446,6 +447,52 @@ def get_webhook_tools():
         _make_tool("webhook_list", "List all registered webhooks", {"type": "object", "properties": {}, "required": []}, webhook_list, "system"),
         _make_tool("webhook_delete", "Delete a registered webhook", {"type": "object", "properties": {"name": {"type": "string", "description": "Webhook name to delete"}}, "required": ["name"]}, webhook_delete, "system"),
     ]
+
+
+def get_smart_file_tools():
+    from backend.tools.smart_file_tools import (
+        pdf_read_smart, docx_read_smart, file_read_smart,
+        approve_document_read, deny_document_read,
+        get_file_reading_status, toggle_file_reading,
+    )
+    return [
+        _make_tool("pdf_read_smart", "Read a PDF file with smart approval workflow — returns summary first, requires user approval for full content", {"type": "object", "properties": {"path": {"type": "string", "description": "Path to PDF file"}, "user_id": {"type": "string", "description": "User ID (default 'default')"}}, "required": ["path"]}, pdf_read_smart, "utility"),
+        _make_tool("docx_read_smart", "Read a DOCX file with smart approval workflow — returns summary first, requires user approval for full content", {"type": "object", "properties": {"path": {"type": "string", "description": "Path to DOCX file"}, "user_id": {"type": "string", "description": "User ID (default 'default')"}}, "required": ["path"]}, docx_read_smart, "utility"),
+        _make_tool("file_read_smart", "Read a text file with smart approval workflow — returns summary first, requires user approval for full content", {"type": "object", "properties": {"path": {"type": "string", "description": "Path to file"}, "user_id": {"type": "string", "description": "User ID (default 'default')"}}, "required": ["path"]}, file_read_smart, "utility"),
+        _make_tool("approve_document_read", "Approve reading a document after viewing its summary. Pass the approval_token from pdf_read_smart/docx_read_smart/file_read_smart.", {"type": "object", "properties": {"approval_token": {"type": "string", "description": "Approval token from the smart read function"}, "user_id": {"type": "string", "description": "User ID (default 'default')"}}, "required": ["approval_token"]}, approve_document_read, "utility"),
+        _make_tool("deny_document_read", "Deny reading a document after viewing its summary", {"type": "object", "properties": {"approval_token": {"type": "string", "description": "Approval token from the smart read function"}, "user_id": {"type": "string", "description": "User ID (default 'default')"}}, "required": ["approval_token"]}, deny_document_read, "utility"),
+        _make_tool("get_file_reading_status", "Get current file reading status, rate limits, and permissions", {"type": "object", "properties": {"user_id": {"type": "string", "description": "User ID (default 'default')"}}, "required": []}, get_file_reading_status, "utility"),
+        _make_tool("toggle_file_reading", "Enable or disable all file reading for a user", {"type": "object", "properties": {"user_id": {"type": "string", "description": "User ID (default 'default')"}, "enabled": {"type": "boolean", "description": "True to enable, False to disable"}}, "required": ["enabled"]}, toggle_file_reading, "utility"),
+    ]
+
+
+def get_file_converter_tools():
+    from backend.tools.file_converter_tools import get_file_converter_tools as _gfct
+    return _gfct()
+
+
+def get_download_tools():
+    from backend.tools.download_engine_tools import get_download_tools as _gdt
+    return _gdt()
+
+
+def get_browser_tools():
+    from backend.tools.browser_tools import get_browser_tools as _gbt
+    return _gbt()
+
+
+def get_credential_tools():
+    from backend.tools.credential_manager import get_credential_tools as _gct
+    return _gct()
+
+
+def get_massive_tools_safe():
+    try:
+        from backend.tools.massive_tools import get_massive_tools
+        return get_massive_tools()
+    except Exception:
+        logger.exception("Failed to load massive tools")
+        return []
 
 
 def get_all_tool_batches():
@@ -476,6 +523,13 @@ def get_all_tool_batches():
         get_media_tools(),
         get_advanced_tools(),
         get_color_emotion_tools(),
+        get_scrapy_tools(),
+        get_smart_file_tools(),
+        get_file_converter_tools(),
+        get_download_tools(),
+        get_browser_tools(),
+        get_credential_tools(),
+        get_massive_tools_safe(),
     ]
 
 
@@ -492,6 +546,15 @@ def get_media_tools():
 def get_advanced_tools():
     from backend.tools.advanced_tools import get_advanced_tools as _gat
     return _gat()
+
+
+def get_scrapy_tools():
+    from backend.tools.scrapy_tools import scrape_page_scrapy, scrape_multiple_scrapy, scrape_search_scrapy
+    return [
+        _make_tool("scrape_page_scrapy", "Scrape a URL using Scrapy — returns clean content, headings, links optimized for LLM analysis", {"type": "object", "properties": {"url": {"type": "string", "description": "URL to scrape"}}, "required": ["url"]}, scrape_page_scrapy, "web"),
+        _make_tool("scrape_multiple_scrapy", "Scrape multiple URLs concurrently — returns structured content for each", {"type": "object", "properties": {"urls": {"type": "array", "items": {"type": "string"}, "description": "List of URLs to scrape"}}, "required": ["urls"]}, scrape_multiple_scrapy, "web"),
+        _make_tool("scrape_search_scrapy", "Search the web via DuckDuckGo using Scrapy — returns search results for LLM", {"type": "object", "properties": {"query": {"type": "string", "description": "Search query"}, "max_results": {"type": "integer", "description": "Max results (default 5)"}}, "required": ["query"]}, scrape_search_scrapy, "web"),
+    ]
 
 
 def get_color_emotion_tools():

@@ -26,7 +26,7 @@ from backend.speech.lip_sync import lip_sync_gen
 
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="J.A.R.V.I.S. Speech Service", version="1.0.0")
+app = FastAPI(title="PHI Speech Service", version="1.0.0")
 redis = RedisPubSub()
 
 # Metrics tracking
@@ -95,7 +95,7 @@ async def startup():
                         "status": "ok",
                         "data": {"voices": [{
                             "id": settings.tts_voice_id,
-                            "name": "JARVIS",
+                            "name": "PHI",
                             "engine": settings.tts_engine,
                         }]},
                     })
@@ -170,7 +170,7 @@ async def synthesize(request: SynthesizeRequest):
 async def get_voices():
     return {
         "voices": [
-            {"id": settings.tts_voice_id, "name": "JARVIS", "engine": settings.tts_engine},
+            {"id": settings.tts_voice_id, "name": "PHI", "engine": settings.tts_engine},
         ]
     }
 

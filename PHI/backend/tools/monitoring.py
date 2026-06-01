@@ -330,8 +330,8 @@ async def log_get(level: Optional[str] = None, component: Optional[str] = None,
 
 async def metrics_prometheus() -> str:
     db = _get_db()
-    lines = ["# HELP jarvis_metrics JARVIS system metrics",
-             "# TYPE jarvis_metrics gauge"]
+    lines = ["# HELP phi_metrics PHI system metrics",
+             "# TYPE phi_metrics gauge"]
     # Active metrics from DB
     rows = db.execute("""
         SELECT name, AVG(value) as val FROM metrics_events
@@ -346,25 +346,25 @@ async def metrics_prometheus() -> str:
             ON m1.id = m2.max_id
         """).fetchall()
     for r in rows:
-        lines.append(f'jarvis_{r["name"].replace(" ", "_").replace(".", "_")}{{source="db"}} {r["value"]}')
+        lines.append(f'phi_{r["name"].replace(" ", "_").replace(".", "_")}{{source="db"}} {r["value"]}')
     # LLM stats
     llm = db.execute("SELECT COUNT(*) as c, SUM(total_tokens) as t, SUM(cost_usd) as cost FROM llm_calls").fetchone()
-    lines.append(f'jarvis_llm_calls_total {llm["c"]}')
-    lines.append(f'jarvis_llm_tokens_total {llm["t"] or 0}')
-    lines.append(f'jarvis_llm_cost_total_usd {round(llm["cost"] or 0, 4)}')
+    lines.append(f'phi_llm_calls_total {llm["c"]}')
+    lines.append(f'phi_llm_tokens_total {llm["t"] or 0}')
+    lines.append(f'phi_llm_cost_total_usd {round(llm["cost"] or 0, 4)}')
     # Tool stats
     tool = db.execute("SELECT COUNT(*) as c, AVG(duration_ms) as avg_dur FROM tool_calls").fetchone()
-    lines.append(f'jarvis_tool_calls_total {tool["c"]}')
-    lines.append(f'jarvis_tool_avg_duration_ms {round(tool["avg_dur"] or 0, 1)}')
+    lines.append(f'phi_tool_calls_total {tool["c"]}')
+    lines.append(f'phi_tool_avg_duration_ms {round(tool["avg_dur"] or 0, 1)}')
     # Error count
     err = db.execute("SELECT COUNT(*) as c FROM metrics_events WHERE name='error'").fetchone()
-    lines.append(f'jarvis_errors_total {err["c"]}')
+    lines.append(f'phi_errors_total {err["c"]}')
     # Uptime
     first = db.execute("SELECT MIN(timestamp) FROM metrics_events").fetchone()[0]
     uptime = 0
     if first:
         uptime = (datetime.now(timezone.utc) - datetime.fromisoformat(first)).total_seconds()
-    lines.append(f'jarvis_uptime_seconds {round(uptime, 1)}')
+    lines.append(f'phi_uptime_seconds {round(uptime, 1)}')
     return "\n".join(lines)
 
 

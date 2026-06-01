@@ -18,6 +18,19 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
+# PDF and DOCX reading support
+try:
+    import PyPDF2
+    HAS_PYPDF = True
+except ImportError:
+    HAS_PYPDF = False
+
+try:
+    from docx import Document
+    HAS_DOCX = True
+except ImportError:
+    HAS_DOCX = False
+
 # ======================================================================
 # GEO TOOLS (10)
 # ======================================================================
@@ -685,6 +698,134 @@ def geo_ip_to_coords(ip: str) -> str:
     except: return f"Could not locate {ip}"
 
 # ======================================================================
+# PDF & DOCX READING
+# ======================================================================
+
+def pdf_read(path: str, page: int = -1, user_id: str = "unknown") -> str:
+    """Read PDF file. page=-1 reads all pages, otherwise specify page number (0-indexed)."""
+    if not HAS_PYPDF:
+        return "PyPDF2 not installed. Install with: pip install PyPDF2"
+    try:
+        from backend.shared.audit_logging import log_file_access
+        
+        with open(path, 'rb') as f:
+            pdf = PyPDF2.PdfReader(f)
+            num_pages = len(pdf.pages)
+            
+            if page < 0:  # Read all pages
+                text = ""
+                for i, p in enumerate(pdf.pages):
+                    text += f"\n--- Page {i+1} ---\n"
+                    text += p.extract_text() or ""
+                result = text[:50000]  # Limit to 50KB
+            elif 0 <= page < num_pages:
+                result = pdf.pages[page].extract_text() or f"Page {page} has no text"
+            else:
+                result = f"Invalid page number. PDF has {num_pages} pages"
+        
+        # Log the access
+        log_file_access(
+            user_id=user_id,
+            file_path=path,
+            operation="pdf_read",
+            file_type="pdf",
+            file_size=os.path.getsize(path),
+            status="success",
+            extracted_size=len(result),
+            approved=1
+        )
+        
+        return result
+    except FileNotFoundError:
+        log_file_access(user_id, path, "pdf_read", "pdf", status="error", error="File not found")
+        return f"File not found: {path}"
+    except Exception as e:
+        log_file_access(user_id, path, "pdf_read", "pdf", status="error", error=str(e))
+        return f"Error reading PDF: {str(e)}"
+
+def docx_read(path: str, user_id: str = "unknown") -> str:
+    """Read DOCX (Word) document and extract all text."""
+    if not HAS_DOCX:
+        return "python-docx not installed. Install with: pip install python-docx"
+    try:
+        from backend.shared.audit_logging import log_file_access
+        
+        doc = Document(path)
+        text = ""
+        
+        # Extract paragraphs
+        for para in doc.paragraphs:
+            text += para.text + "\n"
+        
+        # Extract text from tables
+        for table in doc.tables:
+            text += "\n[TABLE]\n"
+            for row in table.rows:
+                for cell in row.cells:
+                    text += cell.text + " | "
+                text += "\n"
+        
+        result = text[:50000]  # Limit to 50KB
+        
+        # Log the access
+        log_file_access(
+            user_id=user_id,
+            file_path=path,
+            operation="docx_read",
+            file_type="docx",
+            file_size=os.path.getsize(path),
+            status="success",
+            extracted_size=len(result),
+            approved=1
+        )
+        
+        return result
+    except FileNotFoundError:
+        log_file_access(user_id, path, "docx_read", "docx", status="error", error="File not found")
+        return f"File not found: {path}"
+    except Exception as e:
+        log_file_access(user_id, path, "docx_read", "docx", status="error", error=str(e))
+        return f"Error reading DOCX: {str(e)}"
+
+def pdf_page_count(path: str) -> str:
+    """Get total number of pages in PDF."""
+    if not HAS_PYPDF:
+        return "PyPDF2 not installed. Install with: pip install PyPDF2"
+    try:
+        with open(path, 'rb') as f:
+            pdf = PyPDF2.PdfReader(f)
+            return str(len(pdf.pages))
+    except FileNotFoundError:
+        return f"File not found: {path}"
+    except Exception as e:
+        return f"Error reading PDF: {str(e)}"
+
+def docx_metadata(path: str) -> str:
+    """Get DOCX document metadata (title, author, subject, created date, etc)."""
+    if not HAS_DOCX:
+        return "python-docx not installed. Install with: pip install python-docx"
+    try:
+        doc = Document(path)
+        props = doc.core_properties
+        metadata = {
+            "title": props.title or "",
+            "author": props.author or "",
+            "subject": props.subject or "",
+            "created": str(props.created) if props.created else "",
+            "modified": str(props.modified) if props.modified else "",
+            "category": props.category or "",
+            "comments": props.comments or "",
+            "paragraphs": len(doc.paragraphs),
+            "tables": len(doc.tables),
+        }
+        return json.dumps(metadata, indent=2)
+    except FileNotFoundError:
+        return f"File not found: {path}"
+    except Exception as e:
+        return f"Error reading DOCX: {str(e)}"
+
+ 
+# ======================================================================
 # BATCH FUNCTION
 # ======================================================================
 
@@ -845,5 +986,14 @@ def get_media_tools():
         ("geo_ip_to_coords","Look up approximate coordinates for an IP",{"type":"object","properties":{"ip":{"type":"string"}},"required":["ip"]},geo_ip_to_coords),
     ]
     tools_data.extend(format_tools)
+
+    # document (4) - PDF and DOCX reading
+    document_tools = [
+        ("pdf_read","Read PDF file and extract text (all pages or specific page)",{"type":"object","properties":{"path":{"type":"string"},"page":{"type":"integer","description":"Page number (0-indexed), -1 for all pages"}},"required":["path"]},pdf_read),
+        ("pdf_page_count","Get total number of pages in PDF file",{"type":"object","properties":{"path":{"type":"string"}},"required":["path"]},pdf_page_count),
+        ("docx_read","Read DOCX (Word) document and extract all text and tables",{"type":"object","properties":{"path":{"type":"string"}},"required":["path"]},docx_read),
+        ("docx_metadata","Get DOCX document metadata (title, author, created date, etc)",{"type":"object","properties":{"path":{"type":"string"}},"required":["path"]},docx_metadata),
+    ]
+    tools_data.extend(document_tools)
 
     return [_make_tool(n,d,p,h,"utility") for n,d,p,h in tools_data]

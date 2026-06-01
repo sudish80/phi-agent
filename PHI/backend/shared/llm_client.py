@@ -51,6 +51,7 @@ class LLMMessage:
     content: str
     name: Optional[str] = None
     tool_call_id: Optional[str] = None
+    tool_calls: Optional[List[Dict]] = None
 
 
 @dataclass
@@ -144,10 +145,22 @@ class BaseLLMProvider(ABC):
         ...
 
     def _format_messages(self, messages: List[LLMMessage]) -> List[Dict]:
-        return [
-            {"role": m.role.value, "content": m.content}
-            for m in messages
-        ]
+        result = []
+        for m in messages:
+            entry = {"role": m.role.value}
+            if m.role == LLMRole.TOOL:
+                entry["content"] = m.content
+                entry["tool_call_id"] = m.tool_call_id or ""
+            elif m.role == LLMRole.ASSISTANT:
+                entry["content"] = m.content or ""
+                if m.tool_calls:
+                    entry["tool_calls"] = m.tool_calls
+            else:
+                entry["content"] = m.content
+                if m.name:
+                    entry["name"] = m.name
+            result.append(entry)
+        return result
 
 
 class OpenAIProvider(BaseLLMProvider):
@@ -191,8 +204,9 @@ class OpenAIProvider(BaseLLMProvider):
                         resp.raise_for_status()
                         data = await resp.json()
                         choice = data["choices"][0]
+                        msg = choice.get("message", {})
                         return LLMResponse(
-                            content=choice["message"]["content"] or "",
+                            content=msg.get("content") or "",
                             provider=LLMProvider.OPENAI,
                             model=self.config.model,
                             usage={
@@ -407,6 +421,8 @@ class OpenRouterProvider(BaseLLMProvider):
             "temperature": self.config.temperature,
             "max_tokens": self.config.max_tokens,
         }
+        if tools:
+            payload["tools"] = tools
 
         async with aiohttp.ClientSession() as session:
             for attempt in range(self.config.max_retries):
@@ -420,8 +436,9 @@ class OpenRouterProvider(BaseLLMProvider):
                         resp.raise_for_status()
                         data = await resp.json()
                         choice = data["choices"][0]
+                        msg = choice.get("message", {})
                         return LLMResponse(
-                            content=choice["message"]["content"] or "",
+                            content=msg.get("content") or "",
                             provider=LLMProvider.OPENROUTER,
                             model=data.get("model", self.config.model),
                             usage={
@@ -490,6 +507,11 @@ class NVIDIAProvider(BaseLLMProvider):
             "temperature": self.config.temperature,
             "max_tokens": self.config.max_tokens,
         }
+        if tools:
+            payload["tools"] = tools
+            logger.info("NVIDIAProvider: passing %d tool definitions to API", len(tools))
+        else:
+            logger.info("NVIDIAProvider: no tools passed to API")
         async with aiohttp.ClientSession() as session:
             for attempt in range(self.config.max_retries):
                 try:
@@ -502,8 +524,9 @@ class NVIDIAProvider(BaseLLMProvider):
                         resp.raise_for_status()
                         data = await resp.json()
                         choice = data["choices"][0]
+                        msg = choice.get("message", {})
                         return LLMResponse(
-                            content=choice["message"]["content"] or "",
+                            content=msg.get("content") or "",
                             provider=LLMProvider.NVIDIA,
                             model=data.get("model", self.config.model),
                             usage={
@@ -729,7 +752,9 @@ class LLMClient:
         for provider in ordered:
             api_key = dict(all_providers).get(provider)
             if api_key:
-                cfg = LLMConfig(provider=provider, model=settings.llm_model)
+                cfg = LLMConfig(provider=provider, model=settings.llm_model,
+                                temperature=settings.llm_temperature,
+                                max_tokens=settings.max_tokens)
                 if provider == preferred and not tried_preferred:
                     tried_preferred = True
                 chain.append(cfg)
@@ -740,6 +765,8 @@ class LLMClient:
             provider=LLMProvider.LOCAL,
             model=settings.local_llm_model,
             base_url=settings.local_llm_url,
+            temperature=settings.llm_temperature,
+            max_tokens=settings.max_tokens,
         ))
         logger.info("Local LLM available (always accessible)")
 
@@ -767,6 +794,9 @@ class LLMClient:
                 msg_objects.append(LLMMessage(
                     role=LLMRole(m.get("role", "user")),
                     content=m.get("content", ""),
+                    name=m.get("name"),
+                    tool_call_id=m.get("tool_call_id"),
+                    tool_calls=m.get("tool_calls"),
                 ))
             else:
                 msg_objects.append(m)
@@ -800,10 +830,12 @@ class LLMClient:
                 msg_objects.append(LLMMessage(
                     role=LLMRole(m.get("role", "user")),
                     content=m.get("content", ""),
+                    name=m.get("name"),
+                    tool_call_id=m.get("tool_call_id"),
+                    tool_calls=m.get("tool_calls"),
                 ))
             else:
                 msg_objects.append(m)
-
         provider_config = config or self._providers[0]
         provider = _get_provider(provider_config)
         async for chunk in provider.generate_stream(msg_objects):

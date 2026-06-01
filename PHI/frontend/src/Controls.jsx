@@ -6,6 +6,8 @@ const EMOTIONS = [
   'neutral', 'happy', 'serious', 'excited', 'calm', 'angry', 'sad', 'whisper',
 ];
 
+const C = { canvas: '#f7f7f4', ink: '#26251e', primary: '#f54e00', border: '#e6e5e0', font: "'Inter', system-ui, sans-serif", code: "'JetBrains Mono', monospace" };
+
 function Controls({ isConnected, emotion, ws, sessionId }) {
   const [selectedEmotion, setSelectedEmotion] = useState(emotion);
 
@@ -101,16 +103,16 @@ function Controls({ isConnected, emotion, ws, sessionId }) {
 
 const styles = {
   container: {
-    background: 'rgba(0, 20, 40, 0.5)',
+    background: '#fff',
     borderRadius: 12,
     padding: 12,
-    border: '1px solid rgba(0, 212, 255, 0.15)',
+    border: `1px solid ${C.border}`,
     fontSize: '0.8rem',
   },
   header: {
     fontSize: '0.75rem',
     fontWeight: 600,
-    color: '#00d4ff',
+    color: C.ink,
     textTransform: 'uppercase',
     letterSpacing: 1,
     marginBottom: 10,
@@ -128,7 +130,7 @@ const styles = {
     transition: 'all 0.3s',
   },
   statusText: {
-    color: '#8a9aaa',
+    color: '#888',
     fontSize: '0.75rem',
   },
   section: {
@@ -136,7 +138,7 @@ const styles = {
   },
   label: {
     fontSize: '0.65rem',
-    color: '#5a7a8a',
+    color: '#888',
     textTransform: 'uppercase',
     letterSpacing: 1,
     marginBottom: 4,
@@ -144,17 +146,16 @@ const styles = {
   emotionDisplay: {
     fontSize: '1.1rem',
     fontWeight: 700,
-    color: '#00d4ff',
+    color: C.primary,
     letterSpacing: 2,
-    textShadow: '0 0 10px rgba(0,212,255,0.3)',
   },
   select: {
     width: '100%',
     padding: '6px 8px',
     borderRadius: 6,
-    border: '1px solid rgba(0, 212, 255, 0.3)',
-    background: 'rgba(255,255,255,0.05)',
-    color: '#c8d6e5',
+    border: `1px solid ${C.border}`,
+    background: C.canvas,
+    color: C.ink,
     fontSize: '0.8rem',
     outline: 'none',
     cursor: 'pointer',
@@ -167,17 +168,17 @@ const styles = {
   quickBtn: {
     padding: '6px 12px',
     borderRadius: 8,
-    border: '1px solid rgba(0, 212, 255, 0.3)',
-    background: 'rgba(0, 212, 255, 0.1)',
-    color: '#00d4ff',
+    border: `1px solid ${C.border}`,
+    background: C.canvas,
+    color: C.ink,
     fontSize: '0.7rem',
     cursor: 'pointer',
     transition: 'all 0.2s',
   },
   infoText: {
     fontSize: '0.6rem',
-    color: '#4a6a7a',
-    fontFamily: 'monospace',
+    color: '#aaa',
+    fontFamily: C.code,
     marginTop: 8,
   },
 };

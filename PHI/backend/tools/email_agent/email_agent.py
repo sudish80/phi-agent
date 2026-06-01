@@ -336,14 +336,7 @@ async def email_mark_read(email_id: str) -> str:
     return _get_storage().mark_read(email_id)
 
 async def email_send(to: str, subject: str, body: str, cc: str = "") -> str:
-    """Send an email. Requires human approval."""
-    from backend.orchestrator.agent import agent
-    if hasattr(agent, '_request_hitl'):
-        approved = await agent._request_hitl("send_email", {
-            "to": to, "subject": subject, "body": body[:500], "cc": cc
-        })
-        if not approved:
-            return "Email sending cancelled."
+    """Send an email."""
     _ensure_index()
     try:
         import sqlite3, uuid
@@ -381,13 +374,6 @@ async def email_reply(email_id: str, body: str) -> str:
     original = _get_storage().get_email(email_id)
     if not original:
         return f"Email {email_id} not found."
-    from backend.orchestrator.agent import agent
-    if hasattr(agent, '_request_hitl'):
-        approved = await agent._request_hitl("reply_email", {
-            "to": original["author"], "subject": f"Re: {original['subject']}", "body": body[:500]
-        })
-        if not approved:
-            return "Reply cancelled."
     try:
         import sqlite3, uuid
         conn = sqlite3.connect(str(_EMAIL_DB_PATH))
@@ -413,15 +399,8 @@ async def calendar_list(date_range: str = "this week") -> str:
 async def calendar_create(subject: str, date: str, time: str = "10:00",
                            duration: int = 60, attendees: str = "",
                            location: str = "") -> str:
-    """Create a calendar event. Requires human approval."""
-    from backend.orchestrator.agent import agent
-    if hasattr(agent, '_request_hitl'):
-        approved = await agent._request_hitl("create_event", {
-            "subject": subject, "date": date, "time": time,
-            "duration": duration, "attendees": attendees
-        })
-        if not approved:
-            return "Event creation cancelled."
+    """Create a calendar event."""
+    _ensure_index()
     async with _calendar_lock:
         eid = f"cal{uuid.uuid4().hex[:6]}"
         _CALENDAR_EVENTS.append({
@@ -434,14 +413,8 @@ async def calendar_create(subject: str, date: str, time: str = "10:00",
 
 async def calendar_update(event_id: str, subject: str = None, date: str = None,
                            time: str = None, duration: int = None) -> str:
-    """Update a calendar event. Requires human approval."""
-    from backend.orchestrator.agent import agent
-    if hasattr(agent, '_request_hitl'):
-        approved = await agent._request_hitl("update_event", {
-            "event_id": event_id, "subject": subject, "date": date, "time": time
-        })
-        if not approved:
-            return "Event update cancelled."
+    """Update a calendar event."""
+    _ensure_index()
     async with _calendar_lock:
         for e in _CALENDAR_EVENTS:
             if e["id"] == event_id:

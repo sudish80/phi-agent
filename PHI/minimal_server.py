@@ -8,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 logging.basicConfig(
@@ -87,3 +88,27 @@ async def chat(req: ChatInput):
         "tool_recommendations": result.get("tool_recommendations", []),
         "processing_time_ms": elapsed,
     }
+
+
+@app.get("/tools")
+async def list_tools():
+    if agent is None:
+        raise HTTPException(status_code=503, detail="Agent not available")
+    return {"total": len(agent.tools), "tools": agent.tools.list_tools()}
+
+
+@app.get("/tools/categories")
+async def tools_by_category():
+    if agent is None:
+        raise HTTPException(status_code=503, detail="Agent not available")
+    cats = {}
+    for t in agent.tools.list_tools():
+        cat = t.get("category", "other")
+        cats.setdefault(cat, []).append(t["name"])
+    return {"categories": cats, "total": len(agent.tools)}
+
+
+# Serve frontend build at /app/
+frontend_build = Path(__file__).resolve().parent / "frontend" / "build"
+if frontend_build.exists():
+    app.mount("/app", StaticFiles(directory=str(frontend_build), html=True), name="frontend")

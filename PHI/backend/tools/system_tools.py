@@ -1,10 +1,22 @@
-"""System tools — system info and disk usage."""
+"""System tools — system info, disk usage, browser control."""
 
 import os
 import platform
+import webbrowser
 import logging
 
 logger = logging.getLogger(__name__)
+
+
+def open_url(url: str) -> str:
+    """Open a website or URL in the user's default web browser."""
+    try:
+        if not url.startswith(("http://", "https://")):
+            url = "https://" + url
+        webbrowser.open(url)
+        return f"Opened {url} in your default browser."
+    except Exception as e:
+        return f"Failed to open browser: {e}"
 
 
 def system_info() -> str:

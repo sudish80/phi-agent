@@ -101,3 +101,4 @@ scrapy>=2.11.0
 python-dotenv==1.0.0
 ipython==8.18.1
 jupyter==1.0.0
+scrapy>=2.16.0

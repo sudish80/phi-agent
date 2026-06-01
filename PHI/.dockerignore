@@ -1,0 +1,8 @@
+__pycache__/
+.git
+.env
+*.db
+.pytest_cache/
+venv/
+node_modules/
+.idea

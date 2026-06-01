@@ -308,7 +308,7 @@
     let pendingRequest = false;
     let currentTypingElement = null;
 
-    const BACKEND_URL = '/chat';
+    const BACKEND_URL = `${window.location.protocol}//${window.location.hostname}:${window.location.port || 8000}/chat`;
 
     function setConnectionState(state) {
         connectionDots.classList.remove('online', 'connecting', 'error');

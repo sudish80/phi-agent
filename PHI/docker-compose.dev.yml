@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  orchestrator:
+    build:
+      target: dev
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+    command: ["python", "-m", "backend.orchestrator.main", "--reload"]
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: phi-mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - phi-net

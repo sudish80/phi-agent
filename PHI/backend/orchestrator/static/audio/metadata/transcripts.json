@@ -1,0 +1,742 @@
+[
+  {
+    "uuid": "e39699e256be4c04bef3966e9db0a769",
+    "transcript": "It's nice to talk to you. How can I assist you today?",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T07:55:14.442866+00:00",
+    "linked_conversation_id": "test123",
+    "audio_url": "/audio/generated/responses/e39699e256be4c04bef3966e9db0a769.mp3"
+  },
+  {
+    "uuid": "30023bb9cf904fc582cc722d4b8fcd0a",
+    "transcript": "Hello World!",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T07:56:15.911041+00:00",
+    "linked_conversation_id": "test_eq",
+    "audio_url": "/audio/generated/responses/30023bb9cf904fc582cc722d4b8fcd0a.mp3"
+  },
+  {
+    "uuid": "72c898cbfac94ea1a9aa39179d8eab46",
+    "transcript": "Hello! How can I assist you today?",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T07:56:20.704498+00:00",
+    "linked_conversation_id": "ws_test",
+    "audio_url": "/audio/generated/responses/72c898cbfac94ea1a9aa39179d8eab46.mp3"
+  },
+  {
+    "uuid": "611aa7710a7548b8ad9eca9bac0d8975",
+    "transcript": "Hello world",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T07:57:10.371015+00:00",
+    "linked_conversation_id": "ws_test3",
+    "audio_url": "/audio/generated/responses/611aa7710a7548b8ad9eca9bac0d8975.mp3"
+  },
+  {
+    "uuid": "5fdf470ac685443fba3385140673967a",
+    "transcript": "**Current User Emotion:** neutral\n\nYou initiated a conversation with me. How can I assist you today?",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T08:00:05.590567+00:00",
+    "linked_conversation_id": "default",
+    "audio_url": "/audio/generated/responses/5fdf470ac685443fba3385140673967a.mp3"
+  },
+  {
+    "uuid": "c7607d704c90400fa9aedfcda7abdf12",
+    "transcript": "I didn't understand what you meant by \"ney\". Could you please provide more context or clarify your question?",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T08:05:06.033136+00:00",
+    "linked_conversation_id": "session_1779955467411",
+    "audio_url": "/audio/generated/responses/c7607d704c90400fa9aedfcda7abdf12.mp3"
+  },
+  {
+    "uuid": "8621725b4e5c497494d279aa55a81023",
+    "transcript": "Unfortunately, I'm a text-based AI assistant and do not have direct access to your local machine or terminal. However, I can provide you with a command to open your terminal in most operating systems:\n\n**Windows:**\n```bash\nstart cmd\n```\n**Mac (using Spotlight):**\n```bash\ncmd\n```\n**Mac (using Spotlight and Terminal):**\n```bash\nterminal\n```\n**Linux:**\n```bash\nxdotool key ctrl+alt+t\n```\nAlternatively, you can also try searching for \"terminal\" in your operating system's search bar to open it.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T08:05:46.960968+00:00",
+    "linked_conversation_id": "session_1779955467411",
+    "audio_url": "/audio/generated/responses/8621725b4e5c497494d279aa55a81023.mp3"
+  },
+  {
+    "uuid": "961372d481eb4bc5b5c916d787fd6134",
+    "transcript": "You are still in the terminal. I will try to interact with you through the terminal instead.\n\nWhat would you like to do next?",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T08:06:05.665774+00:00",
+    "linked_conversation_id": "session_1779955544122",
+    "audio_url": "/audio/generated/responses/961372d481eb4bc5b5c916d787fd6134.mp3"
+  },
+  {
+    "uuid": "eb6359b6ccac42c6ac32ace1895d7a86",
+    "transcript": "I'm a text-based AI and do not have the capability to open a web browser or other applications. However, I can help you access YouTube through the terminal using a tool.\n\nYou can use the following command to open YouTube in your default web browser:\n\n```bash\nopen https://www.youtube.com\n```\n\nIf you are using a different operating system or terminal emulator, the command may be different. Alternatively, I can help you use the \"entertainment\" tool in the Phi assistant to search for videos on YouTube. What would you like to do?",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T08:06:33.256563+00:00",
+    "linked_conversation_id": "session_1779955544122",
+    "audio_url": "/audio/generated/responses/eb6359b6ccac42c6ac32ace1895d7a86.mp3"
+  },
+  {
+    "uuid": "ab410d59c82241619ef2529010931295",
+    "transcript": "It seems that I have been unable to find a tool to open a URL. I will try a different approach.\n\nSince I'm a text-based AI, I can provide you with the URL to YouTube, and you can copy and paste it into your web browser.\n\nThe URL to YouTube is: https://www.youtube.com\n\nPlease let me know if you need any further assistance.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T08:07:41.910595+00:00",
+    "linked_conversation_id": "session_1779955544122",
+    "audio_url": "/audio/generated/responses/ab410d59c82241619ef2529010931295.mp3"
+  },
+  {
+    "uuid": "b8a6fd5b1550434199da2c2830d8d70d",
+    "transcript": "I've completed my analysis but couldn't determine the best answer. Please rephrase your request.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T08:09:46.001060+00:00",
+    "linked_conversation_id": "test_url",
+    "audio_url": "/audio/generated/responses/b8a6fd5b1550434199da2c2830d8d70d.mp3"
+  },
+  {
+    "uuid": "d9f8ff71eb444999af5a14b33b74a04f",
+    "transcript": "It seems like the setting is not recognized. I will try to set the API key using the 'automation' tool. \n\n{\"tool\": \"automation\", \"args\": {\"webhook_url\": \"https://www.googleapis.com/youtube/v3/search\", \"payload\": {\"key\": \"YOUR_API_KEY_HERE\"}}",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-28T08:25:13.790913+00:00",
+    "linked_conversation_id": "test_fn2",
+    "audio_url": "/audio/generated/responses/d9f8ff71eb444999af5a14b33b74a04f.mp3"
+  },
+  {
+    "uuid": "d9f6cfc47c3b45f393980ec27ea173fd",
+    "transcript": "Everything looks normal. Let me know if you need anything!",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T05:14:33.150615+00:00",
+    "linked_conversation_id": "session_1780118049491",
+    "audio_url": "/audio/generated/responses/d9f6cfc47c3b45f393980ec27ea173fd.mp3"
+  },
+  {
+    "uuid": "db1c0b4c771e455f9b0e97fde2524803",
+    "transcript": "The default browser has been opened with the Facebook URL.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T05:14:45.792144+00:00",
+    "linked_conversation_id": "session_1780118049491",
+    "audio_url": "/audio/generated/responses/db1c0b4c771e455f9b0e97fde2524803.mp3"
+  },
+  {
+    "uuid": "54f702c373c442f8bc195a5a5b8a814c",
+    "transcript": "The GitHub homepage should now be open in your default browser.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T05:15:53.276844+00:00",
+    "linked_conversation_id": "session_1780118049491",
+    "audio_url": "/audio/generated/responses/54f702c373c442f8bc195a5a5b8a814c.mp3"
+  },
+  {
+    "uuid": "91737dcda83c454887558598f9b3433d",
+    "transcript": "Repository opened successfully.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T05:16:06.279076+00:00",
+    "linked_conversation_id": "session_1780118049491",
+    "audio_url": "/audio/generated/responses/91737dcda83c454887558598f9b3433d.mp3"
+  },
+  {
+    "uuid": "10c9750642c342da97007507a0a498df",
+    "transcript": "The current weather conditions have been retrieved.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T05:17:35.254789+00:00",
+    "linked_conversation_id": "session_1780118049491",
+    "audio_url": "/audio/generated/responses/10c9750642c342da97007507a0a498df.mp3"
+  },
+  {
+    "uuid": "5dc2aa437aa74623ae9083080e846976",
+    "transcript": "No, it is currently overcast with a high chance of scattered showers.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T05:17:48.661231+00:00",
+    "linked_conversation_id": "session_1780118049491",
+    "audio_url": "/audio/generated/responses/5dc2aa437aa74623ae9083080e846976.mp3"
+  },
+  {
+    "uuid": "10c55f665be241a1bcbd34017e1ab323",
+    "transcript": "Claude is now open in your default browser.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T05:18:11.166398+00:00",
+    "linked_conversation_id": "session_1780118049491",
+    "audio_url": "/audio/generated/responses/10c55f665be241a1bcbd34017e1ab323.mp3"
+  },
+  {
+    "uuid": "e79ab33aea254a3a8c6e4b7ae6ed2140",
+    "transcript": "It seems that the tool 'scrape_image' is not available. Let me try again.\n\nTo load the face of the PM of Nepal, I need to know the name of the PM and the country. Could you please provide me with that information?\n\nOnce I have the name and the country, I can try to find an image of the PM and use the 'detect_faces_image' tool to load their face.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T05:19:31.824623+00:00",
+    "linked_conversation_id": "session_1780118049491",
+    "audio_url": "/audio/generated/responses/e79ab33aea254a3a8c6e4b7ae6ed2140.mp3"
+  },
+  {
+    "uuid": "977a92dad0734b9291dd14def40c6c1a",
+    "transcript": "Unfortunately, I cannot find any information on a person named \"Balendra Shah\" who is the Prime Minister of Nepal. It's possible that the name is incorrect or that this person is not a well-known public figure.\n\nHowever, I can suggest a few alternatives to find the face of the current Prime Minister of Nepal:\n\n1. Use the 'scrape_wikipedia' tool to retrieve information about the current Prime Minister of Nepal and see if there is an image of them.\n2. Use the 'scrape_news' tool to search for news articles about the current Prime Minister of Nepal and see if there are any images of them.\n3. Use the 'scrape_google_images' tool to search for images of the current Prime Minister of Nepal.\n\nIf you would like to try one of these alternatives, please let me know and I can try to assist you.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T05:20:13.841853+00:00",
+    "linked_conversation_id": "session_1780118049491",
+    "audio_url": "/audio/generated/responses/977a92dad0734b9291dd14def40c6c1a.mp3"
+  },
+  {
+    "uuid": "5616f1038cc946079566131ea9c67be5",
+    "transcript": "Based on the provided functions, I will suggest a function call that best answers the given prompt.\n\nThe prompt is: \"Create a new AI swarm agent for parallel task processing.\"\n\nThe function that best answers this prompt is:\n\n`swarm_create_agent(name=\"parallel_task_agent\", task=\"parallel_task_processing\", model=\"default\")`\n\nThis function creates a new AI swarm agent with the name \"parallel_task_agent\" and the task of \"parallel_task_processing\" using the default model.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T06:37:41.305517+00:00",
+    "linked_conversation_id": "session_1780123022901",
+    "audio_url": "/audio/generated/responses/5616f1038cc946079566131ea9c67be5.mp3"
+  },
+  {
+    "uuid": "2b1dbfdabd2f4d2ebd88f0d56843c928",
+    "transcript": "This function analyzes the given text and returns the number of words, characters, sentences, and lines, as well as an estimate of the reading time.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T06:38:44.719325+00:00",
+    "linked_conversation_id": "session_1780123106775",
+    "audio_url": "/audio/generated/responses/2b1dbfdabd2f4d2ebd88f0d56843c928.mp3"
+  },
+  {
+    "uuid": "3731f99616c94bc698db1bb60217121c",
+    "transcript": "This function takes a string as input and returns the reversed string.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T06:47:06.862267+00:00",
+    "linked_conversation_id": "session_1780123606040",
+    "audio_url": "/audio/generated/responses/3731f99616c94bc698db1bb60217121c.mp3"
+  },
+  {
+    "uuid": "e500bf5c05774f0ca83ce0cb40b3e5dc",
+    "transcript": "The expression \"2+@\" is invalid because the \"@\" symbol is not a valid mathematical operator. It's typically used in email addresses or as a symbol in programming languages.\n\nIf you meant to ask about the result of the expression \"2+2\", the answer would be 4.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T06:47:38.105459+00:00",
+    "linked_conversation_id": "session_1780123606040",
+    "audio_url": "/audio/generated/responses/e500bf5c05774f0ca83ce0cb40b3e5dc.mp3"
+  },
+  {
+    "uuid": "6154b9aa2a144e2e937d2b02d9101789",
+    "transcript": "The URL \"yt\" is a shortcut for YouTube.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T06:48:03.708941+00:00",
+    "linked_conversation_id": "session_1780123606040",
+    "audio_url": "/audio/generated/responses/6154b9aa2a144e2e937d2b02d9101789.mp3"
+  },
+  {
+    "uuid": "34b8d77c761743a1904550dfb03694ce",
+    "transcript": "The error message indicates that the `comtypes` module is not found. This module is required for the `system_settings_control` function to work. You can install the `comtypes` module using pip:\n\n```\npip install comtypes\n```\n\nAfter installing the `comtypes` module, try running the code again. If you still encounter issues, please provide more details about your environment and the error message you receive.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T06:49:37.636841+00:00",
+    "linked_conversation_id": "session_1780123748998",
+    "audio_url": "/audio/generated/responses/34b8d77c761743a1904550dfb03694ce.mp3"
+  },
+  {
+    "uuid": "883606500fb541eca43e49da944434ef",
+    "transcript": "I ran out of thinking steps while working on that. I used these tools: browser_navigate, browser_load_session, browser_navigate, browser_click. Could you simplify or rephrase?",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T06:49:38.998874+00:00",
+    "linked_conversation_id": "session_1780123606040",
+    "audio_url": "/audio/generated/responses/883606500fb541eca43e49da944434ef.mp3"
+  },
+  {
+    "uuid": "4c38481cfc634efa8132048394aaee65",
+    "transcript": "To answer the question, I need to know what you are asking. Please provide a question or a problem you would like to solve, and I will provide a step-by-step solution using the available tools.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T07:27:07.268589+00:00",
+    "linked_conversation_id": "session_1780126005309",
+    "audio_url": "/audio/generated/responses/4c38481cfc634efa8132048394aaee65.mp3"
+  },
+  {
+    "uuid": "058d63d6ba40477d88ac20f723454d3b",
+    "transcript": "I ran out of thinking steps while working on that. I used these tools: open_url, scrape_search. Could you simplify or rephrase?",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T07:28:12.090537+00:00",
+    "linked_conversation_id": "session_1780126005309",
+    "audio_url": "/audio/generated/responses/058d63d6ba40477d88ac20f723454d3b.mp3"
+  },
+  {
+    "uuid": "e6a11a2660e64412a95cc007fcb418dd",
+    "transcript": "The search results for \"nepal\" are:\n\n* Nepal, officially the Federal Democratic Republic of Nepal, is a landlocked country in South Asia. It is mainly situated in the Himalayas, but also includes parts of the Indo-Gangetic Plain. It borders the Tibet Autonomous Region of China to the north, and India to the south, east, and west, while it is narrowly separated from Bangladesh by the Siliguri Corridor, and from Bhutan by the Indian state of Sikkim. Nepal has a diverse geography, including fertile plains, subalpine forested hills, and eight of the world’s ten highest mountains, including Mount Everest, the highest point above mean sea level on Earth. Kathmandu is the nation’s capital and its largest city. Nepal is a multi-ethnic, multi-lingual, multi-religious, and multi-cultural sovereign state, with Nepali as the official language.\n\nSource: Wikipedia\nURL: https://en.wikipedia.org/wiki/Nepal",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T07:28:54.351803+00:00",
+    "linked_conversation_id": "session_1780126005309",
+    "audio_url": "/audio/generated/responses/e6a11a2660e64412a95cc007fcb418dd.mp3"
+  },
+  {
+    "uuid": "368f9359a3f84045bd2a8da42c312609",
+    "transcript": "The function `plugin_current_timestamp` returns a dictionary with the current timestamp in various formats. The dictionary contains the following keys:\n\n* `iso`: the current timestamp in ISO format (e.g., \"2026-05-30T13:19:48.597480\")\n* `unix`: the current timestamp in Unix format (e.g., 1780126488.59748)\n* `readable`: the current timestamp in a human-readable format (e.g., \"Saturday, May 30, 2026 at 01:19 PM\")",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T07:35:13.012036+00:00",
+    "linked_conversation_id": "session_1780126465114",
+    "audio_url": "/audio/generated/responses/368f9359a3f84045bd2a8da42c312609.mp3"
+  },
+  {
+    "uuid": "263f183b82824c399150299f088409f5",
+    "transcript": "I ran out of thinking steps while working on that. I used these tools: scrape_page, scrape_stock, scrape_page, scrape_stock. Could you simplify or rephrase?",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T08:18:51.247548+00:00",
+    "linked_conversation_id": "session_1780129062413",
+    "audio_url": "/audio/generated/responses/263f183b82824c399150299f088409f5.mp3"
+  },
+  {
+    "uuid": "8a03ffbf31274cf29507703f94e8c4b2",
+    "transcript": "The function `open_url` is used to open a website or URL in the default web browser. In this case, the URL is `https://www.youtube.com`, which is the website for YouTube.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T08:19:14.645232+00:00",
+    "linked_conversation_id": "session_1780129062413",
+    "audio_url": "/audio/generated/responses/8a03ffbf31274cf29507703f94e8c4b2.mp3"
+  },
+  {
+    "uuid": "efe6d43b1112431995cee03dce45fe13",
+    "transcript": "To open YouTube and load a Python tutorial, you can use the following function calls:\n\n1. `open_url(\"https://www.youtube.com\")`\n2. `browser_navigate(\"https://www.youtube.com\", user_id=0)`\n3. `browser_type(\"css selector for search bar\", \"python tutorial\")`\n4. `browser_click(\"css selector for search button\")`\n5. `browser_type(\"css selector for search bar\", \"python tutorial\")`\n6. `browser_click(\"css selector for search result\")`\n7. `browser_type(\"css selector for video title\", \"Python Tutorial\")`\n8. `browser_click(\"css selector for video link\")`\n\nYou can use the `browser_navigate` function to open YouTube and then use the `browser_type` and `browser_click` functions to navigate to the Python tutorial.\n\nHere is the complete code:\n```python\nbrowser_navigate(\"https://www.youtube.com\", user_id=0)\nbrowser_type(\"css selector for search bar\", \"python tutorial\")\nbrowser_click(\"css selector for search button\")\nbrowser_type(\"css selector for search bar\", \"python tutorial\")\nbrowser_click(\"css selector for search result\")\nbrowser_type(\"css selector for video title\", \"Python Tutorial\")\nbrowser_click(\"css selector for video link\")\n```\nNote: You need to replace the `css selector for search bar`, `css selector for search button`, `css selector for search result`, `css selector for video title`, and `css selector for video link` with the actual CSS selectors for the corresponding elements on the YouTube page.\n\nAlso, make sure to set the `user_id` parameter to 0 to use the default user ID.\n\nYou can use the `browser_get_content` function to get the content of the current page, which will be the YouTube page with the Python tutorial loaded.\n\nHere is the complete code:\n```python\nbrowser_navigate(\"https://www.youtube.com\", user_id=0)\nbrowser_type(\"css selector for search bar\", \"python tutorial\")\nbrowser_click(\"css selector for search button\")\nbrowser_type(\"css selector for search bar\", \"python tutorial\")\nbrowser_click(\"css selector for search result\")\nbrowser_type(\"css selector for video title\", \"Python Tutorial\")\nbrowser_click(\"css selector for video link\")\nbrowser_get_content(user_id=0)\n```\nThis will load the YouTube page with the Python tutorial and return the content of the page.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T08:25:02.597790+00:00",
+    "linked_conversation_id": "session_1780129399384",
+    "audio_url": "/audio/generated/responses/efe6d43b1112431995cee03dce45fe13.mp3"
+  },
+  {
+    "uuid": "2e7c7cb792b641d78eed3f7e821f0819",
+    "transcript": "To open YouTube and load a Python tutorial, you can use the following function calls:\n\n```python\nbrowser_navigate(\"https://www.youtube.com\", user_id=0)\nbrowser_type(\"css selector for search bar\", \"python tutorial\")\nbrowser_click(\"css selector for search button\")\nbrowser_type(\"css selector for search bar\", \"python tutorial\")\nbrowser_click(\"css selector for search result\")\nbrowser_type(\"css selector for video title\", \"Python Tutorial\")\nbrowser_click(\"css selector for video link\")\n```\n\nYou can use the `browser_navigate` function to open YouTube and then use the `browser_type` and `browser_click` functions to navigate to the Python tutorial.\n\nHere is the complete code:\n```python\nbrowser_navigate(\"https://www.youtube.com\", user_id=0)\nbrowser_type(\"input[title=\\\"Search\\\"]\", \"python tutorial\")\nbrowser_click(\"button[title=\\\"Search\\\"]\")\nbrowser_type(\"input[title=\\\"Search\\\"]\", \"python tutorial\")\nbrowser_click(\"ytd-video-renderer.style-scope.ytd-search-results-renderer\")\nbrowser_type(\"h3.id-text.style-scope.ytd-video-renderer\", \"Python Tutorial\")\nbrowser_click(\"a.id-underline.style-scope.ytd-video-renderer\")\n```\nNote: You need to replace the `css selector for search bar`, `css selector for search button`, `css selector for search result`, `css selector for video title`, and `css selector for video link` with the actual CSS selectors for the corresponding elements on the YouTube page.\n\nAlso, make sure to set the `user_id` parameter to 0 to use the default user ID.\n\nYou can use the `browser_get_content` function to get the content of the current page, which will be the YouTube page with the Python tutorial loaded.\n\nHere is the complete code:\n```python\nbrowser_navigate(\"https://www.youtube.com\", user_id=0)\nbrowser_type(\"input[title=\\\"Search\\\"]\", \"python tutorial\")\nbrowser_click(\"button[title=\\\"Search\\\"]\")\nbrowser_type(\"input[title=\\\"Search\\\"]\", \"python tutorial\")\nbrowser_click(\"ytd-video-renderer.style-scope.ytd-search-results-renderer\")\nbrowser_type(\"h3.id-text.style-scope.ytd-video-renderer\", \"Python Tutorial\")\nbrowser_click(\"a.id-underline.style-scope.ytd-video-renderer\")\nbrowser_get_content(user_id=0)\n```\nThis will load the YouTube page with the Python tutorial and return the content of the page.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T08:26:17.640659+00:00",
+    "linked_conversation_id": "session_1780129399384",
+    "audio_url": "/audio/generated/responses/2e7c7cb792b641d78eed3f7e821f0819.mp3"
+  },
+  {
+    "uuid": "d8d672c1a5ea4e24a5c88d3a26993027",
+    "transcript": "This function creates a new session with a TTL of 1 hour and assigns it to the user \"john_doe\". The session ID is also returned.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T08:34:34.973629+00:00",
+    "linked_conversation_id": "session_1780130051615",
+    "audio_url": "/audio/generated/responses/d8d672c1a5ea4e24a5c88d3a26993027.mp3"
+  },
+  {
+    "uuid": "dac3671dae464fac8ee7068247843dd6",
+    "transcript": "This function opens the YouTube website in the default browser.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T08:35:04.139530+00:00",
+    "linked_conversation_id": "session_1780130051615",
+    "audio_url": "/audio/generated/responses/dac3671dae464fac8ee7068247843dd6.mp3"
+  },
+  {
+    "uuid": "516801c637e147fabcd1c3112a598b0d",
+    "transcript": "This function searches for music on YouTube and starts playing it.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T08:35:26.184363+00:00",
+    "linked_conversation_id": "session_1780130051615",
+    "audio_url": "/audio/generated/responses/516801c637e147fabcd1c3112a598b0d.mp3"
+  },
+  {
+    "uuid": "6f90fec600e14fcb811e115f2c38489e",
+    "transcript": "This function searches for music on YouTube and starts playing it. However, the music is not explicitly mentioned in the function name. It is implied that the function will play music, but the specific music title or artist is not specified.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T08:35:47.970065+00:00",
+    "linked_conversation_id": "session_1780130051615",
+    "audio_url": "/audio/generated/responses/6f90fec600e14fcb811e115f2c38489e.mp3"
+  },
+  {
+    "uuid": "044c3ba44fea4deb92e4c6605adad142",
+    "transcript": "This function searches for the music video \"Afusic - Pal Pal (Official Music Video) Prod. ‪@AliSoomroMusic‬\" on YouTube and starts playing it.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-30T08:36:31.968958+00:00",
+    "linked_conversation_id": "session_1780130051615",
+    "audio_url": "/audio/generated/responses/044c3ba44fea4deb92e4c6605adad142.mp3"
+  },
+  {
+    "uuid": "d9ab0ed4133a4c7682c7d0d4ae774dc2",
+    "transcript": "To find the function that best answers the given prompt, we need to analyze the prompt and determine which function is most relevant. However, the prompt is not provided. Please provide the prompt, and I will help you find the most relevant function.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T10:07:56.716389+00:00",
+    "linked_conversation_id": "test1",
+    "audio_url": "/audio/generated/responses/d9ab0ed4133a4c7682c7d0d4ae774dc2.mp3"
+  },
+  {
+    "uuid": "425f948452b74a9aad4e11a632886d87",
+    "transcript": "This response suggests three follow-up questions that the user might ask based on the context of the conversation being general. The suggestions are:\n\n1. Would you like me to elaborate on any part of that?\n2. Is there anything else I can help with?\n3. Should I save this to your memory for later?\n\nThese suggestions are based on the assumption that the user is looking for more information or assistance, and the conversation is not yet complete.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T10:10:34.051855+00:00",
+    "linked_conversation_id": "test2",
+    "audio_url": "/audio/generated/responses/425f948452b74a9aad4e11a632886d87.mp3"
+  },
+  {
+    "uuid": "834dedf2702545f29f1ba6bec3fefcd6",
+    "transcript": "To answer your prompt, I need a function call with its proper arguments that best answers the given prompt. However, you didn't provide a specific prompt. Please provide a prompt, and I'll respond with a function call that best answers it.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T10:14:23.034291+00:00",
+    "linked_conversation_id": "test4",
+    "audio_url": "/audio/generated/responses/834dedf2702545f29f1ba6bec3fefcd6.mp3"
+  },
+  {
+    "uuid": "8169bf5249894f1cba88f2c534609992",
+    "transcript": "This function call uses the `detect_emotion` function to analyze the text \"Hello, how are you?\" and returns a dictionary with the primary emotion detected, confidence level, and scores for each emotion. In this case, the primary emotion detected is \"neutral\" with a confidence level of 1.0.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T10:15:44.909876+00:00",
+    "linked_conversation_id": "test5",
+    "audio_url": "/audio/generated/responses/8169bf5249894f1cba88f2c534609992.mp3"
+  },
+  {
+    "uuid": "7b309486e7784835af5ba087c37a96a9",
+    "transcript": "The function call failed because the bookmark with the ID \"bookmark_id_to_jump_to\" was not found in the audio file.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T10:47:26.060902+00:00",
+    "linked_conversation_id": "test_engine",
+    "audio_url": "/audio/generated/responses/7b309486e7784835af5ba087c37a96a9.mp3"
+  },
+  {
+    "uuid": "f73bbf1eaaab491b90819efc6981ffb9",
+    "transcript": "To answer the given prompt, I need to know what the prompt is. Please provide the prompt, and I will respond with a JSON for a function call with its proper arguments that best answers the given prompt. \n\nIf you want to find a function that best answers a prompt, you can provide the prompt, and I will try to find the best function that matches the prompt. \n\nPlease provide the prompt, and I will do my best to help.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T10:57:01.811536+00:00",
+    "linked_conversation_id": "test_policy",
+    "audio_url": "/audio/generated/responses/f73bbf1eaaab491b90819efc6981ffb9.mp3"
+  },
+  {
+    "uuid": "75d323c3f1a244bd9031b734fab7341e",
+    "transcript": "Note: The output is a simulated system info output and may not reflect the actual system info.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T11:00:47.578083+00:00",
+    "linked_conversation_id": "test_fixed",
+    "audio_url": "/audio/generated/responses/75d323c3f1a244bd9031b734fab7341e.mp3"
+  },
+  {
+    "uuid": "08c1958bbad44b259bc30534ba8ed2dc",
+    "transcript": "hello",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T11:03:16.451050+00:00",
+    "linked_conversation_id": "test_minimal",
+    "audio_url": "/audio/generated/responses/08c1958bbad44b259bc30534ba8ed2dc.mp3"
+  },
+  {
+    "uuid": "5ecfff6225864ac7b055a03bfbd5ae7a",
+    "transcript": "I'll check the current weather in Tokyo for you. \n\nThe current weather in Tokyo is mostly cloudy with a high of 22°C and a low of 18°C.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T11:03:41.757891+00:00",
+    "linked_conversation_id": "test_weather",
+    "audio_url": "/audio/generated/responses/5ecfff6225864ac7b055a03bfbd5ae7a.mp3"
+  },
+  {
+    "uuid": "4c77f42f222647e392bc53aee0decfc3",
+    "transcript": "Hello.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T11:05:14.816572+00:00",
+    "linked_conversation_id": "test_final1",
+    "audio_url": "/audio/generated/responses/4c77f42f222647e392bc53aee0decfc3.mp3"
+  },
+  {
+    "uuid": "079059c8d25b421e87bf762ce3bcf14c",
+    "transcript": "It seems that the scrape_search function is not able to find the weather information for Tokyo. This could be due to the fact that the function is not properly configured or that the weather information is not available for Tokyo.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T11:06:01.740082+00:00",
+    "linked_conversation_id": "test_web1",
+    "audio_url": "/audio/generated/responses/079059c8d25b421e87bf762ce3bcf14c.mp3"
+  },
+  {
+    "uuid": "900d3cbc6637450682d1bc616af51631",
+    "transcript": "The search failed due to missing dependencies. Please install the required libraries to proceed with the search.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T11:06:08.329955+00:00",
+    "linked_conversation_id": "test_web2",
+    "audio_url": "/audio/generated/responses/900d3cbc6637450682d1bc616af51631.mp3"
+  },
+  {
+    "uuid": "61026c5ef2b14a6fa0fab00178cecc4e",
+    "transcript": "This will write the content \"python tutorial video\" to a file named \"tutorial.txt\" in the current directory.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:02:15.592881+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/61026c5ef2b14a6fa0fab00178cecc4e.mp3"
+  },
+  {
+    "uuid": "86e309d347d34293a2ea2ba98e9f4a0d",
+    "transcript": "Please enter your Notion account credentials to sign in.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:03:16.543954+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/86e309d347d34293a2ea2ba98e9f4a0d.mp3"
+  },
+  {
+    "uuid": "ca6d6dd90dd549228cf8885ff19275a4",
+    "transcript": "The user has been signed up to Google.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:03:43.986318+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/ca6d6dd90dd549228cf8885ff19275a4.mp3"
+  },
+  {
+    "uuid": "5496bb503e194dcc913c56678fee8f44",
+    "transcript": "The user has been logged in to their existing Google account.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:04:24.435881+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/5496bb503e194dcc913c56678fee8f44.mp3"
+  },
+  {
+    "uuid": "91f6ca8e993a42918da1cd2a9cac5e26",
+    "transcript": "The user has been taken to the ChatGPT website.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:04:48.682297+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/91f6ca8e993a42918da1cd2a9cac5e26.mp3"
+  },
+  {
+    "uuid": "6abfadf4cb81413b8271b1a089ea88c4",
+    "transcript": "ChatGPT: \"What would you like to know about AI?\"",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:05:07.048291+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/6abfadf4cb81413b8271b1a089ea88c4.mp3"
+  },
+  {
+    "uuid": "7604870bac5540b7b1ce8ae3590089a2",
+    "transcript": "The user has asked ChatGPT about AI in the message section.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:05:44.643990+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/7604870bac5540b7b1ce8ae3590089a2.mp3"
+  },
+  {
+    "uuid": "24b7e3782cac420d8e22e2630f30c395",
+    "transcript": "Done.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:06:34.829624+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/24b7e3782cac420d8e22e2630f30c395.mp3"
+  },
+  {
+    "uuid": "435d553b47fa416c990c43003605f987",
+    "transcript": "The HP website has been opened in your default browser.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:07:54.758499+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/435d553b47fa416c990c43003605f987.mp3"
+  },
+  {
+    "uuid": "2fba5118b8b54e39982d4f1d004c6e93",
+    "transcript": "The RAM usage of the PC is 83.4%.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:08:17.282461+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/2fba5118b8b54e39982d4f1d004c6e93.mp3"
+  },
+  {
+    "uuid": "417ac502f8774675b62d4100c613da4c",
+    "transcript": "The C compiler is installed in the system.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:09:06.626582+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/417ac502f8774675b62d4100c613da4c.mp3"
+  },
+  {
+    "uuid": "c6251a0293d44d729bfd50611fe3d4ad",
+    "transcript": "The C compiler is installed in the /usr/bin directory.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:09:31.081425+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/c6251a0293d44d729bfd50611fe3d4ad.mp3"
+  },
+  {
+    "uuid": "4dd88afba6014ee38e0bf670c2881f56",
+    "transcript": "The Gmail website has been opened in your default browser.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:10:33.584887+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/4dd88afba6014ee38e0bf670c2881f56.mp3"
+  },
+  {
+    "uuid": "4b9bfc6b626b44e4b22534bb8892b6ed",
+    "transcript": "The latest Gmail sent to you has been opened in your default browser.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:11:05.952477+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/4b9bfc6b626b44e4b22534bb8892b6ed.mp3"
+  },
+  {
+    "uuid": "4da52b72b3004e97818c7e6be7aad991",
+    "transcript": "Unfortunately, I am unable to determine the sender of the latest Gmail sent to you.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:11:38.345029+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/4da52b72b3004e97818c7e6be7aad991.mp3"
+  },
+  {
+    "uuid": "fa5b4797e5c2413980e09cc2adc4f973",
+    "transcript": "The YouTube search results for \"java tutorial\" have been opened in your default browser.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:12:14.659318+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/fa5b4797e5c2413980e09cc2adc4f973.mp3"
+  },
+  {
+    "uuid": "f76b75a0302e4e73b7739b0968f84f61",
+    "transcript": "The Twitch search results for \"java tutorial\" have been opened in your default browser.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:12:36.850197+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/f76b75a0302e4e73b7739b0968f84f61.mp3"
+  },
+  {
+    "uuid": "24e07fcfa2584ccca25308227b964bc0",
+    "transcript": "The website of Java has been opened in your default browser.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:13:00.037182+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/24e07fcfa2584ccca25308227b964bc0.mp3"
+  },
+  {
+    "uuid": "a1204a2270814547afffd5721c28daeb",
+    "transcript": "I don't have a tool for downloading files from websites.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:13:33.636226+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/a1204a2270814547afffd5721c28daeb.mp3"
+  },
+  {
+    "uuid": "7558aac4791248ab8c5c8bae71672a9a",
+    "transcript": "It seems like the directory does not exist. Please check the directory path and try again.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:14:01.170895+00:00",
+    "linked_conversation_id": "session_1780232484604",
+    "audio_url": "/audio/generated/responses/7558aac4791248ab8c5c8bae71672a9a.mp3"
+  },
+  {
+    "uuid": "af257957475a48d087d2c2b80b73dcce",
+    "transcript": "It seems that the file \"isaac_newton.txt\" does not exist. Since I don't have any information about Isaac Newton, I will provide a general answer.\n\nIsaac Newton was an English mathematician, physicist, and scientist who is widely recognized as one of the most influential scientists in history. He is best known for his laws of motion and universal gravitation, which he presented in his work \"Philosophiæ Naturalis Principia Mathematica\" in 1687. Newton's work had a significant impact on the scientific revolution of the 17th century and laid the foundation for classical mechanics.",
+    "speaker": "",
+    "emotion": "neutral",
+    "category": "generated/responses",
+    "created_at": "2026-05-31T13:14:44.949031+00:00",
+    "linked_conversation_id": "session_1780233258713",
+    "audio_url": "/audio/generated/responses/af257957475a48d087d2c2b80b73dcce.mp3"
+  }
+]

@@ -24,7 +24,7 @@ from backend.hearing.mic_stream import mic
 
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="J.A.R.V.I.S. Hearing Service", version="1.0.0")
+app = FastAPI(title="PHI Hearing Service", version="1.0.0")
 redis = RedisPubSub()
 
 
@@ -42,7 +42,7 @@ class TranscribeResponse(BaseModel):
 
 
 # Wake word detection (simple keyword spotting)
-WAKE_WORDS = [settings.jarvis_wake_word.lower(), "hey jarvis", "ok jarvis"]
+WAKE_WORDS = [settings.phi_wake_word.lower(), "hey phi", "ok phi"]
 
 
 def check_wake_word(text: str) -> bool:

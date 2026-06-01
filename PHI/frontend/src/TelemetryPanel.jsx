@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-const API = 'http://localhost:8000';
+const API = `${window.location.protocol}//${window.location.hostname}:${window.location.port || 8000}`;
 
 function TelemetryPanel({ ws }) {
   const [stats, setStats] = useState(null);

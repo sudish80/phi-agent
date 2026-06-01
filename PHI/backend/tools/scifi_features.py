@@ -579,8 +579,8 @@ async def os_layer_execute(command: str) -> str:
                  "volume down": "volume-10 via system_settings_control",
                  "mute": "mute via system_settings_control",
                  "what time": "Get current time",
-                 "who are you": "JARVIS AI OS Layer",
-                 "status": "JARVIS is running normally."}
+                 "who are you": "PHI AI OS Layer",
+                 "status": "PHI is running normally."}
     cmd = command.lower().strip()
     for key, val in sorted(mappings.items(), key=lambda x: -len(x[0])):
         if key in cmd:

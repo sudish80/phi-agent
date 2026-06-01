@@ -88,11 +88,17 @@ class Settings:
 
         # LLM
         self.llm_provider: str = os.getenv("LLM_PROVIDER", "openai")
-        self.llm_model: str = os.getenv("LLM_MODEL", "gpt-4")
+        self.llm_model: str = os.getenv("LLM_MODEL", "gpt-4o")
+        self.llm_temperature: float = float(os.getenv("LLM_TEMPERATURE", "0.3"))
         self.local_llm_url: str = os.getenv("LOCAL_LLM_URL", "http://localhost:8080/v1")
         self.local_llm_model: str = os.getenv("LOCAL_LLM_MODEL", "llama-3-70b")
-        self.max_tokens: int = int(os.getenv("MAX_TOKENS", "4096"))
-        self.temperature: float = float(os.getenv("TEMPERATURE", "0.7"))
+        self.max_tokens: int = int(os.getenv("MAX_TOKENS", "8192"))
+        self.temperature: float = float(os.getenv("TEMPERATURE", "0.3"))
+        self.reasoning_effort: str = os.getenv("REASONING_EFFORT", "high")
+
+        # Workspace
+        self.workspace_dir: str = os.getenv("WORKSPACE_DIR",
+            os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'workspace'))
 
         # Memory Palace
         self.memory_palace_enabled: bool = os.getenv("MEMORY_PALACE_ENABLED", "true").lower() == "true"

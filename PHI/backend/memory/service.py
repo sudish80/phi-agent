@@ -1,4 +1,4 @@
-"""Memory Palace Service — J.A.R.V.I.S. long-term memory.
+"""Memory Palace Service — PHI long-term memory.
 
 Architecture:
   - Episodic Memory: timestamped conversation logs, events
@@ -33,7 +33,7 @@ from backend.shared.redis_client import RedisPubSub
 
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="J.A.R.V.I.S. Memory Palace Service", version="1.0.0")
+app = FastAPI(title="PHI Memory Palace Service", version="1.0.0")
 
 # ============================================================
 # Data Models
@@ -503,12 +503,12 @@ class MemoryService:
         summary_parts = []
         lines = conversation_text.split("\n")
         user_lines = [l for l in lines if l.startswith("User:")]
-        jarvis_lines = [l for l in lines if l.startswith("JARVIS:")]
+        phi_lines = [l for l in lines if l.startswith("PHI:")]
 
         if user_lines:
             summary_parts.append(f"Topics discussed: {len(user_lines)} user messages")
-        if jarvis_lines:
-            summary_parts.append(f"Responses given: {len(jarvis_lines)} assistant replies")
+        if phi_lines:
+            summary_parts.append(f"Responses given: {len(phi_lines)} assistant replies")
 
         key_phrases = self._extract_key_phrases(conversation_text)
         if key_phrases:

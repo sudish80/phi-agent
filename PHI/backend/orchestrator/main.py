@@ -25,7 +25,7 @@ import uvicorn
 import aiohttp
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -87,8 +87,14 @@ async def lifespan(app: FastAPI):
         except Exception as e:
             logger.warning(f"{name} failed: {e}")
 
-    await _safe("redis.connect", redis.connect("orchestrator"), 3)
-    await _safe("redis.listen", redis.start_listening(), 2)
+    try:
+        await asyncio.wait_for(redis.connect("orchestrator"), timeout=3)
+        await asyncio.wait_for(redis.start_listening(), timeout=2)
+    except Exception as e:
+        logger.warning(f"Redis unavailable — running without pub/sub: {e}")
+        redis._pub = None
+        redis._sub = None
+        redis._pubsub = None
     app.state.memory_service = None
 
     await _safe("audio_manager.initialize", audio_manager.initialize(), 5)
@@ -109,10 +115,27 @@ async def lifespan(app: FastAPI):
         logger.warning("Plugin scan timed out")
     except Exception as e:
         logger.warning(f"Plugin system init: {e}")
+    
+    # Start monitoring service for videos and commits
+    try:
+        from backend.shared.monitoring_service import monitoring_service
+        monitoring_service.start()
+        logger.info("Monitoring service started")
+    except Exception as e:
+        logger.warning(f"Monitoring service failed to start: {e}")
 
     yield
 
     audio_scheduler.stop()
+    
+    # Stop monitoring service
+    try:
+        from backend.shared.monitoring_service import monitoring_service
+        monitoring_service.stop()
+        logger.info("Monitoring service stopped")
+    except Exception as e:
+        logger.warning(f"Failed to stop monitoring service: {e}")
+    
     await redis.disconnect()
     logger.info("Orchestrator shutting down...")
 
@@ -137,15 +160,60 @@ app.middleware("http")(add_timing_header)
 app.middleware("http")(add_request_id_header)
 app.add_exception_handler(Exception, global_error_handler)
 
+# Register control panel blueprint
+try:
+    from backend.orchestrator.control_panel import register_control_blueprint
+    register_control_blueprint(app)
+    logger.info("Control panel blueprint registered")
+except ImportError as e:
+    logger.warning(f"Control panel not available: {e}")
+except Exception as e:
+    logger.warning(f"Error registering control panel: {e}")
+
 # In-memory cache for endpoint management
 _cache_store: Dict[str, Any] = {}
 _cache_hits = 0
 _cache_misses = 0
 
+@app.get("/")
+async def root_redirect():
+    return RedirectResponse(url="/app/")
+
+# Dashboard routes
+@app.get("/dashboard")
+async def dashboard():
+    """Serve the PHI Agent control dashboard."""
+    from fastapi.responses import FileResponse
+    dashboard_path = Path(__file__).parent.parent.parent / "frontend" / "dashboard.html"
+    if dashboard_path.exists():
+        return FileResponse(dashboard_path)
+    else:
+        logger.warning(f"Dashboard not found at {dashboard_path}")
+        return {"error": "Dashboard not found"}
+
+@app.get("/dashboard_extended.html")
+async def dashboard_extended():
+    """Serve the extended PHI Agent control dashboard (weather, stocks, news, browser, downloads, converter)."""
+    from fastapi.responses import FileResponse
+    dash_path = Path(__file__).parent.parent.parent / "frontend" / "dashboard_extended.html"
+    if dash_path.exists():
+        return FileResponse(dash_path)
+    else:
+        logger.warning(f"Extended dashboard not found at {dash_path}")
+        return {"error": "Extended dashboard not found"}
+
 # Mount static audio directory for serving files
 AUDIO_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "static" / "audio"
 AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/audio", StaticFiles(directory=str(AUDIO_DIR)), name="audio")
+
+# Mount frontend build for the web UI
+FRONTEND_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / ".." / ".." / "frontend" / "build"
+if FRONTEND_DIR.exists():
+    app.mount("/app", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="app")
+    logger.info(f"Frontend build mounted at /app from {FRONTEND_DIR}")
+else:
+    logger.warning(f"Frontend build not found at {FRONTEND_DIR}")
 
 # WebSocket connections
 ws_connections: Dict[str, List[WebSocket]] = {}
@@ -188,7 +256,7 @@ async def synthesize_speech(
     session_id: str = "",
     source: str = "elevenlabs",
 ) -> Optional[str]:
-    """Call the speech service, store via AudioManager, return URL path."""
+    """Synthesize speech: try Speech Service first, fallback to inline TTS + AudioManager."""
     speech_url = f"http://127.0.0.1:{settings.speech_port}/synthesize"
     try:
         session = await get_speech_session()
@@ -201,37 +269,58 @@ async def synthesize_speech(
             "pitch": 0.0,
             "effect": "none",
         }, timeout=aiohttp.ClientTimeout(total=30)) as resp:
-            if resp.status != 200:
-                logger.warning(f"Speech service returned {resp.status}")
-                return None
-            data = await resp.json()
-            audio_b64 = data.get("audio", "")
-            if not audio_b64:
-                return None
-            audio_format = data.get("audio_format", "mp3")
-            audio_bytes = base64.b64decode(audio_b64)
-
-            entry = await audio_manager.store_audio(
-                audio_bytes=audio_bytes,
-                format=audio_format,
-                category="generated/responses",
-                transcript=text,
-                emotion=emotion,
-                source=source,
-                sample_rate=24000,
-                channels=1,
-                duration_ms=0.0,
-                linked_conversation_id=session_id,
-            )
-            if entry:
-                return entry.audio_url
-            return None
-    except asyncio.TimeoutError:
-        logger.warning("Speech service timeout")
-    except aiohttp.ClientConnectorError:
-        logger.warning("Speech service unavailable (is it running on port 8003?)")
+            if resp.status == 200:
+                data = await resp.json()
+                audio_b64 = data.get("audio", "")
+                if audio_b64:
+                    audio_format = data.get("audio_format", "mp3")
+                    audio_bytes = base64.b64decode(audio_b64)
+                    entry = await audio_manager.store_audio(
+                        audio_bytes=audio_bytes,
+                        format=audio_format,
+                        category="generated/responses",
+                        transcript=text,
+                        emotion=emotion,
+                        source=source,
+                        sample_rate=24000,
+                        channels=1,
+                        duration_ms=0.0,
+                        linked_conversation_id=session_id,
+                    )
+                    if entry:
+                        return entry.audio_url
+    except (asyncio.TimeoutError, aiohttp.ClientConnectorError):
+        logger.info("Speech service not available, using inline TTS")
     except Exception as e:
-        logger.warning(f"Speech synthesis error: {e}")
+        logger.warning(f"Speech service error: {e}")
+
+    # Fallback: inline TTS
+    try:
+        from backend.speech.tts_engine import tts
+        result = await tts.synthesize(text, emotion=emotion, return_visemes=True)
+        if "error" in result:
+            logger.warning(f"Inline TTS failed: {result['error']}")
+            return None
+        audio_b64 = result.get("audio", "")
+        if not audio_b64:
+            return None
+        audio_bytes = base64.b64decode(audio_b64)
+        entry = await audio_manager.store_audio(
+            audio_bytes=audio_bytes,
+            format="mp3",
+            category="generated/responses",
+            transcript=text,
+            emotion=emotion,
+            source="inline_gtts",
+            sample_rate=24000,
+            channels=1,
+            duration_ms=0.0,
+            linked_conversation_id=session_id,
+        )
+        if entry:
+            return entry.audio_url
+    except Exception as e:
+        logger.warning(f"Inline TTS error: {e}")
     return None
 
 
@@ -416,22 +505,22 @@ async def chat_stream(request: ChatRequest):
     )
 
 
-@app.get("/avatar/expression")
-async def avatar_expression(emotion: str = "neutral", speaking: bool = False):
-    """Get avatar facial expression blend shapes for a given emotion."""
+@app.get("/avatar/equalizer")
+async def avatar_equalizer(emotion: str = "neutral", speaking: bool = False,
+                            listening: bool = False, level: float = 0.5):
+    """Get 2D equalizer visualization data for the given state."""
     try:
         from backend.actions.avatar import (
-            get_expression, get_head_movement, get_body_language
+            get_equalizer_data, get_equalizer_color
         )
         return {
-            "expression": get_expression(emotion),
-            "head": get_head_movement(speaking),
-            "gestures": get_body_language(emotion),
+            "equalizer": get_equalizer_data(level, speaking, listening),
+            "colors": get_equalizer_color(emotion),
             "emotion": emotion,
         }
     except Exception as e:
-        logger.warning(f"Avatar expression unavailable: {e}")
-        return {"expression": {}, "head": {}, "gestures": [], "emotion": emotion}
+        logger.warning(f"Equalizer unavailable: {e}")
+        return {"equalizer": {"bands": [], "amplitude": 0, "mode": "idle"}, "colors": {}, "emotion": emotion}
 
 
 @app.post("/vision/scene")

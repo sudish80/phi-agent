@@ -1,14 +1,12 @@
 {
-  "name": "jarvis-frontend",
+  "name": "phi-frontend",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "dependencies": {
-    "@react-three/fiber": "^8.18.0",
     "axios": "^1.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "three": "^0.150.1",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {

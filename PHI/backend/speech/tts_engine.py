@@ -23,6 +23,7 @@ from typing import Dict, Any, Optional, List, AsyncGenerator, Tuple
 from dataclasses import dataclass, field
 from pathlib import Path
 from collections import OrderedDict
+from io import BytesIO
 
 from backend.shared.config import settings
 
@@ -260,6 +261,7 @@ class TTSEngine:
         if not audio_data:
             return {"error": "All TTS engines failed", "text": text}
 
+        audio_data = self._apply_audio_eq(audio_data, effect, rate, pitch)
         audio_b64 = base64.b64encode(audio_data).decode("utf-8")
         duration_ms = self._estimate_duration_ms(text, emotion)
 
@@ -436,6 +438,40 @@ class TTSEngine:
 
         return visemes[:200]
 
+    def _apply_audio_eq(self, audio_bytes: bytes, effect: str = "none",
+                         rate: float = 1.0, pitch: float = 0.0) -> bytes:
+        """Apply real audio EQ using pydub — frequency-based processing."""
+        if effect == "none" and rate == 1.0 and pitch == 0:
+            return audio_bytes
+        try:
+            from pydub import AudioSegment
+            audio = AudioSegment.from_file(BytesIO(audio_bytes))
+            if rate != 1.0:
+                audio = audio.speedup(playback_speed=rate) if rate > 1.0 else audio._spawn(audio.raw_data, overrides={"frame_rate": int(audio.frame_rate * rate)}).set_frame_rate(audio.frame_rate)
+            if effect == "bass_boost":
+                audio = audio.low_pass_filter(250).apply_gain(6) + audio.high_pass_filter(250)
+            elif effect == "bass_cut":
+                audio = audio.high_pass_filter(250)
+            elif effect == "treble_boost":
+                audio = audio.high_pass_filter(4000).apply_gain(6) + audio.low_pass_filter(4000)
+            elif effect == "treble_cut":
+                audio = audio.low_pass_filter(4000)
+            elif effect == "voice_clarity":
+                audio = audio.high_pass_filter(300).low_pass_filter(4000).apply_gain(3)
+            elif effect == "loudness":
+                from pydub.effects import normalize
+                audio = normalize(audio)
+            elif effect == "telephone":
+                audio = audio.low_pass_filter(3500).high_pass_filter(300).apply_gain(2)
+            elif effect == "deep":
+                audio = audio.low_pass_filter(150).apply_gain(4) + audio.high_pass_filter(150).apply_gain(-2)
+            buf = BytesIO()
+            audio.export(buf, format="mp3", bitrate="64k")
+            return buf.getvalue()
+        except Exception as e:
+            logger.warning(f"Audio EQ failed: {e}")
+            return audio_bytes
+
     def _estimate_duration_ms(self, text: str, emotion: str = "neutral") -> float:
         """Estimate audio duration in milliseconds based on text length and emotion rate."""
         char_count = len(text)
@@ -455,5 +491,6 @@ class TTSEngine:
         self._cache_order.clear()
         logger.info("TTS cache cleared")
 
-
 tts = TTSEngine()
+PhiTTS = TTSEngine
+

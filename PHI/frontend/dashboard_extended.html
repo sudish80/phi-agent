@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHI Agent Dashboard</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <style>
+        :root {
+            --canvas: #f7f7f4;
+            --canvas-soft: #fafaf7;
+            --surface-card: #ffffff;
+            --surface-strong: #e6e5e0;
+            --hairline: #e6e5e0;
+            --hairline-soft: #efeee8;
+            --hairline-strong: #cfcdc4;
+            --ink: #26251e;
+            --body: #5a5852;
+            --body-strong: #26251e;
+            --muted: #807d72;
+            --muted-soft: #a09c92;
+            --primary: #f54e00;
+            --primary-active: #d04200;
+            --on-primary: #ffffff;
+            --semantic-success: #1f8a65;
+            --semantic-error: #cf2d56;
+            --timeline-thinking: #dfa88f;
+            --timeline-grep: #9fc9a2;
+            --timeline-read: #9fbbe0;
+            --timeline-edit: #c0a8dd;
+            --timeline-done: #c08532;
+            
+            --font-sans: 'Inter', system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+            
+            --spacing-xxs: 4px;
+            --spacing-xs: 8px;
+            --spacing-sm: 12px;
+            --spacing-base: 16px;
+            --spacing-md: 20px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-xxl: 48px;
+            --spacing-section: 80px;
+            
+            --rounded-none: 0px;
+            --rounded-xs: 4px;
+            --rounded-sm: 6px;
+            --rounded-md: 8px;
+            --rounded-lg: 12px;
+            --rounded-xl: 16px;
+            --rounded-pill: 9999px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--canvas);
+            color: var(--body);
+            min-height: 100vh;
+            line-height: 1.5;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .dashboard {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: var(--spacing-xl);
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .sidebar {
+            background: var(--surface-card);
+            border-radius: var(--rounded-lg);
+            padding: var(--spacing-lg);
+            height: fit-content;
+            position: sticky;
+            top: var(--spacing-xl);
+            border: 1px solid var(--hairline-soft);
+        }
+
+        .sidebar-section { margin-bottom: var(--spacing-xl); }
+        .sidebar-section:last-child { margin-bottom: 0; }
+
+        .sidebar-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.88px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .header {
+            background: var(--surface-card);
+            border-radius: var(--rounded-lg);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--hairline-soft);
+        }
+
+        .header h1 {
+            font-size: 26px;
+            font-weight: 400;
+            letter-spacing: -0.325px;
+            color: var(--ink);
+        }
+
+        .header h1 span { color: var(--primary); }
+
+        .user-info { text-align: right; }
+        .user-info .username {
+            font-weight: 600;
+            color: var(--ink);
+            font-size: 14px;
+        }
+        .user-info .subtitle {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .section {
+            background: var(--surface-card);
+            border-radius: var(--rounded-lg);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--hairline-soft);
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: 400;
+            letter-spacing: -0.325px;
+            color: var(--ink);
+            margin-bottom: var(--spacing-base);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--hairline-soft);
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.88px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .mode-card {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border: 1px solid var(--hairline);
+            border-radius: var(--rounded-md);
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--body);
+            transition: all 0.15s ease;
+        }
+        .mode-card:hover { border-color: var(--primary); color: var(--ink); }
+        .mode-card.active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+
+        .mode-desc {
+            font-size: 11px;
+            color: var(--muted);
+            text-align: center;
+            margin-top: var(--spacing-xs);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 18px;
+            border: none;
+            border-radius: var(--rounded-md);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: var(--font-sans);
+            transition: all 0.15s ease;
+            height: 40px;
+        }
+        .btn:hover { transform: translateY(-1px); }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--on-primary);
+        }
+        .btn-primary:hover { background: var(--primary-active); }
+
+        .btn-secondary {
+            background: var(--surface-card);
+            color: var(--ink);
+            border: 1px solid var(--hairline-strong);
+        }
+        .btn-secondary:hover { border-color: var(--ink); }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--semantic-error);
+            border: 1px solid var(--semantic-error);
+        }
+        .btn-danger:hover { background: var(--semantic-error); color: var(--on-primary); }
+
+        .btn-success {
+            background: var(--semantic-success);
+            color: var(--on-primary);
+        }
+
+        .btn-warning {
+            background: var(--timeline-done);
+            color: var(--on-primary);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            height: 32px;
+            font-size: 13px;
+        }
+
+        .btn-full { width: 100%; }
+
+        .zoom-control {
+            margin: var(--spacing-sm) 0;
+        }
+        .zoom-control label {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: var(--spacing-xs);
+        }
+        .zoom-control input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary);
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: var(--spacing-xxs);
+            margin-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--hairline);
+            padding-bottom: 0;
+        }
+        .tab-button {
+            padding: 10px 18px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--muted);
+            font-family: var(--font-sans);
+            transition: all 0.15s ease;
+        }
+        .tab-button:hover { color: var(--ink); }
+        .tab-button.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-sm);
+        }
+        .stat-box {
+            background: var(--canvas-soft);
+            border: 1px solid var(--hairline);
+            border-radius: var(--rounded-md);
+            padding: var(--spacing-base);
+            text-align: center;
+        }
+        .stat-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.88px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: var(--spacing-xs);
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: -0.84px;
+            color: var(--ink);
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: var(--rounded-pill);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.88px;
+            text-transform: uppercase;
+            font-family: var(--font-sans);
+        }
+        .pill-thinking { background: var(--timeline-thinking); color: var(--ink); }
+        .pill-grep { background: var(--timeline-grep); color: var(--ink); }
+        .pill-read { background: var(--timeline-read); color: var(--ink); }
+        .pill-edit { background: var(--timeline-edit); color: var(--ink); }
+        .pill-done { background: var(--timeline-done); color: var(--on-primary); }
+        .pill-success { background: #d3f5e0; color: #1f8a65; }
+        .pill-error { background: #fde0e0; color: #cf2d56; }
+        .pill-critical { background: #ffe0d4; color: #d04200; }
+
+        .log-viewer {
+            max-height: 280px;
+            overflow-y: auto;
+            border: 1px solid var(--hairline);
+            border-radius: var(--rounded-md);
+            padding: var(--spacing-sm);
+        }
+        .log-viewer::-webkit-scrollbar { width: 4px; }
+        .log-viewer::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: 2px; }
+
+        .log-entry {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-bottom: 1px solid var(--hairline-soft);
+            font-size: 13px;
+            line-height: 1.6;
+            font-family: var(--font-mono);
+        }
+        .log-entry:last-child { border-bottom: none; }
+        .log-time { color: var(--muted-soft); margin-right: var(--spacing-xs); }
+        .log-operation { color: var(--ink); font-weight: 500; }
+
+        .form-group { margin-bottom: var(--spacing-base); }
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.88px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: var(--spacing-xs);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--hairline);
+            border-radius: var(--rounded-md);
+            font-size: 14px;
+            font-family: var(--font-sans);
+            color: var(--ink);
+            background: var(--surface-card);
+            transition: border-color 0.15s ease;
+            height: 44px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .form-group input::placeholder { color: var(--muted-soft); }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xxl) var(--spacing-lg);
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .card-item {
+            background: var(--canvas-soft);
+            border: 1px solid var(--hairline);
+            border-radius: var(--rounded-md);
+            padding: var(--spacing-sm) var(--spacing-base);
+            margin-bottom: var(--spacing-xs);
+        }
+        .card-item:last-child { margin-bottom: 0; }
+        .card-item-header {
+            font-weight: 600;
+            color: var(--ink);
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        .card-item-meta {
+            font-size: 12px;
+            color: var(--muted);
+        }
+        .card-item-actions {
+            display: flex;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-xs);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--hairline);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: var(--spacing-xs) 0;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: var(--rounded-pill);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.88px;
+            text-transform: uppercase;
+        }
+
+        .hairline-divider {
+            height: 1px;
+            background: var(--hairline);
+            margin: var(--spacing-base) 0;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        .status-dot.active { background: var(--semantic-success); }
+        .status-dot.warning { background: var(--timeline-done); }
+        .status-dot.error { background: var(--semantic-error); }
+
+        @media (max-width: 1024px) {
+            .dashboard { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+            .header h1 { font-size: 22px; }
+            .section-title { font-size: 22px; }
+        }
+        @media (max-width: 640px) {
+            .dashboard { padding: var(--spacing-base); }
+            .mode-selector { grid-template-columns: 1fr; }
+            .tab-nav { flex-wrap: wrap; }
+            .tab-button { flex: 1; text-align: center; padding: 8px 12px; font-size: 12px; }
+            .stat-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        const { useState, useEffect } = React;
+
+        function Pill({ type, children }) {
+            const cls = type === 'active' || type === 'completed' ? 'pill-success'
+                : type === 'thinking' ? 'pill-thinking'
+                : type === 'grep' ? 'pill-grep'
+                : type === 'read' ? 'pill-read'
+                : type === 'edit' ? 'pill-edit'
+                : type === 'done' ? 'pill-done'
+                : type === 'critical' ? 'pill-critical'
+                : type === 'error' ? 'pill-error'
+                : 'pill-read';
+            return <span className={`pill ${cls}`}>{children}</span>;
+        }
+
+        function CardItem({ title, meta, children, actions, accent }) {
+            return (
+                <div className="card-item" style={{ borderLeft: accent ? `3px solid var(--${accent})` : '3px solid var(--hairline-strong)' }}>
+                    <div className="card-item-header">{title}</div>
+                    {meta && <div className="card-item-meta">{meta}</div>}
+                    {children}
+                    {actions && <div className="card-item-actions">{actions}</div>}
+                </div>
+            );
+        }
+
+        function Dashboard() {
+            const [user, setUser] = useState(null);
+            const [currentMode, setCurrentMode] = useState('normal');
+            const [zoom, setZoom] = useState(100);
+            const [stats, setStats] = useState({});
+            const [logs, setLogs] = useState([]);
+            const [voiceInput, setVoiceInput] = useState('');
+            const [activeTab, setActiveTab] = useState('overview');
+            const [downloads, setDownloads] = useState([]);
+            const [downloadUrl, setDownloadUrl] = useState('');
+            const [websiteUrl, setWebsiteUrl] = useState('');
+            const [browserHistory, setBrowserHistory] = useState([]);
+            const [weatherData, setWeatherData] = useState([]);
+            const [stockData, setStockData] = useState([]);
+            const [newsData, setNewsData] = useState([]);
+            const [weatherCity, setWeatherCity] = useState('');
+            const [stockSymbol, setStockSymbol] = useState('');
+            const [newsTopic, setNewsTopic] = useState('');
+            const token = localStorage.getItem('auth_token');
+
+            useEffect(() => {
+                loadUserData(); loadStats(); loadDownloads(); loadBrowserHistory();
+                loadWeather(); loadStocks(); loadNews();
+                const interval = setInterval(() => {
+                    loadStats(); loadDownloads(); loadWeather(); loadStocks(); loadNews();
+                }, 5000);
+                return () => clearInterval(interval);
+            }, []);
+
+            const loadUserData = async () => {
+                try {
+                    const r = await fetch('/api/control/permissions', { headers: { 'Authorization': `Bearer ${token}` } });
+                    setUser(await r.json());
+                } catch (e) { console.error(e); }
+            };
+            const loadStats = async () => {
+                try {
+                    const r = await fetch('/api/control/stats?hours=24', { headers: { 'Authorization': `Bearer ${token}` } });
+                    const d = await r.json(); setStats(d.stats || {});
+                    const a = await (await fetch('/api/control/audit-log?hours=24&limit=10', { headers: { 'Authorization': `Bearer ${token}` } })).json();
+                    setLogs(a.logs || []);
+                } catch (e) { console.error(e); }
+            };
+            const loadDownloads = async () => {
+                try {
+                    const r = await (await fetch('/api/control/downloads/real/list', { headers: { 'Authorization': `Bearer ${token}` } })).json();
+                    setDownloads(r.downloads || []);
+                } catch (e) { console.error(e); }
+            };
+            const loadBrowserHistory = async () => {
+                try {
+                    const r = await (await fetch('/api/control/browser/actions', { headers: { 'Authorization': `Bearer ${token}` } })).json();
+                    setBrowserHistory(r.actions || []);
+                } catch (e) { console.error(e); }
+            };
+            const loadWeather = async () => {
+                try {
+                    const r = await (await fetch('/api/control/weather/list', { headers: { 'Authorization': `Bearer ${token}` } })).json();
+                    setWeatherData(r.subscriptions || []);
+                } catch (e) { console.error(e); }
+            };
+            const loadStocks = async () => {
+                try {
+                    const r = await (await fetch('/api/control/stocks/list', { headers: { 'Authorization': `Bearer ${token}` } })).json();
+                    setStockData(r.subscriptions || []);
+                } catch (e) { console.error(e); }
+            };
+            const loadNews = async () => {
+                try {
+                    const r = await (await fetch('/api/control/news/list', { headers: { 'Authorization': `Bearer ${token}` } })).json();
+                    setNewsData(r.subscriptions || []);
+                } catch (e) { console.error(e); }
+            };
+
+            const openWebsite = async () => {
+                if (!websiteUrl.trim()) { alert('Enter URL'); return; }
+                try {
+                    const r = await (await fetch('/api/control/browser/navigate', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ url: websiteUrl, require_approval: true }) })).json();
+                    if (r.status === 'success') { alert(`Opened: ${r.title}`); setWebsiteUrl(''); loadBrowserHistory(); } else { alert(r.detail || r.message); }
+                } catch (e) { alert(e.message); }
+            };
+            const queueDownload = async () => {
+                if (!downloadUrl.trim()) { alert('Enter download URL'); return; }
+                try {
+                    const r = await (await fetch('/api/control/downloads/real/queue', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ url: downloadUrl }) })).json();
+                    if (r.status !== 'error') { alert(`Queued: ${r.filename}`); setDownloadUrl(''); loadDownloads(); } else { alert(r.message); }
+                } catch (e) { alert(e.message); }
+            };
+            const downloadAction = async (id, action) => {
+                try {
+                    const endpoint = action === 'pause' ? 'pause' : action === 'resume' ? 'resume' : 'cancel';
+                    const r = await (await fetch(`/api/control/downloads/real/${endpoint}`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ download_id: id, action }) })).json();
+                    if (r.status !== 'error') loadDownloads(); else alert(r.message);
+                } catch (e) { alert(e.message); }
+            };
+            const processVoiceCommand = async () => {
+                if (!voiceInput.trim()) return;
+                try {
+                    const r = await (await fetch('/api/control/voice/command', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ command: voiceInput, type: 'text' }) })).json();
+                    setVoiceInput(''); alert(r.message || 'Processed');
+                } catch (e) { alert(e.message); }
+            };
+            const exitAll = async () => {
+                if (confirm('Exit all systems?')) {
+                    await fetch('/api/control/exit-all', { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
+                    localStorage.removeItem('auth_token');
+                    window.location.href = '/';
+                }
+            };
+            const subscribeWeather = async () => {
+                if (!weatherCity.trim()) { alert('Enter city'); return; }
+                try {
+                    const r = await (await fetch('/api/control/weather/subscribe', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ city: weatherCity }) })).json();
+                    if (r.success) { alert(r.message); setWeatherCity(''); loadWeather(); } else { alert(r.detail); }
+                } catch (e) { alert(e.message); }
+            };
+            const unsubscribeWeather = async (city) => {
+                try {
+                    await fetch('/api/control/weather/unsubscribe', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ city }) });
+                    loadWeather();
+                } catch (e) { alert(e.message); }
+            };
+            const subscribeStock = async () => {
+                if (!stockSymbol.trim()) { alert('Enter symbol'); return; }
+                try {
+                    const r = await (await fetch('/api/control/stocks/subscribe', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ symbol: stockSymbol.toUpperCase() }) })).json();
+                    if (r.success) { alert(r.message); setStockSymbol(''); loadStocks(); } else { alert(r.detail); }
+                } catch (e) { alert(e.message); }
+            };
+            const unsubscribeStock = async (symbol) => {
+                try {
+                    await fetch('/api/control/stocks/unsubscribe', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ symbol }) });
+                    loadStocks();
+                } catch (e) { alert(e.message); }
+            };
+            const subscribeNews = async () => {
+                if (!newsTopic.trim()) { alert('Enter topic'); return; }
+                try {
+                    const r = await (await fetch('/api/control/news/subscribe', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ topic: newsTopic }) })).json();
+                    if (r.success) { alert(r.message); setNewsTopic(''); loadNews(); } else { alert(r.detail); }
+                } catch (e) { alert(e.message); }
+            };
+            const unsubscribeNews = async (topic) => {
+                try {
+                    await fetch('/api/control/news/unsubscribe', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ topic }) });
+                    loadNews();
+                } catch (e) { alert(e.message); }
+            };
+
+            return (
+                <div className="dashboard" style={{ zoom: `${zoom}%` }}>
+                    <div className="sidebar">
+                        <div className="sidebar-section">
+                            <div className="sidebar-label">User Modes</div>
+                            <div className="mode-selector">
+                                {['normal', 'private', 'guest', 'incognito'].map(m => (
+                                    <div key={m} className={`mode-card ${currentMode === m ? 'active' : ''}`} onClick={() => setCurrentMode(m)}>
+                                        {m.charAt(0).toUpperCase() + m.slice(1)}
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="mode-desc">
+                                {currentMode === 'normal' && 'Full logging (8h)'}
+                                {currentMode === 'private' && 'Selective logging (2h)'}
+                                {currentMode === 'guest' && 'Limited access (1h)'}
+                                {currentMode === 'incognito' && 'Max privacy (30m)'}
+                            </div>
+                        </div>
+                        <div className="sidebar-section">
+                            <div className="sidebar-label">Controls</div>
+                            <div className="zoom-control">
+                                <label>Zoom: {zoom}%</label>
+                                <input type="range" min="50" max="300" value={zoom} onChange={e => setZoom(parseInt(e.target.value))} />
+                            </div>
+                            <button className="btn btn-danger btn-full" onClick={exitAll}>Exit All</button>
+                        </div>
+                    </div>
+
+                    <div className="main-content">
+                        <div className="header">
+                            <h1>phi<span>.</span>dashboard</h1>
+                            <div className="user-info">
+                                <div className="username">Agent Session</div>
+                                <div className="subtitle">active <span className="status-dot active"></span></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="tab-nav">
+                                <button className={`tab-button ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => setActiveTab('overview')}>Overview</button>
+                                <button className={`tab-button ${activeTab === 'weather' ? 'active' : ''}`} onClick={() => setActiveTab('weather')}>Weather</button>
+                                <button className={`tab-button ${activeTab === 'stocks' ? 'active' : ''}`} onClick={() => setActiveTab('stocks')}>Stocks</button>
+                                <button className={`tab-button ${activeTab === 'news' ? 'active' : ''}`} onClick={() => setActiveTab('news')}>News</button>
+                                <button className={`tab-button ${activeTab === 'downloads' ? 'active' : ''}`} onClick={() => setActiveTab('downloads')}>Downloads</button>
+                                <button className={`tab-button ${activeTab === 'browser' ? 'active' : ''}`} onClick={() => setActiveTab('browser')}>Browser</button>
+                                <button className={`tab-button ${activeTab === 'converter' ? 'active' : ''}`} onClick={() => setActiveTab('converter')}>Converter</button>
+                            </div>
+
+                            {activeTab === 'overview' && (
+                                <div>
+                                    <div className="section">
+                                        <div className="section-label">Voice Commands</div>
+                                        <div className="form-group">
+                                            <input type="text" placeholder="Say or type command..." value={voiceInput} onChange={e => setVoiceInput(e.target.value)} onKeyPress={e => e.key === 'Enter' && processVoiceCommand()} />
+                                        </div>
+                                        <button className="btn btn-primary btn-full" onClick={processVoiceCommand}>Send Command</button>
+                                    </div>
+                                    <div className="grid-2">
+                                        <div className="section">
+                                            <div className="section-label">Activity Statistics</div>
+                                            <div className="stat-grid">
+                                                <div className="stat-box"><div className="stat-label">Accesses</div><div className="stat-value">{stats.total_accesses || 0}</div></div>
+                                                <div className="stat-box"><div className="stat-label">Approved</div><div className="stat-value">{stats.approved || 0}</div></div>
+                                                <div className="stat-box"><div className="stat-label">Denied</div><div className="stat-value">{stats.denied || 0}</div></div>
+                                                <div className="stat-box"><div className="stat-label">Data (KB)</div><div className="stat-value">{Math.round(stats.data_extracted_kb || 0)}</div></div>
+                                            </div>
+                                        </div>
+                                        <div className="section">
+                                            <div className="section-label">Recent Activity</div>
+                                            <div className="log-viewer">
+                                                {logs.length === 0 ? (
+                                                    <div className="empty-state">No activity yet</div>
+                                                ) : (
+                                                    logs.map((log, i) => (
+                                                        <div key={i} className="log-entry">
+                                                            <span className="log-time">{new Date(log.timestamp).toLocaleTimeString()}</span>
+                                                            <span className="log-operation">{log.operation}</span>
+                                                            <Pill type={log.status}>{log.status}</Pill>
+                                                        </div>
+                                                    ))
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {activeTab === 'weather' && (
+                                <div>
+                                    <div className="section">
+                                        <div className="section-label">Subscribe to Location</div>
+                                        <div className="form-group">
+                                            <input type="text" placeholder="e.g. New York, London, Tokyo" value={weatherCity} onChange={e => setWeatherCity(e.target.value)} onKeyPress={e => e.key === 'Enter' && subscribeWeather()} />
+                                        </div>
+                                        <button className="btn btn-primary btn-full" onClick={subscribeWeather}>Subscribe</button>
+                                    </div>
+                                    <div className="section">
+                                        <div className="section-label">Weather Subscriptions</div>
+                                        {weatherData.length === 0 ? (
+                                            <div className="empty-state">No weather subscriptions</div>
+                                        ) : (
+                                            weatherData.map((w, i) => (
+                                                <CardItem key={i} title={w.city + (w.country_code ? ` (${w.country_code})` : '')} meta={`Alert Level: ${w.alert_level}`} accent="timeline-thinking"
+                                                    actions={<button className="btn btn-sm btn-danger" onClick={() => unsubscribeWeather(w.city)}>Unsubscribe</button>} />
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+
+                            {activeTab === 'stocks' && (
+                                <div>
+                                    <div className="section">
+                                        <div className="section-label">Subscribe to Stock</div>
+                                        <div className="form-group">
+                                            <input type="text" placeholder="e.g. TESLA, AAPL, MSFT" value={stockSymbol} onChange={e => setStockSymbol(e.target.value)} onKeyPress={e => e.key === 'Enter' && subscribeStock()} />
+                                        </div>
+                                        <button className="btn btn-primary btn-full" onClick={subscribeStock}>Subscribe</button>
+                                    </div>
+                                    <div className="section">
+                                        <div className="section-label">Stock Subscriptions</div>
+                                        {stockData.length === 0 ? (
+                                            <div className="empty-state">No stock subscriptions</div>
+                                        ) : (
+                                            stockData.map((s, i) => (
+                                                <CardItem key={i} title={s.symbol} meta={`Alert Threshold: ${s.alert_threshold}%`} accent="timeline-grep"
+                                                    actions={<button className="btn btn-sm btn-danger" onClick={() => unsubscribeStock(s.symbol)}>Unsubscribe</button>} />
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+
+                            {activeTab === 'news' && (
+                                <div>
+                                    <div className="section">
+                                        <div className="section-label">Subscribe to Topic</div>
+                                        <div className="form-group">
+                                            <input type="text" placeholder="e.g. AI, Tesla, Bitcoin, Weather" value={newsTopic} onChange={e => setNewsTopic(e.target.value)} onKeyPress={e => e.key === 'Enter' && subscribeNews()} />
+                                        </div>
+                                        <button className="btn btn-primary btn-full" onClick={subscribeNews}>Subscribe</button>
+                                    </div>
+                                    <div className="section">
+                                        <div className="section-label">News Subscriptions</div>
+                                        {newsData.length === 0 ? (
+                                            <div className="empty-state">No news subscriptions</div>
+                                        ) : (
+                                            newsData.map((n, i) => (
+                                                <CardItem key={i} title={n.topic} meta={`Keywords: ${n.keywords && n.keywords.length ? n.keywords.join(', ') : 'All'}`} accent="timeline-read"
+                                                    actions={<button className="btn btn-sm btn-danger" onClick={() => unsubscribeNews(n.topic)}>Unsubscribe</button>} />
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+
+                            {activeTab === 'downloads' && (
+                                <div>
+                                    <div className="section">
+                                        <div className="section-label">Queue Download</div>
+                                        <div className="form-group">
+                                            <input type="text" placeholder="https://example.com/file.pdf" value={downloadUrl} onChange={e => setDownloadUrl(e.target.value)} onKeyPress={e => e.key === 'Enter' && queueDownload()} />
+                                        </div>
+                                        <button className="btn btn-primary btn-full" onClick={queueDownload}>Queue Download</button>
+                                    </div>
+                                    <div className="section">
+                                        <div className="section-label">Active Downloads</div>
+                                        {downloads.length === 0 ? (
+                                            <div className="empty-state">No active downloads</div>
+                                        ) : (
+                                            downloads.map(dl => (
+                                                <CardItem key={dl.id} title={dl.filename}
+                                                    meta={<span><Pill type={dl.status}>{dl.status}</Pill>{dl.status === 'downloading' && ` — ${dl.progress?.toFixed(1) || 0}%`}</span>}
+                                                    accent={dl.status === 'completed' ? 'semantic-success' : dl.status === 'downloading' ? 'primary' : 'semantic-error'}
+                                                    actions={dl.status === 'downloading' && <>
+                                                        <button className="btn btn-sm btn-warning" onClick={() => downloadAction(dl.id, 'pause')}>Pause</button>
+                                                        <button className="btn btn-sm btn-danger" onClick={() => downloadAction(dl.id, 'cancel')}>Cancel</button>
+                                                    </>}>
+                                                    {dl.status === 'downloading' && <div className="progress-bar"><div className="progress-bar-fill" style={{ width: `${dl.progress || 0}%` }}></div></div>}
+                                                    {dl.status === 'downloading' && <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 4 }}>{(dl.downloaded_mb || 0).toFixed(1)}MB / {(dl.total_mb || 0).toFixed(1)}MB — {(dl.speed_kbps || 0).toFixed(1)} KB/s</div>}
+                                                    {dl.status === 'completed' && <div style={{ fontSize: 12, color: 'var(--muted)', marginTop: 4 }}>Size: {(dl.total_mb || 0).toFixed(1)}MB</div>}
+                                                </CardItem>
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+
+                            {activeTab === 'browser' && (
+                                <div>
+                                    <div className="grid-2">
+                                        <div className="section">
+                                            <div className="section-label">Navigate</div>
+                                            <div className="form-group">
+                                                <input type="text" placeholder="https://example.com" value={websiteUrl} onChange={e => setWebsiteUrl(e.target.value)} onKeyPress={e => e.key === 'Enter' && openWebsite()} />
+                                            </div>
+                                            <button className="btn btn-primary btn-full" onClick={openWebsite}>Open Website</button>
+                                        </div>
+                                        <div className="section">
+                                            <div className="section-label">Actions</div>
+                                            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                                                <button className="btn btn-sm btn-secondary" onClick={async () => { await fetch('/api/control/browser/back', { headers: { 'Authorization': `Bearer ${token}` } }); }}>← Back</button>
+                                                <button className="btn btn-sm btn-secondary" onClick={async () => { await fetch('/api/control/browser/forward', { headers: { 'Authorization': `Bearer ${token}` } }); }}>Forward →</button>
+                                                <button className="btn btn-sm btn-secondary" onClick={async () => { const r = await (await fetch('/api/control/browser/content', { headers: { 'Authorization': `Bearer ${token}` } })).json(); alert(r.text?.substring(0,500) || 'No content'); }}>Get Content</button>
+                                                <button className="btn btn-sm btn-warning" onClick={async () => { const r = await (await fetch('/api/control/browser/screenshot?full_page=true', { headers: { 'Authorization': `Bearer ${token}` } })).json(); alert(r.status === 'success' ? `Screenshot saved: ${r.filename}` : r.message); }}>Screenshot</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="grid-2">
+                                        <div className="section">
+                                            <div className="section-label">Click Element</div>
+                                            <div className="form-group">
+                                                <input type="text" placeholder="CSS selector e.g. #submit-btn" id="clickSelector" />
+                                            </div>
+                                            <button className="btn btn-sm btn-secondary btn-full" onClick={async () => {
+                                                const sel = document.getElementById('clickSelector').value;
+                                                if (!sel) { alert('Enter selector'); return; }
+                                                const r = await (await fetch('/api/control/browser/click', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ selector: sel, require_approval: true }) })).json();
+                                                alert(r.status === 'success' ? 'Clicked!' : (r.detail || 'Clicked'));
+                                            }}>Click</button>
+                                        </div>
+                                        <div className="section">
+                                            <div className="section-label">Type Text</div>
+                                            <div className="form-group">
+                                                <input type="text" placeholder="CSS selector" id="typeSelector" />
+                                                <input type="text" placeholder="Text to type" id="typeText" style={{ marginTop: 8 }} />
+                                            </div>
+                                            <button className="btn btn-sm btn-secondary btn-full" onClick={async () => {
+                                                const sel = document.getElementById('typeSelector').value;
+                                                const txt = document.getElementById('typeText').value;
+                                                if (!sel || !txt) { alert('Enter selector and text'); return; }
+                                                await fetch('/api/control/browser/type', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ selector: sel, text: txt }) });
+                                                alert('Typed!');
+                                            }}>Type</button>
+                                        </div>
+                                    </div>
+                                    <div className="section">
+                                        <div className="section-label">Login to Website</div>
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                                            <input type="text" placeholder="Login URL" id="loginUrl" />
+                                            <input type="text" placeholder="Username selector" id="loginUserSel" />
+                                            <input type="text" placeholder="Password selector" id="loginPassSel" />
+                                            <input type="text" placeholder="Username" id="loginUser" />
+                                            <input type="password" placeholder="Password" id="loginPass" />
+                                            <input type="text" placeholder="Submit btn selector (optional)" id="loginSubmit" />
+                                        </div>
+                                        <button className="btn btn-primary btn-full" style={{ marginTop: 12 }} onClick={async () => {
+                                            const url = document.getElementById('loginUrl').value;
+                                            const us = document.getElementById('loginUserSel').value;
+                                            const ps = document.getElementById('loginPassSel').value;
+                                            const u = document.getElementById('loginUser').value;
+                                            const p = document.getElementById('loginPass').value;
+                                            if (!url || !us || !ps || !u || !p) { alert('Fill all fields'); return; }
+                                            const r = await (await fetch('/api/control/browser/login', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ url, username_selector: us, password_selector: ps, username: u, password: p, submit_selector: document.getElementById('loginSubmit').value || null, require_approval: true }) })).json();
+                                            alert(r.message || r.detail || 'Login attempted');
+                                        }}>Login</button>
+                                    </div>
+                                    <div className="grid-2">
+                                        <div className="section">
+                                            <div className="section-label">Session</div>
+                                            <div style={{ display: 'flex', gap: 8 }}>
+                                                <button className="btn btn-sm btn-secondary" onClick={async () => { await fetch('/api/control/browser/session/save', { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } }); alert('Session saved'); }}>Save Session</button>
+                                                <button className="btn btn-sm btn-secondary" onClick={async () => { const r = await (await fetch('/api/control/browser/session/load', { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } })).json(); alert(r.success ? 'Session loaded' : 'No session'); }}>Load Session</button>
+                                                <button className="btn btn-sm btn-secondary" onClick={async () => { const r = await (await fetch('/api/control/browser/cookies', { headers: { 'Authorization': `Bearer ${token}` } })).json(); alert(JSON.stringify(r.cookies?.slice(0,3), null, 2)); }}>View Cookies</button>
+                                            </div>
+                                        </div>
+                                        <div className="section">
+                                            <div className="section-label">Browsing History</div>
+                                            <div className="log-viewer" style={{ maxHeight: 120 }}>
+                                                {browserHistory.length === 0 ? <div className="empty-state">No history</div> : browserHistory.map((e, i) => (
+                                                    <div key={i} className="log-entry"><span className="log-time">{new Date(e.timestamp).toLocaleTimeString()}</span><span className="log-operation">{e.url}</span></div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {activeTab === 'converter' && (
+                                <div>
+                                    <div className="grid-2">
+                                        <div className="section">
+                                            <div className="section-label">Convert File to Markdown</div>
+                                            <div className="form-group">
+                                                <label style={{ fontSize: 11, color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 600, letterSpacing: '0.88px' }}>File Path</label>
+                                                <input type="text" placeholder="/path/to/document.pdf" id="convertFilePath" />
+                                            </div>
+                                            <button className="btn btn-primary btn-full" onClick={async () => {
+                                                const fp = document.getElementById('convertFilePath').value;
+                                                if (!fp) { alert('Enter file path'); return; }
+                                                const r = await (await fetch('/api/control/convert/file', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ file_path: fp }) })).json();
+                                                if (r.status === 'success') {
+                                                    document.getElementById('convertResult').value = r.preview + `\n\n---\n${r.content_length} chars → ${r.output_file}`;
+                                                } else { alert(r.error || r.detail); }
+                                            }}>Convert File</button>
+                                        </div>
+                                        <div className="section">
+                                            <div className="section-label">Convert URL to Markdown</div>
+                                            <div className="form-group">
+                                                <label style={{ fontSize: 11, color: 'var(--muted)', textTransform: 'uppercase', fontWeight: 600, letterSpacing: '0.88px' }}>URL (YouTube, webpage, etc.)</label>
+                                                <input type="text" placeholder="https://youtube.com/watch?v=..." id="convertUrl" />
+                                            </div>
+                                            <button className="btn btn-primary btn-full" onClick={async () => {
+                                                const url = document.getElementById('convertUrl').value;
+                                                if (!url) { alert('Enter URL'); return; }
+                                                const r = await (await fetch('/api/control/convert/url', { method: 'POST', headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ url }) })).json();
+                                                if (r.status === 'success') {
+                                                    document.getElementById('convertResult').value = r.preview + `\n\n---\n${r.content_length} chars → ${r.output_file}`;
+                                                } else { alert(r.error || r.detail); }
+                                            }}>Convert URL</button>
+                                        </div>
+                                    </div>
+                                    <div className="section">
+                                        <div className="section-label">Converted Output (Markdown Preview)</div>
+                                        <textarea id="convertResult" rows="12" readOnly style={{ width: '100%', border: '1px solid var(--hairline)', borderRadius: 8, padding: 12, fontFamily: 'var(--font-mono)', fontSize: 13, resize: 'vertical', background: 'var(--canvas-soft)' }} placeholder="Converted markdown will appear here..."></textarea>
+                                    </div>
+                                    <div className="section">
+                                        <div className="section-label">Supported Formats</div>
+                                        <div className="pill" style={{ background: 'var(--hairline)', marginRight: 4, marginBottom: 4 }}>PDF</div>
+                                        <div className="pill" style={{ background: 'var(--hairline)', marginRight: 4, marginBottom: 4 }}>DOCX</div>
+                                        <div className="pill" style={{ background: 'var(--hairline)', marginRight: 4, marginBottom: 4 }}>PPTX</div>
+                                        <div className="pill" style={{ background: 'var(--hairline)', marginRight: 4, marginBottom: 4 }}>XLSX</div>
+                                        <div className="pill" style={{ background: 'var(--hairline)', marginRight: 4, marginBottom: 4 }}>Images</div>
+                                        <div className="pill" style={{ background: 'var(--hairline)', marginRight: 4, marginBottom: 4 }}>Audio</div>
+                                        <div className="pill" style={{ background: 'var(--hairline)', marginRight: 4, marginBottom: 4 }}>HTML</div>
+                                        <div className="pill" style={{ background: 'var(--hairline)', marginRight: 4, marginBottom: 4 }}>CSV/JSON/XML</div>
+                                        <div className="pill" style={{ background: 'var(--hairline)', marginRight: 4, marginBottom: 4 }}>ZIP</div>
+                                        <div className="pill" style={{ background: 'var(--hairline)', marginRight: 4, marginBottom: 4 }}>EPUB</div>
+                                        <div className="pill" style={{ background: 'var(--hairline)', marginRight: 4, marginBottom: 4 }}>YouTube</div>
+                                        <div style={{ marginTop: 8, fontSize: 12, color: 'var(--muted)' }}>All files converted to Markdown — optimized for LLM reading</div>
+                                    </div>
+                                </div>
+                            )}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<Dashboard />, document.getElementById('app'));
+    </script>
+</body>
+</html>

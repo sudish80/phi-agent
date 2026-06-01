@@ -1,7 +1,10 @@
-"""Avatar expression and animation service for the 3D frontend.
+"""2D Equalizer visualizer — provides frequency band data for the frontend.
 
-Maps emotions and speech to facial expressions, head movements,
-and body language for the Three.js avatar.
+Replaces the 3D avatar system with real-time audio visualization data:
+  - Equalizer frequency bands (24 bands)
+  - Amplitude envelope
+  - Mode (speaking/listening/idle) transitions
+  - Emotion color mapping
 """
 
 import logging
@@ -12,158 +15,69 @@ from typing import Dict, Any, Optional, List
 
 logger = logging.getLogger(__name__)
 
-# Emotion → facial expression blend shapes
-EXPRESSION_MAP = {
-    "neutral": {
-        "browRaise": 0.0,
-        "browFrown": 0.0,
-        "mouthSmile": 0.0,
-        "mouthOpen": 0.0,
-        "eyeSquint": 0.0,
-        "lookUp": 0.0,
-        "lookDown": 0.0,
-        "lookLeft": 0.0,
-        "lookRight": 0.0,
-        "blink": 0.0,
-    },
-    "happy": {
-        "browRaise": 0.2,
-        "browFrown": 0.0,
-        "mouthSmile": 0.8,
-        "mouthOpen": 0.3,
-        "eyeSquint": 0.3,
-        "lookUp": 0.0,
-        "blink": 0.0,
-    },
-    "excited": {
-        "browRaise": 0.8,
-        "browFrown": 0.0,
-        "mouthSmile": 1.0,
-        "mouthOpen": 0.6,
-        "eyeSquint": 0.2,
-        "lookUp": 0.1,
-        "blink": 0.0,
-    },
-    "sad": {
-        "browRaise": 0.0,
-        "browFrown": 0.6,
-        "mouthSmile": 0.0,
-        "mouthOpen": 0.1,
-        "eyeSquint": 0.1,
-        "lookDown": 0.3,
-        "blink": 0.2,
-    },
-    "angry": {
-        "browRaise": 0.0,
-        "browFrown": 0.9,
-        "mouthSmile": 0.0,
-        "mouthOpen": 0.2,
-        "eyeSquint": 0.7,
-        "blink": 0.0,
-    },
-    "calm": {
-        "browRaise": 0.0,
-        "browFrown": 0.0,
-        "mouthSmile": 0.3,
-        "mouthOpen": 0.0,
-        "eyeSquint": 0.0,
-        "blink": 0.1,
-    },
-    "confused": {
-        "browRaise": 0.5,
-        "browFrown": 0.3,
-        "mouthSmile": 0.0,
-        "mouthOpen": 0.2,
-        "eyeSquint": 0.4,
-        "lookLeft": 0.2,
-        "blink": 0.1,
-    },
-    "thinking": {
-        "browRaise": 0.0,
-        "browFrown": 0.4,
-        "mouthSmile": 0.0,
-        "mouthOpen": 0.0,
-        "eyeSquint": 0.5,
-        "lookUp": 0.2,
-        "lookRight": 0.1,
-        "blink": 0.05,
-    },
+# Emotion → color mapping for the 2D equalizer
+EMOTION_COLORS = {
+    "neutral":  {"primary": "#00d4ff", "secondary": "#004466", "accent": "#0077aa"},
+    "happy":    {"primary": "#00ff88", "secondary": "#006633", "accent": "#00cc66"},
+    "serious":  {"primary": "#4488ff", "secondary": "#003366", "accent": "#2266cc"},
+    "excited":  {"primary": "#ff6600", "secondary": "#663300", "accent": "#cc5500"},
+    "calm":     {"primary": "#88ddff", "secondary": "#224466", "accent": "#5599bb"},
+    "angry":    {"primary": "#ff2244", "secondary": "#660011", "accent": "#cc1133"},
+    "sad":      {"primary": "#6688cc", "secondary": "#223366", "accent": "#4466aa"},
+    "whisper":  {"primary": "#aabbdd", "secondary": "#334466", "accent": "#7788aa"},
 }
 
-# Viseme → mouth shape map for lip sync
-VISEME_SHAPES = {
-    "rest": {"mouthOpen": 0.0, "mouthSmile": 0.0},
-    "A": {"mouthOpen": 0.7, "mouthSmile": 0.1},
-    "E": {"mouthOpen": 0.3, "mouthSmile": 0.5},
-    "I": {"mouthOpen": 0.2, "mouthSmile": 0.6},
-    "O": {"mouthOpen": 0.6, "mouthSmile": 0.0},
-    "U": {"mouthOpen": 0.4, "mouthSmile": 0.0},
-    "M": {"mouthOpen": 0.0, "mouthSmile": 0.2},
-    "F": {"mouthOpen": 0.1, "mouthSmile": 0.1},
-    "L": {"mouthOpen": 0.0, "mouthSmile": 0.0},
-}
+BAR_COUNT = 24
 
 
-def get_expression(emotion: str) -> Dict[str, float]:
-    """Get facial expression blend shapes for a given emotion."""
-    base = EXPRESSION_MAP.get(emotion, EXPRESSION_MAP["neutral"])
-    result = dict(base)
-    result["blink"] = result.get("blink", 0.0)
-    return result
+def get_equalizer_data(audio_level: float = 0.5,
+                       is_speaking: bool = False,
+                       is_listening: bool = False) -> Dict[str, Any]:
+    """Generate simulated frequency band data for the equalizer display.
 
+    Args:
+        audio_level: Base amplitude (0.0-1.0)
+        is_speaking: Whether the agent is producing audio
+        is_listening: Whether the agent is receiving audio
 
-def get_viseme_shape(viseme: str) -> Dict[str, float]:
-    """Get mouth shape values for a viseme."""
-    return VISEME_SHAPES.get(viseme, VISEME_SHAPES["rest"])
+    Returns:
+        Dict with 'bands' (list of 24 float 0-255), 'amplitude' (float),
+        'mode' (string), and 'timestamp'
+    """
+    now = time.time()
+    mode = "speaking" if is_speaking else ("listening" if is_listening else "idle")
+    intensity = audio_level if (is_speaking or is_listening) else 0.05
 
+    bands = []
+    for i in range(BAR_COUNT):
+        freq = (i / BAR_COUNT) * math.pi * 4
+        envelope = math.exp(-i * 0.08)
+        wave = math.sin(now * (3 + i * 1.5) + freq) * 0.5 + 0.5
+        noise = random.random() * 0.15
+        val = (wave * envelope * 0.8 + noise) * intensity * 255
+        bands.append(min(255, max(0, int(val))))
 
-def animate_expression(from_emotion: str, to_emotion: str,
-                       progress: float) -> Dict[str, float]:
-    """Interpolate between two expressions by progress (0.0-1.0)."""
-    from_expr = get_expression(from_emotion)
-    to_expr = get_expression(to_emotion)
-    result = {}
-    all_keys = set(from_expr.keys()) | set(to_expr.keys())
-    for key in all_keys:
-        fv = from_expr.get(key, 0.0)
-        tv = to_expr.get(key, 0.0)
-        result[key] = fv + (tv - fv) * progress
-    return result
-
-
-def get_head_movement(speaking: bool = False) -> Dict[str, float]:
-    """Generate subtle head movement for natural appearance."""
     return {
-        "rotateX": math.sin(random.random() * math.pi * 2) * (5 if speaking else 2),
-        "rotateY": math.sin(random.random() * math.pi * 2) * (3 if speaking else 1),
-        "rotateZ": 0.0,
+        "bands": bands,
+        "amplitude": round(intensity, 3),
+        "mode": mode,
+        "timestamp": now,
+        "bar_count": BAR_COUNT,
     }
 
 
-def get_idle_animation() -> Dict[str, float]:
-    """Generate idle animation values (blinking, micro-movements)."""
-    should_blink = random.random() < 0.02
-    return {
-        "blink": 1.0 if should_blink else 0.0,
-        "scleraX": math.sin(time.time() * 0.3) * 0.05,
-        "scleraY": math.sin(time.time() * 0.2) * 0.03,
-    }
+def get_equalizer_color(emotion: str) -> Dict[str, str]:
+    """Get the color palette for an emotion."""
+    return EMOTION_COLORS.get(emotion, EMOTION_COLORS["neutral"])
 
 
-def get_body_language(emotion: str) -> List[Dict[str, Any]]:
-    """Get body language gestures for an emotion."""
-    gestures = {
-        "happy": [{"type": "nod", "intensity": 0.3, "duration": 0.5}],
-        "excited": [
-            {"type": "nod", "intensity": 0.6, "duration": 0.8},
-            {"type": "hand_gesture", "intensity": 0.5, "duration": 1.0},
-        ],
-        "sad": [{"type": "shrug", "intensity": 0.2, "duration": 1.0}],
-        "angry": [{"type": "lean_forward", "intensity": 0.4, "duration": 0.6}],
-        "calm": [{"type": "nod", "intensity": 0.15, "duration": 0.8}],
-        "thinking": [{"type": "tilt_head", "intensity": 0.3, "duration": 1.5}],
-        "confused": [{"type": "tilt_head", "intensity": 0.5, "duration": 1.2}],
-        "neutral": [],
-    }
-    return gestures.get(emotion, [])
-
+def interpolate_equalizer(from_bands: List[int],
+                          to_bands: List[int],
+                          progress: float) -> List[int]:
+    """Interpolate between two equalizer band states."""
+    result = []
+    for i in range(max(len(from_bands), len(to_bands))):
+        fv = from_bands[i] if i < len(from_bands) else 0
+        tv = to_bands[i] if i < len(to_bands) else 0
+        result.append(int(fv + (tv - fv) * progress))
+    return result

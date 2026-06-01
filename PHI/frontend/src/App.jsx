@@ -1,5 +1,5 @@
-/* J.A.R.V.I.S. React Frontend
-   WebSocket manager, audio capture, camera feed, Three.js avatar, equalizer.
+/* PHI React Frontend
+   WebSocket manager, audio capture, camera feed, 2D equalizer.
 */
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
@@ -8,9 +8,14 @@ import CameraFeed from './CameraFeed';
 import AudioVisualizer from './AudioVisualizer';
 import Controls from './Controls';
 import Dashboard from './Dashboard';
-import JarvisStartupAnimation from './JarvisStartupAnimation';
+import PhiStartupAnimation from './PhiStartupAnimation';
 
-const WS_URL = process.env.REACT_APP_WS_URL || 'ws://localhost:8000/ws';
+const WS_URL = process.env.REACT_APP_WS_URL || (() => {
+  const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const host = window.location.hostname;
+  const port = window.location.port || (window.location.protocol === 'https:' ? 443 : (host === 'localhost' ? 8000 : 80));
+  return `${proto}//${host}:${port}/ws`;
+})();
 
 function App() {
   const [sessionId] = useState(() => 'session_' + Date.now());
@@ -20,8 +25,8 @@ function App() {
   const [isConnected, setIsConnected] = useState(false);
   const [showStartup, setShowStartup] = useState(true);
   const [emotion, setEmotion] = useState('neutral');
-  const [isSpeaking, setIsSpeaking] = useState(false);   // JARVIS is talking
-  const [isListening, setIsListening] = useState(false);  // JARVIS is hearing you
+  const [isSpeaking, setIsSpeaking] = useState(false);   // PHI is talking
+  const [isListening, setIsListening] = useState(false);  // PHI is hearing you
   const [audioLevel, setAudioLevel] = useState(0);
   const [visemes, setVisemes] = useState([]);
   const [equalizerData, setEqualizerData] = useState(new Array(16).fill(0));
@@ -213,7 +218,7 @@ function App() {
     }));
   }
 
-  if (showStartup) return <JarvisStartupAnimation />;
+  if (showStartup) return <PhiStartupAnimation />;
 
   if (showDashboard) {
     return <Dashboard ws={ws} onBack={() => setShowDashboard(false)} />;
@@ -224,7 +229,7 @@ function App() {
       {/* Header */}
       <div style={styles.header}>
         <div style={styles.logo}>
-          <span style={{ color: '#00d4ff', fontWeight: 700 }}>J.A.R.V.I.S.</span>
+          <span style={{ color: '#00d4ff', fontWeight: 700 }}>PHI</span>
           <span style={styles.statusDot(isConnected)} />
         </div>
         {!micAvailable && (
@@ -257,7 +262,7 @@ function App() {
             {messages.map((msg, i) => (
               <div key={i} style={styles.messageBubble(msg.role)}>
                 <div style={styles.messageRole}>
-                  {msg.role === 'user' ? 'You' : 'J.A.R.V.I.S.'}
+                  {msg.role === 'user' ? 'You' : 'PHI'}
                 </div>
                 <div style={styles.messageText}>{msg.text}</div>
               </div>
@@ -271,7 +276,7 @@ function App() {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && sendMessage(inputText)}
-              placeholder="Talk to J.A.R.V.I.S...."
+              placeholder="Talk to PHI..."
               disabled={!isConnected}
             />
             <button
@@ -305,42 +310,41 @@ function App() {
   );
 }
 
+const C = { canvas: '#f7f7f4', ink: '#26251e', primary: '#f54e00', border: '#e6e5e0', font: "'Inter', system-ui, sans-serif", code: "'JetBrains Mono', monospace" };
+const pastels = { peach: '#fde8d8', mint: '#d8f0e0', blue: '#d8e8f8', lavender: '#e8d8f0', gold: '#f8e8b8' };
+
 const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',
-    background: 'linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%)',
-    color: '#c8d6e5',
-    fontFamily: "'Segoe UI', system-ui, sans-serif",
+    background: C.canvas,
+    color: C.ink,
+    fontFamily: C.font,
   },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '12px 24px',
-    background: 'rgba(0, 20, 40, 0.8)',
-    borderBottom: '1px solid rgba(0, 212, 255, 0.2)',
-    backdropFilter: 'blur(10px)',
+    background: '#fff',
+    borderBottom: `1px solid ${C.border}`,
     zIndex: 10,
   },
-  logo: { fontSize: '1.4rem', display: 'flex', alignItems: 'center', gap: 10 },
+  logo: { fontSize: '1.4rem', display: 'flex', alignItems: 'center', gap: 10, fontWeight: 700, letterSpacing: '-0.02em' },
   statusDot: (connected) => ({
     display: 'inline-block',
     width: 10,
     height: 10,
     borderRadius: '50%',
-    background: connected ? '#00ff88' : '#ff4444',
-    boxShadow: connected
-      ? '0 0 8px #00ff88'
-      : '0 0 8px #ff4444',
+    background: connected ? '#22c55e' : '#ef4444',
     transition: 'all 0.3s',
   }),
-  dashBtn: { padding: '6px 14px', borderRadius: 16, border: 'none', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 600, background: 'rgba(0,212,255,0.15)', color: '#00d4ff', marginLeft: 'auto', marginRight: 12 },
-  sessionInfo: { fontSize: '0.75rem', color: '#5a7a8a', fontFamily: 'monospace' },
+  dashBtn: { padding: '6px 14px', borderRadius: 8, border: 'none', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 600, background: C.primary, color: '#fff', marginLeft: 'auto', marginRight: 12 },
+  sessionInfo: { fontSize: '0.7rem', color: '#888', fontFamily: C.code },
   micFallbackLink: {
     fontSize: '0.75rem',
-    color: '#f59e0b',
+    color: C.primary,
     textDecoration: 'underline',
     cursor: 'pointer',
     marginRight: 'auto',
@@ -356,14 +360,15 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRight: '1px solid rgba(0, 212, 255, 0.1)',
+    borderRight: `1px solid ${C.border}`,
     minWidth: 300,
+    background: '#fff',
   },
   chatPanel: {
     flex: 3,
     display: 'flex',
     flexDirection: 'column',
-    borderRight: '1px solid rgba(0, 212, 255, 0.1)',
+    borderRight: `1px solid ${C.border}`,
   },
   messagesContainer: {
     flex: 1,
@@ -375,40 +380,38 @@ const styles = {
   },
   messageBubble: (role) => ({
     alignSelf: role === 'user' ? 'flex-end' : 'flex-start',
-    background: role === 'user'
-      ? 'rgba(0, 212, 255, 0.15)'
-      : 'rgba(255, 255, 255, 0.05)',
-    borderRadius: role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+    background: role === 'user' ? pastels.blue : '#fff',
+    borderRadius: role === 'user' ? '12px 12px 4px 12px' : '12px 12px 12px 4px',
     padding: '12px 16px',
     maxWidth: '80%',
-    border: `1px solid ${role === 'user' ? 'rgba(0, 212, 255, 0.3)' : 'rgba(255,255,255,0.1)'}`,
+    border: `1px solid ${C.border}`,
   }),
-  messageRole: { fontSize: '0.7rem', fontWeight: 600, color: '#00d4ff', marginBottom: 4 },
+  messageRole: { fontSize: '0.7rem', fontWeight: 600, color: C.primary, marginBottom: 4 },
   messageText: { fontSize: '0.9rem', lineHeight: 1.4 },
   inputArea: {
     display: 'flex',
     gap: 8,
     padding: 16,
-    borderTop: '1px solid rgba(0, 212, 255, 0.2)',
-    background: 'rgba(0, 0, 0, 0.3)',
+    borderTop: `1px solid ${C.border}`,
+    background: '#fff',
   },
   input: {
     flex: 1,
-    padding: '12px 16px',
-    borderRadius: 24,
-    border: '1px solid rgba(0, 212, 255, 0.3)',
-    background: 'rgba(255,255,255,0.05)',
-    color: '#fff',
-    fontSize: '0.95rem',
+    padding: '10px 16px',
+    borderRadius: 8,
+    border: `1px solid ${C.border}`,
+    background: C.canvas,
+    color: C.ink,
+    fontSize: '0.9rem',
     outline: 'none',
-    fontFamily: 'inherit',
+    fontFamily: C.font,
   },
   sendButton: (enabled) => ({
-    padding: '12px 24px',
-    borderRadius: 24,
+    padding: '10px 20px',
+    borderRadius: 8,
     border: 'none',
-    background: enabled ? '#00d4ff' : '#2a4a5a',
-    color: enabled ? '#0a0a1a' : '#6a8a9a',
+    background: enabled ? C.primary : '#ddd',
+    color: enabled ? '#fff' : '#aaa',
     fontWeight: 600,
     cursor: enabled ? 'pointer' : 'not-allowed',
     transition: 'all 0.2s',
@@ -421,6 +424,7 @@ const styles = {
     gap: 12,
     minWidth: 220,
     overflowY: 'auto',
+    background: '#fff',
   },
 };
 
