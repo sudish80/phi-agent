@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="900" height="550">
+  <rect width="100%" height="100%" fill="white"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" font-size="18" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" font-weight="bold" fill="#1a1a2e">PHI Agent — J.A.R.V.I.S. Architecture</text>
+
+  <!-- User Input Layer -->
+  <rect x="30" y="55" width="840" height="80" rx="10" fill="#ede9fe" stroke="#ddd6fe" stroke-width="2"/>
+  <text x="450" y="78" font-size="12" font-family="Arial, sans-serif" text-anchor="middle" font-weight="bold" fill="#5b21b6">User Input Layer</text>
+  
+  <rect x="55" y="88" width="120" height="35" rx="6" fill="#7c3aed" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="115" y="110" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Voice (Whisper)</text>
+  
+  <rect x="190" y="88" width="120" height="35" rx="6" fill="#7c3aed" stroke="#6d2d9" stroke-width="1.5"/>
+  <text x="250" y="110" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Text CLI</text>
+  
+  <rect x="325" y="88" width="120" height="35" rx="6" fill="#7c3aed" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="385" y="110" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Web UI</text>
+  
+  <rect x="460" y="88" width="130" height="35" rx="6" fill="#7c3aed" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="525" y="110" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Desktop (Electron)</text>
+  
+  <rect x="605" y="88" width="120" height="35" rx="6" fill="#7c3aed" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="665" y="110" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">MQTT IoT</text>
+  
+  <rect x="740" y="88" width="115" height="35" rx="6" fill="#7c3aed" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="797" y="110" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">WebSocket</text>
+
+  <!-- Arrow -->
+  <line x1="450" y1="135" x2="450" y2="165" stroke="#94a3b8" stroke-width="2" marker-end="url(#phiarr)"/>
+
+  <!-- Core Brain -->
+  <rect x="30" y="165" width="840" height="110" rx="10" fill="#fef3c7" stroke="#fde68a" stroke-width="2"/>
+  <text x="450" y="188" font-size="13" font-family="Arial, sans-serif" text-anchor="middle" font-weight="bold" fill="#92400e">Core Brain (FastAPI + LLM)</text>
+  
+  <rect x="55" y="200" width="130" height="60" rx="8" fill="#f59e0b" stroke="#d97706" stroke-width="1.5"/>
+  <text x="120" y="222" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">LLM Router</text>
+  <text x="120" y="238" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">OpenAI / Anthropic</text>
+  <text x="120" y="250" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">Model selection</text>
+  
+  <rect x="200" y="200" width="130" height="60" rx="8" fill="#f59e0b" stroke="#d97706" stroke-width="1.5"/>
+  <text x="265" y="222" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Memory Engine</text>
+  <text x="265" y="238" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">ChromaDB</text>
+  <text x="265" y="250" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">Vector embeddings</text>
+  
+  <rect x="345" y="200" width="130" height="60" rx="8" fill="#f59e0b" stroke="#d97706" stroke-width="1.5"/>
+  <text x="410" y="222" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Tool Executor</text>
+  <text x="410" y="238" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">30+ built-in tools</text>
+  <text x="410" y="250" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">Dynamic loading</text>
+  
+  <rect x="490" y="200" width="130" height="60" rx="8" fill="#f59e0b" stroke="#d97706" stroke-width="1.5"/>
+  <text x="555" y="222" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Task Scheduler</text>
+  <text x="555" y="238" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">APScheduler</text>
+  <text x="555" y="250" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">Cron + events</text>
+  
+  <rect x="635" y="200" width="120" height="60" rx="8" fill="#f59e0b" stroke="#d97706" stroke-width="1.5"/>
+  <text x="695" y="222" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Context Mgr</text>
+  <text x="695" y="238" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">Session state</text>
+  <text x="695" y="250" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">Conversation hist</text>
+  
+  <rect x="770" y="200" width="85" height="60" rx="8" fill="#f59e0b" stroke="#d97706" stroke-width="1.5"/>
+  <text x="812" y="222" font-size="10" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Redis</text>
+  <text x="812" y="238" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">Cache</text>
+  <text x="812" y="250" font-size="8" font-family="Arial, sans-serif" text-anchor="middle" fill="#fef3c7">Pub/Sub</text>
+
+  <!-- Arrow -->
+  <line x1="450" y1="275" x2="450" y2="305" stroke="#94a3b8" stroke-width="2" marker-end="url(#phiarr)"/>
+
+  <!-- Capability Layers -->
+  <rect x="30" y="305" width="840" height="110" rx="10" fill="#d1fae5" stroke="#a7f3d0" stroke-width="2"/>
+  <text x="450" y="328" font-size="13" font-family="Arial, sans-serif" text-anchor="middle" font-weight="bold" fill="#065f46">Capability Modules</text>
+  
+  <rect x="55" y="340" width="110" height="60" rx="8" fill="#10b981" stroke="#059669" stroke-width="1.5"/>
+  <text x="110" y="360" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Vision</text>
+  <text x="110" y="375" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">OpenCV</text>
+  <text x="110" y="387" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">YOLO, Faces</text>
+  
+  <rect x="175" y="340" width="110" height="60" rx="8" fill="#10b981" stroke="#059669" stroke-width="1.5"/>
+  <text x="230" y="360" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Hearing</text>
+  <text x="230" y="375" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">Whisper ASR</text>
+  <text x="230" y="387" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">VAD, pyannote</text>
+  
+  <rect x="295" y="340" width="110" height="60" rx="8" fill="#10b981" stroke="#059669" stroke-width="1.5"/>
+  <text x="350" y="360" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Speech</text>
+  <text x="350" y="375" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">TTS / gTTS</text>
+  <text x="350" y="387" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">Coqui TTS</text>
+  
+  <rect x="415" y="340" width="110" height="60" rx="8" fill="#10b981" stroke="#059669" stroke-width="1.5"/>
+  <text x="470" y="360" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Desktop</text>
+  <text x="470" y="375" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">pyautogui</text>
+  <text x="470" y="387" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">Screen control</text>
+  
+  <rect x="535" y="340" width="110" height="60" rx="8" fill="#10b981" stroke="#059669" stroke-width="1.5"/>
+  <text x="590" y="360" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Web</text>
+  <text x="590" y="375" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">Scrapy, aiohttp</text>
+  <text x="590" y="387" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">Download, scrape</text>
+  
+  <rect x="655" y="340" width="110" height="60" rx="8" fill="#10b981" stroke="#059669" stroke-width="1.5"/>
+  <text x="710" y="360" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Files</text>
+  <text x="710" y="375" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">PDF, DOCX, XLSX</text>
+  <text x="710" y="387" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">PyMuPDF, openpyxl</text>
+  
+  <rect x="775" y="340" width="80" height="60" rx="8" fill="#10b981" stroke="#059669" stroke-width="1.5"/>
+  <text x="815" y="360" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Git</text>
+  <text x="815" y="375" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">GitPython</text>
+  <text x="815" y="387" font-size="7" font-family="Arial, sans-serif" text-anchor="middle" fill="#d1fae5">Repo mgmt</text>
+
+  <!-- Arrow -->
+  <line x1="450" y1="415" x2="450" y2="445" stroke="#94a3b8" stroke-width="2" marker-end="url(#phiarr)"/>
+
+  <!-- Output Layer -->
+  <rect x="30" y="445" width="840" height="85" rx="10" fill="#fce7f3" stroke="#fbcfe8" stroke-width="2"/>
+  <text x="450" y="468" font-size="12" font-family="Arial, sans-serif" text-anchor="middle" font-weight="bold" fill="#9d174d">Output & Integrations</text>
+  
+  <rect x="55" y="480" width="120" height="35" rx="6" fill="#ec4899" stroke="#db2777" stroke-width="1.5"/>
+  <text x="115" y="502" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Spotify Music</text>
+  
+  <rect x="190" y="480" width="120" height="35" rx="6" fill="#ec4899" stroke="#db2777" stroke-width="1.5"/>
+  <text x="250" y="502" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Google APIs</text>
+  
+  <rect x="325" y="480" width="120" height="35" rx="6" fill="#ec4899" stroke="#db2777" stroke-width="1.5"/>
+  <text x="385" y="502" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">MQTT IoT</text>
+  
+  <rect x="460" y="480" width="120" height="35" rx="6" fill="#ec4899" stroke="#db2777" stroke-width="1.5"/>
+  <text x="520" y="502" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Notifications</text>
+  
+  <rect x="595" y="480" width="120" height="35" rx="6" fill="#ec4899" stroke="#db2777" stroke-width="1.5"/>
+  <text x="655" y="502" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Electron App</text>
+  
+  <rect x="730" y="480" width="125" height="35" rx="6" fill="#ec4899" stroke="#db2777" stroke-width="1.5"/>
+  <text x="792" y="502" font-size="9" font-family="Arial, sans-serif" text-anchor="middle" fill="white" font-weight="bold">Docker Deploy</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="phiarr" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/>
+    </marker>
+  </defs>
+</svg>
